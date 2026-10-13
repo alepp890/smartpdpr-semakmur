@@ -7,7 +7,7 @@
   <!-- Google Font: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Icons -->
@@ -19,115 +19,103 @@
 
   <style>
     :root {
-      --bg: #f4f6fa;
-      --card: #ffffff;
-      --tx: #1b2433;
-      --mu: #667085;
-      --bd: #dde3ec;
-      --pr: #1d4ed8;
-      --sb: #10264d;
+      --bg-page: #f8fafc;
+      --navy-brand: #0f172a;
     }
 
     body {
-      background-color: var(--bg);
-      color: var(--tx);
+      background-color: var(--bg-page);
+      color: #0f172a;
       font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       font-size: 14px;
-      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .hdr-classic {
-      background-color: var(--sb);
+    .hdr-corporate {
+      background-color: var(--navy-brand);
       color: #ffffff;
     }
 
-    .btn-classic-pr {
-      background-color: var(--pr);
-      color: #ffffff;
-      border-radius: 8px;
-      padding: 9px 18px;
-      font-weight: 600;
-      font-size: 13px;
-      transition: background-color 0.15s ease-in-out;
-    }
-    .btn-classic-pr:hover {
-      background-color: #1a44c2;
-    }
-
-    .btn-google-moe {
+    /* Modern Corporate Google Button Style */
+    .btn-google-corporate {
       background-color: #ffffff;
-      color: #1f2937;
-      border: 1px solid #d1d5db;
-      border-radius: 10px;
-      padding: 14px 20px;
-      font-weight: 700;
-      font-size: 15px;
+      color: #0f172a;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 12px 20px;
+      font-weight: 600;
+      font-size: 14px;
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 12px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
-      transition: all 0.2s ease-in-out;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       cursor: pointer;
     }
-    .btn-google-moe:hover {
+    .btn-google-corporate:hover {
       background-color: #f8fafc;
-      border-color: #94a3b8;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border-color: #cbd5e1;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
       transform: translateY(-1px);
     }
-    .btn-google-moe:active {
+    .btn-google-corporate:active {
       transform: translateY(0);
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+    }
+
+    /* Ambient Decorative Gradient Background */
+    .bg-ambient {
+      background: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.05) 0%, rgba(248, 250, 252, 0) 70%);
     }
   </style>
 </head>
-<body class="antialiased min-h-screen p-2 sm:p-5 flex flex-col justify-between">
+<body class="antialiased min-h-screen flex flex-col justify-between bg-ambient">
 
-  <div class="max-w-7xl mx-auto w-full space-y-5">
+  <div class="w-full flex flex-col min-h-screen justify-between">
     
-    <!-- HEADER PORTAL -->
-    <header class="hdr-classic rounded-xl p-4 sm:p-5 shadow-sm border border-[#0d1f3f]">
-      <div class="flex items-center justify-between">
+    <!-- HEADER PORTAL KORPORAT -->
+    <header class="hdr-corporate py-3.5 px-4 sm:px-8 border-b border-slate-800/80 shadow-sm sticky top-0 z-30">
+      <div class="max-w-7xl mx-auto flex items-center justify-between">
         <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
-          <div class="bg-white/10 text-white p-2.5 rounded-xl border border-white/20">
-            <i class="fa-solid fa-graduation-cap text-2xl"></i>
+          <div class="bg-gradient-to-tr from-blue-600 to-indigo-600 text-white p-2 rounded-xl shadow-md shadow-blue-500/20 border border-white/10">
+            <i class="fa-solid fa-graduation-cap text-base sm:text-lg"></i>
           </div>
           <div>
-            <h1 class="text-lg font-extrabold tracking-tight text-white uppercase">SMART PORTAL PdPR ONLINE</h1>
-            <p class="text-xs text-slate-300 font-medium">Pengesahan Akaun DELIMa KPM</p>
+            <h1 class="text-sm sm:text-base font-bold tracking-tight text-white uppercase leading-none">SMART PORTAL PdPR ONLINE</h1>
+            <span class="text-[10px] text-slate-400 font-medium tracking-wider uppercase">Sistem Pengurusan Pembelajaran KPM</span>
           </div>
         </div>
-        <button onclick="window.location.href='index.html'" class="bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-3 py-2 rounded-lg border border-white/20 transition flex items-center gap-1.5">
-          <i class="fa-solid fa-house"></i> Utama
+
+        <button onclick="window.location.href='index.html'" class="bg-white/5 hover:bg-white/10 text-slate-200 hover:text-white text-xs font-semibold px-3.5 py-2 rounded-lg border border-white/10 transition flex items-center gap-2 backdrop-blur-sm">
+          <i class="fa-solid fa-house text-slate-400"></i>
+          <span>Utama</span>
         </button>
       </div>
     </header>
 
-    <!-- KANDUNGAN UTAMA LOG MASUK -->
-    <main class="flex items-center justify-center my-10">
-      <div class="bg-white rounded-xl max-w-md w-full p-6 sm:p-8 shadow-xl border border-[#dde3ec] space-y-6">
+    <!-- KANDUNGAN UTAMA LOG MASUK (KAD ELEGAN & PROFESIONAL) -->
+    <main class="flex-grow flex items-center justify-center p-4 sm:p-6 my-4">
+      <div class="bg-white/90 backdrop-blur-md rounded-2xl max-w-sm w-full p-7 sm:p-9 shadow-xl shadow-slate-200/60 border border-slate-200/80 space-y-6 transition-all duration-300">
         
-        <div class="text-center border-b border-[#dde3ec] pb-4 space-y-1">
-          <div class="inline-flex bg-blue-50 text-[#1d4ed8] p-3 rounded-full mb-1">
-            <i class="fa-solid fa-user-shield text-2xl"></i>
+        <!-- TAJUK UTAMA & IKON ELEGAN -->
+        <div class="text-center space-y-2">
+          <div class="inline-flex bg-gradient-to-tr from-blue-50 to-indigo-50 text-blue-600 p-3.5 rounded-2xl border border-blue-100 shadow-sm mb-1">
+            <i class="fa-solid fa-shield-halved text-2xl"></i>
           </div>
-          <h3 class="text-lg font-extrabold text-[#10264d]" id="login-modal-title">
-            Pengesahan ID DELIMa KPM
-          </h3>
-          <p class="text-xs text-[#667085]">Portal khas untuk pengurusan guru & murid sekolah</p>
+          <div>
+            <h2 class="text-xl font-bold text-slate-900 tracking-tight" id="login-modal-title">
+              Sila Log Masuk
+            </h2>
+            <p class="text-xs text-slate-500 font-medium mt-1">Sahkan peranan anda untuk mengakses portal</p>
+          </div>
         </div>
 
-        <div id="login-msg-banner" class="hidden p-3 rounded-lg border text-xs sm:text-sm font-semibold"></div>
-
-        <!-- UTAMA: TUNGGAL BUTANG LOG MASUK GOOGLE MOE OAUTH -->
-        <div class="space-y-4 py-2">
-          <p class="text-xs text-[#667085] text-center leading-relaxed">
-            Sila log masuk menggunakan akaun rasmi Google Workspace KPM (<code class="bg-blue-50 font-bold px-1.5 py-0.5 rounded border border-blue-200 text-blue-800">@moe-dl.edu.my</code>).
-          </p>
-          
-          <button type="button" onclick="triggerGoogleSignIn()" id="btn-google-custom" class="btn-google-moe">
-            <svg class="w-6 h-6 flex-shrink-0" viewBox="0 0 24 24">
+        <!-- SEKSYEN BUTANG UTAMA & MESEJ STATUS DI BAWAH -->
+        <div class="space-y-3.5 pt-1">
+          <button type="button" onclick="triggerGoogleSignIn()" id="btn-google-custom" class="btn-google-corporate">
+            <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
               <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
               <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
@@ -135,37 +123,50 @@
             </svg>
             <span>Log Masuk dengan Akaun MOE</span>
           </button>
+
+          <!-- MESEJ STATUS / RALAT (DI BAWAH BUTANG - TULISAN BIASA/MINIMA) -->
+          <div id="login-msg-banner" class="hidden text-xs text-center py-2 px-1 text-slate-500 font-normal leading-relaxed transition-all duration-200"></div>
+        </div>
+
+        <!-- FOOTER KECIL KAD -->
+        <div class="pt-2 border-t border-slate-100 text-center">
+          <span class="text-[11px] text-slate-400 font-medium inline-flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
+            Pengesahan Rasmi Google Workspace KPM
+          </span>
         </div>
 
       </div>
     </main>
 
-    <!-- FOOTER PORTAL -->
-    <footer class="bg-[#10264d] text-slate-300 text-xs p-4 text-center rounded-xl border border-[#0d1f3f] flex flex-col sm:flex-row justify-between items-center gap-2">
-      <p>© Smart Portal Pengurusan PdPR Sekolah • Kementerian Pendidikan Malaysia</p>
-      <p class="text-slate-400">Google Workspace KPM OAuth: <span class="text-emerald-400 font-bold">Aktif</span></p>
+    <!-- FOOTER PORTAL KORPORAT -->
+    <footer class="bg-[#0f172a] text-slate-400 text-xs py-4 px-4 text-center border-t border-slate-800/80">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+        <p>© Smart Portal Pengurusan PdPR Sekolah • Kementerian Pendidikan Malaysia</p>
+        <p class="text-slate-500 text-[11px]">Sistem Pengesahan DELIMa v2.0</p>
+      </div>
     </footer>
 
   </div>
 
   <!-- MODAL PILIHAN PERANAN (ADMIN / GURU) -->
-  <div id="modal-role-select" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-none z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-xl max-w-md w-full p-6 shadow-xl border border-[#dde3ec] text-center space-y-4">
-      <div class="inline-flex bg-[#10264d] text-white p-3.5 rounded-xl">
-        <i class="fa-solid fa-user-gear text-3xl"></i>
+  <div id="modal-role-select" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 text-center space-y-5">
+      <div class="inline-flex bg-slate-900 text-white p-3.5 rounded-2xl shadow-md">
+        <i class="fa-solid fa-user-gear text-2xl"></i>
       </div>
       <div>
-        <h3 class="text-lg font-extrabold text-[#10264d]" id="modal-admin-nama">Selamat Datang, Pentadbir</h3>
-        <p class="text-xs sm:text-sm text-[#667085] mt-1">Akaun anda mempunyai akses Admin. Sila pilih ruang kerja yang ingin dicapai:</p>
+        <h3 class="text-base font-bold text-slate-900" id="modal-admin-nama">Selamat Datang, Pentadbir</h3>
+        <p class="text-xs text-slate-500 mt-1">Sila pilih ruang kerja pilihan anda:</p>
       </div>
-      <div class="grid grid-cols-1 gap-2.5">
-        <button onclick="confirmAdminRoleChoice('guru')" class="w-full btn-classic-pr text-sm py-3 flex items-center justify-center gap-2 font-bold">
+      <div class="grid grid-cols-1 gap-2.5 pt-1">
+        <button onclick="confirmAdminRoleChoice('guru')" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold py-3 rounded-xl transition flex items-center justify-center gap-2 shadow-sm">
           <i class="fa-solid fa-chalkboard-user"></i>
-          <span>Masuk Papan Kawalan Guru</span>
+          <span>Papan Kawalan Guru</span>
         </button>
-        <button onclick="confirmAdminRoleChoice('admin')" class="w-full bg-[#10264d] hover:bg-[#0a1426] text-white text-sm font-bold py-3 rounded-lg transition flex items-center justify-center gap-2 border border-[#0d1f3f]">
+        <button onclick="confirmAdminRoleChoice('admin')" class="w-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold py-3 rounded-xl transition flex items-center justify-center gap-2 border border-slate-800">
           <i class="fa-solid fa-user-shield text-amber-300"></i>
-          <span>Masuk Papan Kawalan Admin</span>
+          <span>Papan Kawalan Admin</span>
         </button>
       </div>
     </div>
@@ -176,11 +177,19 @@
     let tokenClient = null;
     let currentUserData = null;
 
+    // FUNGSI PAPAR MESEJ STATUS MINIMA DI BAWAH BUTANG
     function showBanner(msg, type = 'error') {
       const banner = document.getElementById('login-msg-banner');
-      banner.classList.remove('hidden', 'bg-rose-50', 'text-rose-800', 'border-rose-200', 'bg-emerald-50', 'text-emerald-800', 'border-emerald-200');
-      if (type === 'error') banner.classList.add('bg-rose-50', 'text-rose-800', 'border', 'border-rose-200');
-      else banner.classList.add('bg-emerald-50', 'text-emerald-800', 'border', 'border-emerald-200');
+      banner.classList.remove('hidden', 'text-rose-600', 'text-emerald-600', 'text-slate-500');
+      
+      if (type === 'error') {
+        banner.classList.add('text-rose-600');
+      } else if (type === 'success') {
+        banner.classList.add('text-emerald-600');
+      } else {
+        banner.classList.add('text-slate-500');
+      }
+
       banner.innerHTML = msg;
     }
 
@@ -201,28 +210,24 @@
       }
     }
 
-    // FUNGSI POPUP: Dicetuskan secara terus apabila butang ditekan
     function triggerGoogleSignIn() {
       hideBanner();
       if (tokenClient) {
-        // Buka popup pengesahan & pilihan akaun Google
         tokenClient.requestAccessToken({ prompt: 'select_account' });
       } else {
-        showBanner("SDK Google OAuth sedang dimuatkan, sila cuba seketika lagi.", "error");
+        showBanner("Sistem sedang memuatkan penyambung Google, sila cuba seketika lagi.", "info");
       }
     }
 
-    // Pengendali Maklum Balas Token dari Popup Google
     function handleTokenResponse(response) {
       if (response.error) {
-        showBanner("Pengesahan Google OAuth dibatalkan atau gagal.", "error");
+        showBanner("Pengesahan Google OAuth dibatalkan.", "info");
         return;
       }
 
       if (response.access_token) {
-        showBanner('<i class="fa-solid fa-spinner fa-spin mr-1"></i> Mengesahkan akaun Google anda...', "success");
+        showBanner("Mengesahkan akaun anda...", "info");
 
-        // Dapatkan profil e-mel pengguna secara terus dari Google API
         fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
           headers: { Authorization: `Bearer ${response.access_token}` }
         })
@@ -235,21 +240,19 @@
 
           const emailLower = userInfo.email.toLowerCase().trim();
 
-          // Kawalan Domain Ketat MOE
           if (!emailLower.endsWith('@moe-dl.edu.my')) {
-            showBanner("Akses Ditolak: Hanya emel rasmi MOE (@moe-dl.edu.my) sahaja dibenarkan.", "error");
+            showBanner("Sila gunakan emel rasmi MOE (@moe-dl.edu.my).", "error");
             return;
           }
 
-          showBanner('<i class="fa-solid fa-spinner fa-spin mr-1"></i> Pengesahan OAuth berjaya. Menyemak peranan di pangkalan data...', "success");
+          showBanner("Menyemak peranan di pangkalan data...", "info");
 
           const backendUrl = (typeof APPS_SCRIPT_URL !== 'undefined') ? APPS_SCRIPT_URL : "";
           if (!backendUrl) {
-            showBanner("Ralat: APPS_SCRIPT_URL tidak dijumpai dalam config.js", "error");
+            showBanner("Ralat konfigurasi pelayan backend.", "error");
             return;
           }
 
-          // Semak peranan pengguna dalam Apps Script backend
           fetch(`${backendUrl}?email=${encodeURIComponent(emailLower)}&action=login&oauth=true`)
             .then(res => res.json())
             .then(data => {
@@ -264,15 +267,15 @@
                   saveSessionAndRedirect(data.role, displayName, emailLower, data.user.kelas);
                 }
               } else {
-                showBanner(data.message || 'Rekod akaun tidak dijumpai dalam Sheet Profil.', 'error');
+                showBanner(data.message || "Rekod akaun tidak dijumpai dalam sistem.", "error");
               }
             })
             .catch(err => {
-              showBanner('Ralat sambungan dengan pelayan Apps Script backend.', 'error');
+              showBanner("Ralat sambungan dengan pelayan backend.", "error");
             });
         })
         .catch(err => {
-          showBanner("Ralat semasa mengambil maklumat akaun daripada Google.", "error");
+          showBanner("Ralat semasa mengambil maklumat akaun.", "error");
         });
       }
     }
@@ -311,7 +314,6 @@
           .catch(err => console.error("Gagal menarik konfigurasi OAuth dari backend:", err));
       }
 
-      // Semak jika sudah ada sesi aktif
       const sessionData = localStorage.getItem('pdpr_session');
       if (sessionData) {
         try {
