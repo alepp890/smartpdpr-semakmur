@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log Masuk - Smart Portal PdPR Online</title>
+  <!-- Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg: #f4f6fa;
+      --card: #ffffff;
+      --tx: #1b2433;
+      --mu: #667085;
+      --bd: #dde3ec;
+      --pr: #1d4ed8;
+      --sb: #10264d;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--tx);
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .hdr-classic {
+      background-color: var(--sb);
+      color: #ffffff;
+    }
+
+    .btn-classic-pr {
+      background-color: var(--pr);
+      color: #ffffff;
+      border-radius: 8px;
+      padding: 9px 18px;
+      font-weight: 600;
+      font-size: 13px;
+      transition: background-color 0.15s ease-in-out;
+    }
+    .btn-classic-pr:hover {
+      background-color: #1a44c2;
+    }
+  </style>
+</head>
+<body class="antialiased min-h-screen p-2 sm:p-5 flex flex-col justify-between">
+
+  <div class="max-w-7xl mx-auto w-full space-y-5">
+    
+    <!-- HEADER PORTAL -->
+    <header class="hdr-classic rounded-xl p-4 sm:p-5 shadow-sm border border-[#0d1f3f]">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
+          <div class="bg-white/10 text-white p-2.5 rounded-xl border border-white/20">
+            <i class="fa-solid fa-graduation-cap text-2xl"></i>
+          </div>
+          <div>
+            <h1 class="text-lg font-extrabold tracking-tight text-white uppercase">SMART PORTAL PdPR ONLINE</h1>
+            <p class="text-xs text-slate-300 font-medium">Pengesahan Akaun DELIMa KPM</p>
+          </div>
+        </div>
+        <button onclick="window.location.href='index.html'" class="bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-3 py-2 rounded-lg border border-white/20 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-house"></i> Utama
+        </button>
+      </div>
+    </header>
+
+    <!-- KANDUNGAN UTAMA LOG MASUK -->
+    <main class="flex items-center justify-center my-6">
+      <div class="bg-white rounded-xl max-w-md w-full p-5 sm:p-6 shadow-lg border border-[#dde3ec] space-y-4">
+        
+        <div class="flex justify-between items-center border-b border-[#dde3ec] pb-3">
+          <h3 class="text-base font-extrabold text-[#10264d] flex items-center gap-2" id="login-modal-title">
+            <i class="fa-solid fa-user-shield text-[#1d4ed8]"></i> Pengesahan ID DELIMa KPM
+          </h3>
+        </div>
+
+        <div id="login-msg-banner" class="hidden p-3 rounded-lg border text-xs sm:text-sm font-semibold"></div>
+
+        <!-- BORANG LOG MASUK STANDARD -->
+        <form id="form-login-standard" onsubmit="handleLoginSubmit(event)" class="space-y-3.5 text-xs sm:text-sm">
+          <div>
+            <label class="block font-bold text-[#1b2433] mb-1">Emel DELIMa (@moe-dl.edu.my)</label>
+            <input type="email" id="login-email-input" placeholder="g-12345678@moe-dl.edu.my atau m-12049281@moe-dl.edu.my" required class="w-full p-3 rounded-lg border border-[#dde3ec] focus:border-[#1d4ed8] outline-none text-[#1b2433] font-medium">
+            <p class="text-xs text-[#667085] mt-1">Masukkan emel rasmi guru / murid KPM anda untuk semakan peranan.</p>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <label class="block font-bold text-[#1b2433]">Kata Laluan</label>
+              <span class="text-xs text-[#667085]">Murid lalai: <code class="bg-slate-100 font-bold px-1 rounded border text-blue-700">Murid@123</code></span>
+            </div>
+            <div class="relative">
+              <input type="password" id="login-password-input" placeholder="Masukkan kata laluan" required class="w-full p-3 pr-10 rounded-lg border border-[#dde3ec] focus:border-[#1d4ed8] outline-none text-[#1b2433] font-medium">
+              <button type="button" onclick="togglePasswordVisibility('login-password-input')" class="absolute right-3.5 top-3.5 text-[#667085] hover:text-[#1b2433]">
+                <i class="fa-solid fa-eye text-sm"></i>
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" id="btn-submit-login" class="w-full btn-classic-pr py-3 flex items-center justify-center gap-2 text-sm font-bold">
+            <i class="fa-solid fa-right-to-bracket"></i> Semak & Log Masuk
+          </button>
+        </form>
+
+        <!-- BORANG PENETAPAN KATA LALUAN KALI PERTAMA -->
+        <form id="form-login-firsttime" onsubmit="handleCreatePasswordSubmit(event)" class="hidden space-y-3 text-xs sm:text-sm">
+          <div class="bg-amber-50 border border-amber-200 text-amber-900 p-3 rounded-lg text-xs sm:text-sm font-medium">
+            <i class="fa-solid fa-circle-info text-amber-700 mr-1"></i>
+            Selamat datang <strong id="firsttime-user-nama">Guru</strong>! Log masuk kali pertama dikesan. Sila tetapkan kata laluan baharu anda.
+          </div>
+
+          <div>
+            <label class="block font-bold text-[#1b2433] mb-1">Kata Laluan Baharu</label>
+            <input type="password" id="new-password-input" minlength="4" placeholder="Cipta kata laluan baharu" required class="w-full p-3 rounded-lg border border-[#dde3ec] focus:border-[#1d4ed8] outline-none text-[#1b2433]">
+          </div>
+
+          <div>
+            <label class="block font-bold text-[#1b2433] mb-1">Sahkan Kata Laluan Baharu</label>
+            <input type="password" id="confirm-password-input" minlength="4" placeholder="Ulang kata laluan baharu" required class="w-full p-3 rounded-lg border border-[#dde3ec] focus:border-[#1d4ed8] outline-none text-[#1b2433]">
+          </div>
+
+          <button type="submit" id="btn-submit-createpwd" class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-3 rounded-lg transition flex items-center justify-center gap-2 text-sm">
+            <i class="fa-solid fa-floppy-disk"></i> Simpan Kata Laluan & Masuk
+          </button>
+        </form>
+
+        <!-- PEMISAH UJIAN DEMO -->
+        <div class="relative flex py-1 items-center">
+          <div class="flex-grow border-t border-[#dde3ec]"></div>
+          <span class="flex-shrink mx-3 text-[#667085] text-xs font-bold uppercase">Atau Ujian Pantas Demo</span>
+          <div class="flex-grow border-t border-[#dde3ec]"></div>
+        </div>
+
+        <div class="bg-[#f4f6fa] p-3 rounded-xl border border-[#dde3ec]">
+          <div class="grid grid-cols-3 gap-2 text-xs">
+            <button onclick="demoFill('admin@moe-dl.edu.my', 'admin123')" class="bg-[#10264d] hover:bg-[#0a1426] text-white py-2 rounded-lg font-bold transition">Admin</button>
+            <button onclick="demoFill('g-05006920@moe-dl.edu.my', '')" class="bg-[#1d4ed8] hover:bg-blue-700 text-white py-2 rounded-lg font-bold transition">Guru</button>
+            <button onclick="demoFill('m-12049281@moe-dl.edu.my', 'Murid@123')" class="bg-emerald-700 hover:bg-emerald-800 text-white py-2 rounded-lg font-bold transition">Murid</button>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- FOOTER PORTAL -->
+    <footer class="bg-[#10264d] text-slate-300 text-xs p-4 text-center rounded-xl border border-[#0d1f3f] flex flex-col sm:flex-row justify-between items-center gap-2">
+      <p>© Smart Portal Pengurusan PdPR Sekolah • Kementerian Pendidikan Malaysia</p>
+      <p class="text-slate-400">Google Workspace KPM OAuth: <span class="text-emerald-400 font-bold">Active</span></p>
+    </footer>
+
+  </div>
+
+  <!-- MODAL PILIHAN PERANAN (ADMIN / GURU) -->
+  <div id="modal-role-select" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-none z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-xl max-w-md w-full p-6 shadow-xl border border-[#dde3ec] text-center space-y-4">
+      <div class="inline-flex bg-[#10264d] text-white p-3.5 rounded-xl">
+        <i class="fa-solid fa-user-gear text-3xl"></i>
+      </div>
+      <div>
+        <h3 class="text-lg font-extrabold text-[#10264d]" id="modal-admin-nama">Selamat Datang, Pentadbir</h3>
+        <p class="text-xs sm:text-sm text-[#667085] mt-1">Akaun anda mempunyai akses Admin. Sila pilih ruang kerja yang ingin dicapai:</p>
+      </div>
+      <div class="grid grid-cols-1 gap-2.5">
+        <button onclick="confirmAdminRoleChoice('guru')" class="w-full btn-classic-pr text-sm py-3 flex items-center justify-center gap-2 font-bold">
+          <i class="fa-solid fa-chalkboard-user"></i>
+          <span>Masuk Papan Kawalan Guru</span>
+        </button>
+        <button onclick="confirmAdminRoleChoice('admin')" class="w-full bg-[#10264d] hover:bg-[#0a1426] text-white text-sm font-bold py-3 rounded-lg transition flex items-center justify-center gap-2 border border-[#0d1f3f]">
+          <i class="fa-solid fa-user-shield text-amber-300"></i>
+          <span>Masuk Papan Kawalan Admin</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SKRIP LOG MASUK & OAUTH -->
+  <script>
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbziw3GU3xZAXn9wuEpFIYfKX1GPBeDNCGQBQ5Yw7VUAqIHHVo4nVZurdoOFJ2Wo3Kju/exec";
+
+    let currentUserData = null;
+    let pendingFirstTimeEmail = '';
+
+    function showBanner(msg, type = 'error') {
+      const banner = document.getElementById('login-msg-banner');
+      banner.classList.remove('hidden', 'bg-rose-50', 'text-rose-800', 'border-rose-200', 'bg-emerald-50', 'text-emerald-800', 'border-emerald-200');
+      if (type === 'error') banner.classList.add('bg-rose-50', 'text-rose-800', 'border', 'border-rose-200');
+      else banner.classList.add('bg-emerald-50', 'text-emerald-800', 'border', 'border-emerald-200');
+      banner.innerHTML = msg;
+    }
+
+    function hideBanner() {
+      document.getElementById('login-msg-banner').classList.add('hidden');
+    }
+
+    function togglePasswordVisibility(inputId) {
+      const input = document.getElementById(inputId);
+      input.type = input.type === 'password' ? 'text' : 'password';
+    }
+
+    function demoFill(email, pwd) {
+      document.getElementById('login-email-input').value = email;
+      document.getElementById('login-password-input').value = pwd;
+    }
+
+    function handleLoginSubmit(e) {
+      e.preventDefault();
+      hideBanner();
+
+      const emailInput = document.getElementById('login-email-input').value.trim().toLowerCase();
+      const passwordInput = document.getElementById('login-password-input').value.trim();
+
+      if (!emailInput.endsWith('@moe-dl.edu.my')) {
+        showBanner('Sila gunakan emel rasmi ID DELIMa (@moe-dl.edu.my).', 'error');
+        return;
+      }
+
+      const btn = document.getElementById('btn-submit-login');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Menyemak...';
+
+      fetch(`${APPS_SCRIPT_URL}?email=${encodeURIComponent(emailInput)}&password=${encodeURIComponent(passwordInput)}&action=login`)
+        .then(res => res.json())
+        .then(data => {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Semak & Log Masuk';
+
+          if (data.status === 'success') {
+            currentUserData = data.user;
+
+            if (data.user.isAdmin || data.role === 'guru_admin') {
+              document.getElementById('modal-admin-nama').innerText = "Selamat Datang, " + data.user.nama;
+              document.getElementById('modal-role-select').classList.remove('hidden');
+            } else {
+              saveSessionAndRedirect(data.role, data.user.nama, data.user.email, data.user.kelas);
+            }
+          } 
+          else if (data.status === 'first_login_guru') {
+            pendingFirstTimeEmail = emailInput;
+            document.getElementById('firsttime-user-nama').innerText = data.nama || 'Guru';
+            document.getElementById('form-login-standard').classList.add('hidden');
+            document.getElementById('form-login-firsttime').classList.remove('hidden');
+            document.getElementById('login-modal-title').innerHTML = '<i class="fa-solid fa-key text-amber-600"></i> Cipta Kata Laluan Baharu';
+            showBanner(data.message, 'success');
+          } 
+          else {
+            showBanner(data.message || 'Log masuk gagal. Sila semak emel dan kata laluan.', 'error');
+          }
+        })
+        .catch(err => {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Semak & Log Masuk';
+          showBanner('Ralat sambungan API Backend.', 'error');
+        });
+    }
+
+    function handleCreatePasswordSubmit(e) {
+      e.preventDefault();
+      hideBanner();
+
+      const newPwd = document.getElementById('new-password-input').value.trim();
+      const confirmPwd = document.getElementById('confirm-password-input').value.trim();
+
+      if (newPwd !== confirmPwd) {
+        showBanner('Kata laluan baharu dan sahkan kata laluan tidak padan!', 'error');
+        return;
+      }
+
+      const btn = document.getElementById('btn-submit-createpwd');
+      btn.disabled = true;
+
+      fetch(`${APPS_SCRIPT_URL}?email=${encodeURIComponent(pendingFirstTimeEmail)}&action=create_password&new_password=${encodeURIComponent(newPwd)}`)
+        .then(res => res.json())
+        .then(data => {
+          btn.disabled = false;
+          if (data.status === 'success') {
+            alert('Kata laluan baharu berjaya disimpan!');
+            currentUserData = data.user;
+
+            if (data.user.isAdmin || data.role === 'guru_admin') {
+              document.getElementById('modal-admin-nama').innerText = "Selamat Datang, " + data.user.nama;
+              document.getElementById('modal-role-select').classList.remove('hidden');
+            } else {
+              saveSessionAndRedirect(data.role, data.user.nama, data.user.email, data.user.kelas);
+            }
+          } else {
+            showBanner(data.message || 'Gagal menyimpan kata laluan baharu.', 'error');
+          }
+        })
+        .catch(err => {
+          btn.disabled = false;
+          showBanner('Ralat sambungan.', 'error');
+        });
+    }
+
+    function confirmAdminRoleChoice(selectedRole) {
+      document.getElementById('modal-role-select').classList.add('hidden');
+      if (currentUserData) {
+        saveSessionAndRedirect(selectedRole, currentUserData.nama, currentUserData.email, currentUserData.kelas);
+      }
+    }
+
+    function saveSessionAndRedirect(role, username, email = "", kelas = "") {
+      localStorage.setItem('pdpr_session', JSON.stringify({ role, username, email, kelas }));
+
+      if (role === 'admin' || role === 'guru_admin') {
+        window.location.href = "AdminDash.html";
+      } else if (role === 'guru') {
+        window.location.href = "GuruDash.html";
+      } else if (role === 'murid') {
+        window.location.href = "MuridDash.html";
+      } else {
+        window.location.href = "index.html";
+      }
+    }
+
+    // Semak jika sudah ada sesi aktif
+    window.onload = function() {
+      const sessionData = localStorage.getItem('pdpr_session');
+      if (sessionData) {
+        try {
+          const session = JSON.parse(sessionData);
+          if (session.role) {
+            saveSessionAndRedirect(session.role, session.username, session.email, session.kelas);
+          }
+        } catch (e) {}
+      }
+    };
+  </script>
+</body>
+</html>

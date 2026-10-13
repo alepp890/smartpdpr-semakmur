@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Portal PdPR Online - KPM</title>
+  <!-- Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    :root {
+      --bg: #f4f6fa;
+      --card: #ffffff;
+      --tx: #1b2433;
+      --mu: #667085;
+      --bd: #dde3ec;
+      --pr: #1d4ed8;
+      --sb: #10264d;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--tx);
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--bd);
+      border-radius: 12px;
+      padding: 18px;
+    }
+
+    .hdr-classic {
+      background-color: var(--sb);
+      color: #ffffff;
+    }
+
+    .btn-classic-pr {
+      background-color: var(--pr);
+      color: #ffffff;
+      border-radius: 8px;
+      padding: 9px 18px;
+      font-weight: 600;
+      font-size: 13px;
+      transition: background-color 0.15s ease-in-out;
+    }
+    .btn-classic-pr:hover {
+      background-color: #1a44c2;
+    }
+
+    .btn-classic-sec {
+      background-color: #ffffff;
+      color: var(--tx);
+      border: 1px solid var(--bd);
+      border-radius: 8px;
+      padding: 9px 16px;
+      font-weight: 600;
+      font-size: 13px;
+    }
+    .btn-classic-sec:hover {
+      border-color: var(--pr);
+      color: var(--pr);
+    }
+
+    .tb-classic {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .tb-classic th {
+      background-color: #e8edf7;
+      color: var(--sb);
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+      padding: 10px 14px;
+      border: 1px solid var(--bd);
+      text-align: left;
+    }
+    .tb-classic td {
+      padding: 10px 14px;
+      border: 1px solid var(--bd);
+      font-size: 13px;
+    }
+    .tb-classic tr:nth-child(even) {
+      background-color: #f9fafb;
+    }
+  </style>
+</head>
+<body class="antialiased min-h-screen p-2 sm:p-5">
+
+  <div class="max-w-7xl mx-auto space-y-5">
+    
+    <!-- ==================== HEADER UTAMA KORPORAT KLASIK ==================== -->
+    <header class="hdr-classic rounded-xl p-4 sm:p-5 shadow-sm border border-[#0d1f3f]">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
+          <div class="bg-white/10 text-white p-3 rounded-xl border border-white/20">
+            <i class="fa-solid fa-graduation-cap text-2xl sm:text-3xl"></i>
+          </div>
+          <div>
+            <h1 class="text-xl font-extrabold tracking-tight text-white uppercase">SMART PORTAL PdPR ONLINE</h1>
+            <p class="text-xs sm:text-sm text-slate-300 font-medium">Sistem Pengurusan & Pemantauan Pembelajaran Bencana Jerebu KPM</p>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3">
+          <div id="nav-user-area">
+            <button onclick="navigateLogin()" class="bg-[#1d4ed8] hover:bg-blue-700 text-white text-xs sm:text-sm font-bold px-4 py-2.5 rounded-lg transition border border-blue-400/30 flex items-center gap-2 shadow-sm">
+              <i class="fa-solid fa-right-to-bracket"></i> Log Masuk Portal
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ==================== MUKA UTAMA (PUBLIC HOMEPAGE) ==================== -->
+    <main id="view-home" class="space-y-4">
+      <div class="card bg-white border border-[#dde3ec]">
+        <div class="max-w-4xl space-y-3">
+          <div class="flex items-center gap-2">
+            <span class="bg-amber-100 text-amber-900 border border-amber-300 text-xs font-bold px-3 py-1 rounded uppercase">
+              <i class="fa-solid fa-triangle-exclamation mr-1"></i> Notis Bencana Jerebu KPM
+            </span>
+            <span class="bg-blue-50 text-blue-800 border border-blue-200 text-xs font-bold px-3 py-1 rounded uppercase">
+              <i class="fa-brands fa-google mr-1"></i> DELIMa Workspace Sync
+            </span>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-[#10264d]">Pelaksanaan Smart PdPR Sepanjang Penutupan Sekolah</h2>
+          <p class="text-xs sm:text-sm text-[#667085] leading-relaxed">
+            Sesi PdPR dijalankan secara interaktif mengikut jadual waktu harian bagi Tahun 1 hingga Tahun 6. Log masuk menggunakan ID DELIMa (<code class="bg-slate-100 px-1.5 py-0.5 rounded border text-blue-800 font-mono font-bold">@moe-dl.edu.my</code>) untuk rekod kehadiran automatik di portal KPM.
+          </p>
+          <div class="pt-2 flex flex-wrap gap-2.5">
+            <button onclick="navigateLogin()" class="btn-classic-pr text-xs sm:text-sm flex items-center gap-2">
+              <i class="fa-solid fa-right-to-bracket"></i> Log Masuk Akaun ID DELIMa
+            </button>
+            <button onclick="scrollToSection('sec-info')" class="btn-classic-sec text-xs sm:text-sm">
+              <i class="fa-solid fa-circle-info mr-1"></i> Panduan Pengguna
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kad Ringkasan KPI Awam -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="card flex items-center gap-3.5">
+          <div class="bg-blue-50 text-[#1d4ed8] p-3.5 rounded-xl border border-blue-100 text-2xl">
+            <i class="fa-solid fa-users"></i>
+          </div>
+          <div>
+            <p class="text-xs font-semibold text-[#667085]">Purata Kehadiran</p>
+            <h3 class="text-2xl font-extrabold text-[#1b2433]">94.2%</h3>
+            <span class="text-xs text-emerald-700 font-bold"><i class="fa-solid fa-circle-check"></i> Tahun 1 - Tahun 6</span>
+          </div>
+        </div>
+
+        <div class="card flex items-center gap-3.5">
+          <div class="bg-emerald-50 text-emerald-700 p-3.5 rounded-xl border border-emerald-100 text-2xl">
+            <i class="fa-solid fa-book-open"></i>
+          </div>
+          <div>
+            <p class="text-xs font-semibold text-[#667085]">Subjek Diterbitkan</p>
+            <h3 class="text-2xl font-extrabold text-[#1b2433]">11 Subjek</h3>
+            <span class="text-xs text-[#667085]">Kurikulum KSSR Semakan</span>
+          </div>
+        </div>
+
+        <div class="card flex items-center gap-3.5">
+          <div class="bg-slate-100 text-[#10264d] p-3.5 rounded-xl border border-slate-200 text-2xl">
+            <i class="fa-solid fa-video"></i>
+          </div>
+          <div>
+            <p class="text-xs font-semibold text-[#667085]">Sesi Kelas PdPR</p>
+            <h3 class="text-2xl font-extrabold text-[#1b2433]">100%</h3>
+            <span class="text-xs text-emerald-700 font-bold">Semua Kelas Terhubung</span>
+          </div>
+        </div>
+
+        <div class="card flex items-center gap-3.5">
+          <div class="bg-rose-50 text-rose-700 p-3.5 rounded-xl border border-rose-100 text-2xl">
+            <i class="fa-solid fa-user-clock"></i>
+          </div>
+          <div>
+            <p class="text-xs font-semibold text-[#667085]">Dalam Pemantauan</p>
+            <h3 class="text-2xl font-extrabold text-[#1b2433]">18 Murid</h3>
+            <span class="text-xs text-rose-700 font-bold">Tindakan Guru Kelas</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section Grafik & Papan Kelas -->
+      <div id="sec-statistik" class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div class="card lg:col-span-1">
+          <h3 class="text-sm font-extrabold text-[#10264d] mb-3 pb-2 border-b border-[#dde3ec] flex items-center gap-2">
+            <i class="fa-solid fa-chart-column text-[#1d4ed8]"></i> Kehadiran Mengikut Tahun (%)
+          </h3>
+          <div class="h-60">
+            <canvas id="publicChart"></canvas>
+          </div>
+        </div>
+
+        <div class="card lg:col-span-2 space-y-3">
+          <div class="flex justify-between items-center pb-2 border-b border-[#dde3ec]">
+            <h3 class="text-sm font-extrabold text-[#10264d] flex items-center gap-2">
+              <i class="fa-solid fa-list-check text-[#1d4ed8]"></i> Ringkasan Penglibatan PdPR Mengikut Tahun
+            </h3>
+            <span class="text-xs bg-emerald-50 text-emerald-800 border border-emerald-200 px-2.5 py-0.5 rounded-md font-bold">DELIMa Sync: Live</span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="tb-classic">
+              <thead>
+                <tr>
+                  <th>Tahun</th>
+                  <th>Jumlah Murid</th>
+                  <th>Hadir (Tugasan)</th>
+                  <th>Peratus Kehadiran</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="font-bold text-[#1b2433]">Tahun 1</td>
+                  <td>45</td>
+                  <td>43</td>
+                  <td class="font-bold text-emerald-700">95.5%</td>
+                  <td><span class="bg-emerald-50 text-emerald-800 border border-emerald-200 px-2.5 py-0.5 rounded text-xs font-bold">Cemerlang</span></td>
+                </tr>
+                <tr>
+                  <td class="font-bold text-[#1b2433]">Tahun 2</td>
+                  <td>42</td>
+                  <td>39</td>
+                  <td class="font-bold text-blue-700">92.8%</td>
+                  <td><span class="bg-blue-50 text-blue-800 border border-blue-200 px-2.5 py-0.5 rounded text-xs font-bold">Memuaskan</span></td>
+                </tr>
+                <tr>
+                  <td class="font-bold text-[#1b2433]">Tahun 3</td>
+                  <td>40</td>
+                  <td>38</td>
+                  <td class="font-bold text-emerald-700">95.0%</td>
+                  <td><span class="bg-emerald-50 text-emerald-800 border border-emerald-200 px-2.5 py-0.5 rounded text-xs font-bold">Cemerlang</span></td>
+                </tr>
+                <tr>
+                  <td class="font-bold text-[#1b2433]">Tahun 4</td>
+                  <td>48</td>
+                  <td>44</td>
+                  <td class="font-bold text-blue-700">91.6%</td>
+                  <td><span class="bg-blue-50 text-blue-800 border border-blue-200 px-2.5 py-0.5 rounded text-xs font-bold">Memuaskan</span></td>
+                </tr>
+                <tr>
+                  <td class="font-bold text-[#1b2433]">Tahun 5</td>
+                  <td>46</td>
+                  <td>45</td>
+                  <td class="font-bold text-emerald-700">97.8%</td>
+                  <td><span class="bg-emerald-50 text-emerald-800 border border-emerald-200 px-2.5 py-0.5 rounded text-xs font-bold">Cemerlang</span></td>
+                </tr>
+                <tr>
+                  <td class="font-bold text-[#1b2433]">Tahun 6</td>
+                  <td>50</td>
+                  <td>48</td>
+                  <td class="font-bold text-emerald-700">96.0%</td>
+                  <td><span class="bg-emerald-50 text-emerald-800 border border-emerald-200 px-2.5 py-0.5 rounded text-xs font-bold">Cemerlang</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section Makluman -->
+      <div id="sec-info" class="card space-y-2.5">
+        <h3 class="text-sm font-extrabold text-[#10264d] border-b border-[#dde3ec] pb-2 flex items-center gap-2">
+          <i class="fa-solid fa-circle-info text-[#1d4ed8]"></i> Panduan Integrasi ID DELIMa & Kehadiran Automatik
+        </h3>
+        <ul class="text-xs sm:text-sm text-[#667085] space-y-2 list-disc pl-5">
+          <li>Murid & Guru digalakkan log masuk menggunakan <strong>ID DELIMa KPM</strong> (<code class="bg-slate-100 border px-1.5 py-0.5 rounded text-[#1b2433] font-bold">@moe-dl.edu.my</code>).</li>
+          <li><strong>Pengguna Guru:</strong> Kata laluan pertama kali ditetapkan sewaktu log masuk awal. Rekod guru dibaca dari tab <strong>Profil_Guru</strong>.</li>
+          <li><strong>Pengguna Murid:</strong> Gunakan ID DELIMa murid dan kata laluan lalai: <code class="bg-slate-100 border font-bold px-1.5 py-0.5 rounded text-blue-800">Murid@123</code>.</li>
+        </ul>
+      </div>
+    </main>
+
+    <!-- FOOTER PORTAL KORPORAT KLASIK -->
+    <footer class="bg-[#10264d] text-slate-300 text-xs sm:text-sm p-4 text-center rounded-xl border border-[#0d1f3f] flex flex-col sm:flex-row justify-between items-center gap-2">
+      <p>© Smart Portal Pengurusan PdPR Sekolah • Kementerian Pendidikan Malaysia</p>
+      <p class="text-slate-400">Google Workspace KPM API Status: <span class="text-emerald-400 font-bold">Connected</span></p>
+    </footer>
+
+  </div>
+
+  <!-- SKRIP MUKA DEPAN INDEX -->
+  <script>
+    let chartObj = null;
+
+    function navigateLogin() {
+      window.location.href = "LoginOuth.html";
+    }
+
+    function scrollToSection(sectionId) {
+      const el = document.getElementById(sectionId);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function initPublicChart() {
+      const ctx = document.getElementById('publicChart');
+      if (!ctx) return;
+
+      chartObj = new Chart(ctx.getContext('2d'), {
+        type: 'bar',
+        data: {
+          labels: ['Tahun 1', 'Tahun 2', 'Tahun 3', 'Tahun 4', 'Tahun 5', 'Tahun 6'],
+          datasets: [{
+            label: 'Kehadiran (%)',
+            data: [95.5, 92.8, 95.0, 91.6, 97.8, 96.0],
+            backgroundColor: '#1d4ed8',
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: { y: { beginAtZero: true, max: 100 } },
+          plugins: { legend: { display: false } }
+        }
+      });
+    }
+
+    function checkActiveSession() {
+      const sessionData = localStorage.getItem('pdpr_session');
+      if (sessionData) {
+        try {
+          const session = JSON.parse(sessionData);
+          const navUserArea = document.getElementById('nav-user-area');
+          
+          let targetDash = "index.html";
+          if (session.role === 'admin' || session.role === 'guru_admin') targetDash = "AdminDash.html";
+          else if (session.role === 'guru') targetDash = "GuruDash.html";
+          else if (session.role === 'murid') targetDash = "MuridDash.html";
+
+          if (navUserArea) {
+            navUserArea.innerHTML = `
+              <div class="flex items-center gap-3 bg-[#0a1426] p-2 px-3.5 rounded-lg border border-[#0d1f3f]">
+                <div class="text-left cursor-pointer" onclick="window.location.href='${targetDash}'">
+                  <p class="text-xs text-slate-300">Selamat Datang,</p>
+                  <span class="text-xs sm:text-sm font-bold text-white">${session.username}</span>
+                </div>
+                <button onclick="window.location.href='${targetDash}'" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-3 py-1.5 rounded transition">
+                  Papan Kawalan
+                </button>
+              </div>
+            `;
+          }
+        } catch (e) {}
+      }
+    }
+
+    window.onload = function() {
+      initPublicChart();
+      checkActiveSession();
+    };
+  </script>
+</body>
+</html>

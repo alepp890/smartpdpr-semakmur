@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Admin - Smart Portal PdPR Online</title>
+  <!-- Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg: #f4f6fa;
+      --card: #ffffff;
+      --tx: #1b2433;
+      --mu: #667085;
+      --bd: #dde3ec;
+      --pr: #1d4ed8;
+      --sb: #10264d;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--tx);
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--bd);
+      border-radius: 12px;
+      padding: 18px;
+    }
+
+    .hdr-classic {
+      background-color: var(--sb);
+      color: #ffffff;
+    }
+
+    .btn-classic-pr {
+      background-color: var(--pr);
+      color: #ffffff;
+      border-radius: 8px;
+      padding: 9px 18px;
+      font-weight: 600;
+      font-size: 13px;
+      transition: background-color 0.15s ease-in-out;
+    }
+    .btn-classic-pr:hover {
+      background-color: #1a44c2;
+    }
+
+    .btn-classic-sec {
+      background-color: #ffffff;
+      color: var(--tx);
+      border: 1px solid var(--bd);
+      border-radius: 8px;
+      padding: 9px 16px;
+      font-weight: 600;
+      font-size: 13px;
+    }
+    .btn-classic-sec:hover {
+      border-color: var(--pr);
+      color: var(--pr);
+    }
+
+    .tb-classic {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .tb-classic th {
+      background-color: #e8edf7;
+      color: var(--sb);
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+      padding: 10px 14px;
+      border: 1px solid var(--bd);
+      text-align: left;
+    }
+    .tb-classic td {
+      padding: 10px 14px;
+      border: 1px solid var(--bd);
+      font-size: 13px;
+    }
+
+    .tab-btn {
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 8px;
+      border: 1px solid var(--bd);
+      background-color: #ffffff;
+      color: var(--tx);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-btn.active {
+      background-color: var(--pr);
+      color: #ffffff;
+      border-color: var(--pr);
+    }
+
+    .date-item-btn {
+      width: 100%;
+      text-align: left;
+      padding: 10px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 8px;
+      border: 1px solid var(--bd);
+      background-color: #ffffff;
+      transition: all 0.15s;
+    }
+    .date-item-btn:hover {
+      background-color: #e8edf7;
+      color: var(--pr);
+    }
+    .date-item-btn.active {
+      background-color: var(--sb);
+      color: #ffffff;
+      border-color: var(--sb);
+    }
+  </style>
+</head>
+<body class="antialiased min-h-screen p-2 sm:p-5">
+
+  <div class="max-w-7xl mx-auto space-y-5">
+    
+    <!-- HEADER PORTAL -->
+    <header class="hdr-classic rounded-xl p-4 sm:p-5 shadow-sm border border-[#0d1f3f]">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
+          <div class="bg-white/10 text-white p-3 rounded-xl border border-white/20">
+            <i class="fa-solid fa-graduation-cap text-2xl sm:text-3xl"></i>
+          </div>
+          <div>
+            <h1 class="text-xl font-extrabold tracking-tight text-white uppercase">SMART PORTAL PdPR ONLINE</h1>
+            <p class="text-xs sm:text-sm text-slate-300 font-medium">Papan Kawalan Pentadbir (Admin)</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3" id="nav-user-area">
+          <div class="flex items-center gap-3 bg-[#0a1426] p-2 px-3.5 rounded-lg border border-[#0d1f3f]">
+            <div class="text-left">
+              <p class="text-xs text-slate-300">Selamat Datang,</p>
+              <span id="admin-user-display-name" class="text-xs sm:text-sm font-bold text-white">Pentadbir</span>
+            </div>
+            <button onclick="logout()" class="bg-rose-700 hover:bg-rose-800 text-white text-xs font-bold px-3 py-1.5 rounded transition flex items-center gap-1">
+              <i class="fa-solid fa-power-off"></i> Keluar
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- KANDUNGAN UTAMA DASHBOARD ADMIN -->
+    <main id="view-admin" class="space-y-4">
+      <div class="hdr-classic p-4 sm:p-5 rounded-xl border border-[#0d1f3f]">
+        <div>
+          <h2 class="text-base sm:text-lg font-extrabold flex items-center gap-2">
+            <i class="fa-solid fa-user-shield text-blue-300"></i> Papan Kawalan Pentadbir (Admin)
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-300">Pengurusan Jadual Waktu PdPR & Pemantauan Kehadiran Mengikut Tahun.</p>
+        </div>
+      </div>
+
+      <div class="card space-y-4">
+        
+        <div class="flex flex-col sm:flex-row justify-between sm:items-center border-b border-[#dde3ec] pb-3 gap-2">
+          <div>
+            <h3 class="text-sm sm:text-base font-extrabold text-[#10264d] flex items-center gap-2">
+              <i class="fa-solid fa-calendar-days text-[#1d4ed8]"></i> Pengurusan Jadual Waktu PdPR Sekolah
+            </h3>
+            <p class="text-xs sm:text-sm text-[#667085]">Pilih tarikh di bahagian Sidebar dan tab Tahun untuk menyemak jadual.</p>
+          </div>
+
+          <button onclick="openCreateJadualModal()" class="btn-classic-pr text-xs sm:text-sm flex items-center justify-center gap-2">
+            <i class="fa-solid fa-circle-plus"></i> + Hasilkan Jadual Baru
+          </button>
+        </div>
+
+        <!-- TAB TAHUN 1 HINGGA TAHUN 6 -->
+        <div class="flex flex-wrap gap-2 border-b border-[#dde3ec] pb-2" id="admin-tahun-tabs">
+          <button class="tab-btn active" onclick="switchTahunTab('admin', 'Tahun 1')">Tahun 1</button>
+          <button class="tab-btn" onclick="switchTahunTab('admin', 'Tahun 2')">Tahun 2</button>
+          <button class="tab-btn" onclick="switchTahunTab('admin', 'Tahun 3')">Tahun 3</button>
+          <button class="tab-btn" onclick="switchTahunTab('admin', 'Tahun 4')">Tahun 4</button>
+          <button class="tab-btn" onclick="switchTahunTab('admin', 'Tahun 5')">Tahun 5</button>
+          <button class="tab-btn" onclick="switchTahunTab('admin', 'Tahun 6')">Tahun 6</button>
+        </div>
+
+        <!-- LAYOUT SIDEBAR & PAPARAN JADUAL ADMIN -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <!-- SIDEBAR PEMILIHAN TARIKH -->
+          <div class="md:col-span-1 bg-[#f4f6fa] p-3.5 rounded-xl border border-[#dde3ec] space-y-3">
+            <div class="flex items-center justify-between border-b border-[#dde3ec] pb-2">
+              <span class="text-xs font-extrabold text-[#10264d] uppercase flex items-center gap-1.5">
+                <i class="fa-solid fa-filter text-blue-700"></i> Pilih Tarikh
+              </span>
+              <button onclick="clearAdminDateFilter()" class="text-xs text-blue-700 font-bold hover:underline">Semua Tarikh</button>
+            </div>
+
+            <div id="admin-sidebar-date-list" class="space-y-2 max-h-72 overflow-y-auto pr-1">
+              <!-- Senarai Butang Tarikh Dijana Di Sini -->
+            </div>
+          </div>
+
+          <!-- KAWASAN KAD JADUAL -->
+          <div class="md:col-span-3 space-y-3" id="admin-jadual-container">
+            <!-- Kad Dijana Dinamik -->
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- FOOTER PORTAL -->
+    <footer class="bg-[#10264d] text-slate-300 text-xs sm:text-sm p-4 text-center rounded-xl border border-[#0d1f3f] flex flex-col sm:flex-row justify-between items-center gap-2">
+      <p>© Smart Portal Pengurusan PdPR Sekolah • Kementerian Pendidikan Malaysia</p>
+      <p class="text-slate-400">Google Workspace KPM API Status: <span class="text-emerald-400 font-bold">Connected</span></p>
+    </footer>
+
+  </div>
+
+  <!-- MODAL TEMPLATE HASILKAN JADUAL BAHARU -->
+  <div id="modal-create-jadual" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-none z-50 flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-xl max-w-4xl w-full p-6 shadow-xl border border-[#dde3ec] my-8 space-y-4">
+      
+      <div class="flex justify-between items-center border-b border-[#dde3ec] pb-3">
+        <div>
+          <h3 class="text-base font-extrabold text-[#10264d] flex items-center gap-2">
+            <i class="fa-solid fa-calendar-plus text-[#1d4ed8]"></i> Template Hasilkan Jadual Waktu Harian
+          </h3>
+          <p class="text-xs sm:text-sm text-[#667085]">Tetapkan tempoh slot (30 minit / 1 jam) dan pilih guru bagi setiap slot tanpa pertindihan.</p>
+        </div>
+        <button onclick="closeCreateJadualModal()" class="text-[#667085] hover:text-[#1b2433] font-bold"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+
+      <form onsubmit="saveFullDayJadual(event)" class="space-y-4 text-xs sm:text-sm">
+        
+        <!-- Pilihan Tarikh & Tahun -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-[#f4f6fa] p-3.5 rounded-xl border border-[#dde3ec]">
+          <div>
+            <label class="block font-bold text-[#1b2433] mb-1">Pilih Tarikh (Semasa & Akan Datang)</label>
+            <input type="date" id="jadual-input-date" required onchange="onJadualDateOrTahunChange()" class="w-full p-2.5 rounded-lg border border-[#dde3ec] outline-none font-semibold bg-white">
+          </div>
+          <div>
+            <label class="block font-bold text-[#1b2433] mb-1">Hari</label>
+            <input type="text" id="jadual-input-hari" readonly placeholder="Isnin" class="w-full p-2.5 rounded-lg border border-[#dde3ec] font-bold text-blue-800 bg-slate-100">
+          </div>
+          <div>
+            <label class="block font-bold text-[#1b2433] mb-1">Sasaran Tahun</label>
+            <select id="jadual-input-tahun" required onchange="onJadualDateOrTahunChange()" class="w-full p-2.5 rounded-lg border border-[#dde3ec] outline-none font-semibold bg-white">
+              <option value="Tahun 1">Tahun 1</option>
+              <option value="Tahun 2">Tahun 2</option>
+              <option value="Tahun 3">Tahun 3</option>
+              <option value="Tahun 4">Tahun 4</option>
+              <option value="Tahun 5">Tahun 5</option>
+              <option value="Tahun 6">Tahun 6</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Template Slot Masa Dinamik -->
+        <div class="space-y-2.5">
+          <div class="flex justify-between items-center border-b border-[#dde3ec] pb-1.5">
+            <h4 class="font-extrabold text-[#10264d] uppercase text-xs">Agihan Slot Masa, Masa Per-Slot, Subjek & Guru Bertugas:</h4>
+            <span class="text-xs text-blue-700 font-bold">* Mula Masa: 8.00 AM</span>
+          </div>
+
+          <div id="dynamic-slots-container" class="space-y-2.5 max-h-80 overflow-y-auto pr-1">
+            <!-- Slot dijana menggunakan JavaScript -->
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-[#dde3ec] flex justify-end gap-2.5">
+          <button type="button" onclick="closeCreateJadualModal()" class="btn-classic-sec text-xs sm:text-sm">
+            Batal
+          </button>
+          <button type="submit" id="btn-save-jadual" class="btn-classic-pr text-xs sm:text-sm flex items-center gap-2">
+            <i class="fa-solid fa-floppy-disk"></i> Simpan & Terbitkan Ke Sheet
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- SKRIP DASHBOARD ADMIN -->
+  <script>
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbziw3GU3xZAXn9wuEpFIYfKX1GPBeDNCGQBQ5Yw7VUAqIHHVo4nVZurdoOFJ2Wo3Kju/exec";
+
+    const SENARAI_SUBJEK = [
+      "BAHASA MELAYU",
+      "BAHASA INGGERIS",
+      "MATEMATIK",
+      "SAINS",
+      "PENDIDIKAN ISLAM",
+      "BAHASA ARAB",
+      "MUZIK",
+      "PENDIDIKAN JASMANI & KESIHATAN",
+      "SENI VISUAL",
+      "SEJARAH",
+      "REKABENTUK & TEKNOLOGI"
+    ];
+
+    let listGuru = [];
+    let listJadualMaster = [];
+    let selectedAdminFilterDate = ''; 
+    let selectedTahunAdmin = 'Tahun 1';
+
+    let slotConfigurations = [
+      { duration: 30, isRehat: false },
+      { duration: 30, isRehat: false },
+      { duration: 30, isRehat: false },
+      { duration: 30, isRehat: true }, 
+      { duration: 30, isRehat: false },
+      { duration: 30, isRehat: false },
+      { duration: 30, isRehat: false }
+    ];
+
+    function formatDateFormatted(rawDateStr) {
+      if (!rawDateStr) return '';
+      let str = rawDateStr.toString().trim();
+
+      if (str.includes('T')) str = str.split('T')[0];
+
+      if (str.includes('-')) {
+        let parts = str.split('-');
+        if (parts[0].length === 4) return `${parts[2]}-${parts[1]}-${parts[0]}`;
+      }
+
+      if (str.includes('/')) {
+        let parts = str.split('/');
+        if (parts[0].length === 4) return `${parts[2]}-${parts[1]}-${parts[0]}`;
+      }
+
+      return str;
+    }
+
+    function checkAdminSession() {
+      const sessionData = localStorage.getItem('pdpr_session');
+      if (!sessionData) {
+        window.location.href = "LoginOuth.html";
+        return;
+      }
+
+      try {
+        const session = JSON.parse(sessionData);
+        if (session.role !== 'admin' && session.role !== 'guru_admin') {
+          window.location.href = "LoginOuth.html";
+          return;
+        }
+        document.getElementById('admin-user-display-name').innerText = session.username || "Pentadbir";
+      } catch (e) {
+        window.location.href = "LoginOuth.html";
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('pdpr_session');
+      window.location.href = "index.html";
+    }
+
+    function loadInitialBackendData() {
+      fetch(`${APPS_SCRIPT_URL}?action=get_teachers`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.status === 'success' && data.teachers && data.teachers.length > 0) {
+            listGuru = data.teachers;
+          } else {
+            listGuru = ["Guru Aliff", "Guru Ubai", "Cikgu Ahmad", "Cikgu Sarah", "Cikgu Lim", "Ustazah Nurul"];
+          }
+          renderDynamicSlotInputs();
+        })
+        .catch(err => {
+          listGuru = ["Guru Aliff", "Guru Ubai", "Cikgu Ahmad", "Cikgu Sarah", "Cikgu Lim"];
+          renderDynamicSlotInputs();
+        });
+
+      fetch(`${APPS_SCRIPT_URL}?action=get_jadual`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.status === 'success' && data.jadualList) {
+            listJadualMaster = data.jadualList;
+            renderAdminSidebarDates();
+            renderJadualForView('admin');
+          }
+        })
+        .catch(err => console.error("Gagal memuat turun Jadual_PdPR:", err));
+    }
+
+    function switchTahunTab(viewRole, tahunName) {
+      selectedTahunAdmin = tahunName;
+      
+      const tabContainer = document.getElementById(`admin-tahun-tabs`);
+      if (tabContainer) {
+        tabContainer.querySelectorAll('.tab-btn').forEach(btn => {
+          if (btn.innerText.trim() === tahunName) btn.classList.add('active');
+          else btn.classList.remove('active');
+        });
+      }
+
+      renderJadualForView('admin');
+    }
+
+    function renderAdminSidebarDates() {
+      const container = document.getElementById('admin-sidebar-date-list');
+      if (!container) return;
+
+      const datesSet = new Set();
+      listJadualMaster.forEach(j => {
+        if (j.tarikh) datesSet.add(formatDateFormatted(j.tarikh));
+      });
+
+      if (datesSet.size === 0) {
+        container.innerHTML = `<p class="text-xs text-[#667085] text-center py-2">Tiada rekod tarikh.</p>`;
+        return;
+      }
+
+      let html = '';
+      Array.from(datesSet).sort().forEach(dateStr => {
+        let isActive = (selectedAdminFilterDate === dateStr) ? 'active' : '';
+        html += `
+          <button onclick="filterAdminJadualBySidebarDate('${dateStr}')" class="date-item-btn ${isActive} flex items-center justify-between">
+            <span><i class="fa-regular fa-calendar-check mr-1.5"></i>${dateStr}</span>
+            <i class="fa-solid fa-chevron-right text-xs opacity-60"></i>
+          </button>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function filterAdminJadualBySidebarDate(dateStr) {
+      selectedAdminFilterDate = dateStr;
+      renderAdminSidebarDates();
+      renderJadualForView('admin');
+    }
+
+    function clearAdminDateFilter() {
+      selectedAdminFilterDate = '';
+      renderAdminSidebarDates();
+      renderJadualForView('admin');
+    }
+
+    function renderJadualForView(viewRole) {
+      const container = document.getElementById(`admin-jadual-container`);
+      if (!container) return;
+
+      let filtered = listJadualMaster.filter(j => j.tahun === selectedTahunAdmin);
+
+      if (selectedAdminFilterDate) {
+        filtered = filtered.filter(j => formatDateFormatted(j.tarikh) === selectedAdminFilterDate);
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="bg-white border border-[#dde3ec] rounded-xl p-8 text-center text-xs sm:text-sm text-[#667085]">
+            <i class="fa-solid fa-calendar-xmark text-3xl mb-2 text-slate-300"></i>
+            <p>Tiada rekod jadual waktu ditemui bagi <strong>${selectedTahunAdmin}</strong> ${selectedAdminFilterDate ? '(' + selectedAdminFilterDate + ')' : ''}.</p>
+          </div>
+        `;
+        return;
+      }
+
+      const groupedByDate = {};
+      filtered.forEach(item => {
+        let cleanDate = formatDateFormatted(item.tarikh);
+        const key = `${cleanDate} - ${item.hari}`;
+        if (!groupedByDate[key]) groupedByDate[key] = [];
+        groupedByDate[key].push(item);
+      });
+
+      let html = '';
+      for (const dateKey in groupedByDate) {
+        const items = groupedByDate[dateKey];
+        
+        html += `
+          <div class="bg-white border border-[#dde3ec] rounded-xl p-4 space-y-3 shadow-sm">
+            <div class="flex flex-wrap justify-between items-center gap-2 border-b border-[#dde3ec] pb-2.5">
+              <div class="flex items-center gap-2">
+                <span class="bg-[#10264d] text-white font-bold text-xs sm:text-sm px-3 py-1 rounded-lg">${dateKey}</span>
+                <span class="bg-blue-50 text-blue-800 border border-blue-200 text-xs font-bold px-2.5 py-0.5 rounded-md">${selectedTahunAdmin}</span>
+              </div>
+              <span class="text-xs text-emerald-700 font-bold"><i class="fa-solid fa-circle-check"></i> ${items.length} Slot Disusun</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs sm:text-sm">
+        `;
+
+        items.forEach(slot => {
+          html += `
+            <div class="bg-[#f8fafc] p-3 rounded-lg border border-[#dde3ec] space-y-1">
+              <span class="text-xs text-blue-700 font-extrabold block"><i class="fa-regular fa-clock mr-1"></i>${slot.slotMasa}</span>
+              <p class="font-extrabold text-[#1b2433] text-sm">${slot.subjek}</p>
+              <p class="text-xs text-[#667085]"><i class="fa-solid fa-user-tie mr-1"></i>${slot.guru}</p>
+            </div>
+          `;
+        });
+
+        html += `
+            </div>
+          </div>
+        `;
+      }
+
+      container.innerHTML = html;
+    }
+
+    // MODAL TEMPLATE JADUAL
+    function openCreateJadualModal() {
+      document.getElementById('modal-create-jadual').classList.remove('hidden');
+      
+      const today = new Date().toISOString().split('T')[0];
+      const dateInput = document.getElementById('jadual-input-date');
+      
+      dateInput.min = today;
+      dateInput.value = today;
+
+      const container = document.getElementById('dynamic-slots-container');
+      if (container) container.innerHTML = '';
+
+      slotConfigurations = [
+        { duration: 30, isRehat: false },
+        { duration: 30, isRehat: false },
+        { duration: 30, isRehat: false },
+        { duration: 30, isRehat: true },
+        { duration: 30, isRehat: false },
+        { duration: 30, isRehat: false },
+        { duration: 30, isRehat: false }
+      ];
+
+      onJadualDateOrTahunChange();
+    }
+
+    function closeCreateJadualModal() {
+      document.getElementById('modal-create-jadual').classList.add('hidden');
+    }
+
+    function autoDetectHari() {
+      const dateVal = document.getElementById('jadual-input-date').value;
+      if (!dateVal) return;
+      const days = ['Ahad', 'Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'];
+      const d = new Date(dateVal);
+      document.getElementById('jadual-input-hari').value = days[d.getDay()];
+    }
+
+    function onJadualDateOrTahunChange() {
+      autoDetectHari();
+      renderDynamicSlotInputs();
+    }
+
+    function parseTimeRangeToMinutes(timeStr) {
+      if (!timeStr) return null;
+      try {
+        let cleanStr = timeStr.toString().replace(/–/g, '-');
+        let parts = cleanStr.split('-');
+        if (parts.length >= 2) {
+          let startMins = convertTimeStrToMinutes(parts[0].trim());
+          let endMins = convertTimeStrToMinutes(parts[1].trim());
+          if (endMins > startMins) return { start: startMins, end: endMins };
+        }
+      } catch (e) { return null; }
+      return null;
+    }
+
+    function convertTimeStrToMinutes(tStr) {
+      if (!tStr) return 0;
+      let str = tStr.toString().trim();
+      let isPM = str.toUpperCase().includes('PM');
+      let isAM = str.toUpperCase().includes('AM');
+      let clean = str.replace(/(AM|PM)/i, '').trim();
+      let parts = clean.split('.');
+      if (parts.length < 2) parts = clean.split(':');
+
+      let h = parseInt(parts[0], 10) || 0;
+      let m = parseInt(parts[1], 10) || 0;
+
+      if (isPM && h < 12) h += 12;
+      if (isAM && h === 12) h = 0;
+
+      return (h * 60) + m;
+    }
+
+    function getAvailableTeachersForTimeSlot(targetDateFormatted, startMin, endMin, currentSlotIdx, savedSlots) {
+      if (!targetDateFormatted) return listGuru;
+
+      let busyTeachers = new Set();
+
+      listJadualMaster.forEach(item => {
+        let itemDateFormatted = formatDateFormatted(item.tarikh);
+        if (itemDateFormatted === targetDateFormatted && item.slotMasa) {
+          let range = parseTimeRangeToMinutes(item.slotMasa);
+          if (range) {
+            if (Math.max(startMin, range.start) < Math.min(endMin, range.end)) {
+              if (item.guru) busyTeachers.add(item.guru.trim());
+            }
+          }
+        }
+      });
+
+      if (savedSlots) {
+        let currentMinTemp = 8 * 60;
+        slotConfigurations.forEach((slot, idx) => {
+          let slotStart = currentMinTemp;
+          let slotEnd = currentMinTemp + slot.duration;
+          currentMinTemp = slotEnd;
+
+          if (idx !== currentSlotIdx && !slot.isRehat && savedSlots[idx]) {
+            let selectedGuruInOtherSlot = savedSlots[idx].guru;
+            if (selectedGuruInOtherSlot) {
+              if (Math.max(startMin, slotStart) < Math.min(endMin, slotEnd)) {
+                busyTeachers.add(selectedGuruInOtherSlot.trim());
+              }
+            }
+          }
+        });
+      }
+
+      return listGuru.filter(g => !busyTeachers.has(g.trim()));
+    }
+
+    function formatMinutesToTime(totalMin) {
+      let h = Math.floor(totalMin / 60);
+      let m = totalMin % 60;
+      let ampm = h >= 12 ? 'PM' : 'AM';
+      let displayH = h % 12;
+      displayH = displayH ? displayH : 12;
+      let displayM = m < 10 ? '0' + m : m;
+      return `${displayH}.${displayM} ${ampm}`;
+    }
+
+    function renderDynamicSlotInputs() {
+      const container = document.getElementById('dynamic-slots-container');
+      if (!container) return;
+
+      const savedSlots = {};
+      const existingRows = container.querySelectorAll('.slot-row');
+      existingRows.forEach(row => {
+        const idx = parseInt(row.getAttribute('data-slot-index'));
+        const subjekSel = row.querySelector('.slot-subjek');
+        const guruSel = row.querySelector('.slot-guru');
+        if (!isNaN(idx)) {
+          savedSlots[idx] = {
+            subjek: subjekSel ? subjekSel.value : '',
+            guru: guruSel ? guruSel.value : ''
+          };
+        }
+      });
+
+      container.innerHTML = '';
+
+      let currentMin = 8 * 60;
+      let lessonCount = 1;
+
+      const rawDate = document.getElementById('jadual-input-date').value;
+      const formattedSelectedDate = formatDateFormatted(rawDate);
+
+      slotConfigurations.forEach((slot, index) => {
+        let startStr = formatMinutesToTime(currentMin);
+        let endMin = currentMin + slot.duration;
+        let endStr = formatMinutesToTime(endMin);
+        let timeRangeStr = `${startStr} - ${endStr}`;
+
+        if (slot.isRehat) {
+          container.innerHTML += `
+            <div class="grid grid-cols-1 sm:grid-cols-4 gap-2 items-center bg-amber-50 p-3 rounded-lg border border-amber-200 text-amber-900 font-bold text-xs sm:text-sm" data-slot-index="${index}">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded bg-amber-200 text-amber-800 flex items-center justify-center text-xs">
+                  <i class="fa-solid fa-mug-hot"></i>
+                </span>
+                <span class="slot-time-label">${timeRangeStr}</span>
+              </div>
+              <div class="sm:col-span-3 text-center text-xs uppercase tracking-wide text-amber-800 font-extrabold">
+                [ WAKTU REHAT ]
+              </div>
+            </div>
+          `;
+        } else {
+          const currentSubjek = savedSlots[index] ? savedSlots[index].subjek : '';
+          const currentGuru = savedSlots[index] ? savedSlots[index].guru : '';
+
+          let availableTeachers = getAvailableTeachersForTimeSlot(formattedSelectedDate, currentMin, endMin, index, savedSlots);
+
+          let subjekOpts = SENARAI_SUBJEK.map((s, idx) => {
+            let isSelected = currentSubjek ? (s === currentSubjek) : (idx === (index % SENARAI_SUBJEK.length));
+            return `<option value="${s}" ${isSelected ? 'selected' : ''}>${s}</option>`;
+          }).join('');
+
+          if (currentGuru && !availableTeachers.includes(currentGuru)) {
+            availableTeachers.push(currentGuru);
+          }
+
+          let guruOpts = availableTeachers.map((g) => {
+            let isSelected = (g === currentGuru);
+            return `<option value="${g}" ${isSelected ? 'selected' : ''}>${g}</option>`;
+          }).join('');
+
+          let defaultGuruPrompt = `<option value="" ${!currentGuru ? 'selected' : ''}>-- Pilih Guru --</option>`;
+          if (availableTeachers.length === 0) {
+            guruOpts = `<option value="">-- TIADA GURU KOSONG (PERTINDIHAN) --</option>`;
+            defaultGuruPrompt = '';
+          }
+
+          container.innerHTML += `
+            <div class="slot-row grid grid-cols-1 sm:grid-cols-4 gap-2 items-center bg-white p-3 rounded-lg border border-[#dde3ec] text-xs sm:text-sm" data-slot-index="${index}" data-start-min="${currentMin}" data-end-min="${endMin}" data-time="${timeRangeStr}">
+              <div class="font-extrabold text-blue-800 flex items-center gap-2">
+                <span class="w-6 h-6 rounded bg-blue-100 text-blue-800 flex items-center justify-center text-xs font-black">${lessonCount++}</span>
+                <span class="slot-time-label">${timeRangeStr}</span>
+              </div>
+              <div>
+                <select class="slot-duration w-full p-2 rounded-lg border border-[#dde3ec] bg-amber-50 font-bold text-amber-900" onchange="updateSlotDuration(${index}, this.value)">
+                  <option value="30" ${slot.duration === 30 ? 'selected' : ''}>Tempoh: 30 Minit</option>
+                  <option value="60" ${slot.duration === 60 ? 'selected' : ''}>Tempoh: 1 Jam</option>
+                </select>
+              </div>
+              <div>
+                <select class="slot-subjek w-full p-2 rounded-lg border border-[#dde3ec] bg-[#f4f6fa] font-semibold" required>
+                  <option value="">-- Pilih Subjek --</option>
+                  ${subjekOpts}
+                </select>
+              </div>
+              <div>
+                <select class="slot-guru w-full p-2 rounded-lg border border-[#dde3ec] bg-[#f4f6fa] font-semibold" onchange="renderDynamicSlotInputs()" required>
+                  ${defaultGuruPrompt}
+                  ${guruOpts}
+                </select>
+              </div>
+            </div>
+          `;
+        }
+
+        currentMin = endMin;
+      });
+    }
+
+    function updateSlotDuration(index, newDuration) {
+      slotConfigurations[index].duration = parseInt(newDuration);
+      renderDynamicSlotInputs();
+    }
+
+    function saveFullDayJadual(e) {
+      e.preventDefault();
+      
+      const rawDate = document.getElementById('jadual-input-date').value;
+      const hari = document.getElementById('jadual-input-hari').value;
+      const tahun = document.getElementById('jadual-input-tahun').value;
+
+      const formattedDate = formatDateFormatted(rawDate);
+
+      const slotRows = document.querySelectorAll('.slot-row');
+      let slotsData = [];
+
+      slotRows.forEach(row => {
+        const timeStr = row.getAttribute('data-time');
+        const subjek = row.querySelector('.slot-subjek').value;
+        const guruSelect = row.querySelector('.slot-guru');
+        const guru = guruSelect ? guruSelect.value : '';
+
+        if (subjek && guru) {
+          slotsData.push({
+            slotMasa: timeStr,
+            subjek: subjek,
+            guru: guru
+          });
+        }
+      });
+
+      if (slotsData.length === 0) {
+        alert("Sila lengkapkan sekurang-kurangnya 1 slot subjek dan guru bertugas.");
+        return;
+      }
+
+      const payload = {
+        tarikh: formattedDate,
+        hari: hari,
+        tahun: tahun,
+        slots: slotsData
+      };
+
+      const btn = document.getElementById('btn-save-jadual');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Menyimpan ke Sheet...';
+
+      fetch(`${APPS_SCRIPT_URL}?action=save_jadual&data=${encodeURIComponent(JSON.stringify(payload))}`)
+        .then(res => res.json())
+        .then(data => {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Simpan & Terbitkan Ke Sheet';
+
+          if (data.status === 'success') {
+            alert(`Jadual PdPR ${tahun} (${formattedDate}) berjaya disimpan ke Google Sheet!`);
+            closeCreateJadualModal();
+            loadInitialBackendData();
+          } else {
+            alert("Ralat menyimpan: " + data.message);
+          }
+        })
+        .catch(err => {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Simpan & Terbitkan Ke Sheet';
+          alert("Gagal berhubung dengan backend server Google Script.");
+        });
+    }
+
+    window.onload = function() {
+      checkAdminSession();
+      loadInitialBackendData();
+    };
+  </script>
+</body>
+</html>
