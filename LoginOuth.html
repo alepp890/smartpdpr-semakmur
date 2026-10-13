@@ -12,6 +12,10 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Identity Services SDK (OAuth 2.0) -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <!-- Muatkan Config Penyambung Backend -->
+  <script src="config.js"></script>
 
   <style>
     :root {
@@ -49,6 +53,28 @@
     .btn-classic-pr:hover {
       background-color: #1a44c2;
     }
+
+    .btn-google-moe {
+      background-color: #ffffff;
+      color: #1f2937;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      padding: 12px 20px;
+      font-weight: 700;
+      font-size: 14px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      transition: all 0.2s ease-in-out;
+    }
+    .btn-google-moe:hover {
+      background-color: #f9fafb;
+      border-color: #9ca3af;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    }
   </style>
 </head>
 <body class="antialiased min-h-screen p-2 sm:p-5 flex flex-col justify-between">
@@ -85,12 +111,33 @@
 
         <div id="login-msg-banner" class="hidden p-3 rounded-lg border text-xs sm:text-sm font-semibold"></div>
 
-        <!-- BORANG LOG MASUK STANDARD -->
+        <!-- UTAMA: LOG MASUK GOOGLE MOE OAUTH -->
+        <div class="space-y-3">
+          <p class="text-xs text-[#667085] text-center">Log masuk menggunakan Google Workspace KPM rasmi (<code class="bg-slate-100 font-bold px-1 rounded border text-blue-800">@moe-dl.edu.my</code>).</p>
+          
+          <button type="button" onclick="triggerGoogleSignIn()" id="btn-google-custom" class="btn-google-moe">
+            <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span>Log Masuk dengan Akaun MOE</span>
+          </button>
+        </div>
+
+        <!-- PEMISAH LOG MASUK MANUAL -->
+        <div class="relative flex py-1 items-center">
+          <div class="flex-grow border-t border-[#dde3ec]"></div>
+          <span class="flex-shrink mx-3 text-[#667085] text-xs font-bold uppercase">Atau Log Masuk Manual</span>
+          <div class="flex-grow border-t border-[#dde3ec]"></div>
+        </div>
+
+        <!-- BORANG LOG MASUK MANUAL / FALLBACK -->
         <form id="form-login-standard" onsubmit="handleLoginSubmit(event)" class="space-y-3.5 text-xs sm:text-sm">
           <div>
             <label class="block font-bold text-[#1b2433] mb-1">Emel DELIMa (@moe-dl.edu.my)</label>
             <input type="email" id="login-email-input" placeholder="g-12345678@moe-dl.edu.my atau m-12049281@moe-dl.edu.my" required class="w-full p-3 rounded-lg border border-[#dde3ec] focus:border-[#1d4ed8] outline-none text-[#1b2433] font-medium">
-            <p class="text-xs text-[#667085] mt-1">Masukkan emel rasmi guru / murid KPM anda untuk semakan peranan.</p>
           </div>
 
           <div>
@@ -184,10 +231,21 @@
 
   <!-- SKRIP LOG MASUK & OAUTH -->
   <script>
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbziw3GU3xZAXn9wuEpFIYfKX1GPBeDNCGQBQ5Yw7VUAqIHHVo4nVZurdoOFJ2Wo3Kju/exec";
-
     let currentUserData = null;
     let pendingFirstTimeEmail = '';
+
+    function parseJwt(token) {
+      try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        return JSON.parse(jsonPayload);
+      } catch (e) {
+        return null;
+      }
+    }
 
     function showBanner(msg, type = 'error') {
       const banner = document.getElementById('login-msg-banner');
@@ -209,6 +267,68 @@
     function demoFill(email, pwd) {
       document.getElementById('login-email-input').value = email;
       document.getElementById('login-password-input').value = pwd;
+    }
+
+    // PENGENDALI OAUTH GOOGLE SIGN IN
+    function triggerGoogleSignIn() {
+      hideBanner();
+      if (window.google && google.accounts && google.accounts.id) {
+        google.accounts.id.prompt();
+      } else {
+        showBanner("SDK Google OAuth sedang dimuatkan, sila cuba seketika lagi.", "error");
+      }
+    }
+
+    function handleGoogleCredentialResponse(response) {
+      hideBanner();
+      if (!response.credential) {
+        showBanner("Pengesahan Google OAuth gagal.", "error");
+        return;
+      }
+
+      const userData = parseJwt(response.credential);
+      if (!userData || !userData.email) {
+        showBanner("Gagal membaca profil pengguna daripada Google.", "error");
+        return;
+      }
+
+      const emailLower = userData.email.toLowerCase().trim();
+
+      if (!emailLower.endsWith('@moe-dl.edu.my')) {
+        showBanner("Akses Ditolak: Hanya akaun emel rasmi MOE (@moe-dl.edu.my) sahaja dibenarkan.", "error");
+        return;
+      }
+
+      showBanner('<i class="fa-solid fa-spinner fa-spin mr-1"></i> Pengesahan OAuth berjaya. Menyemak peranan di pangkalan data...', "success");
+
+      // Hantar emel ke Apps Script Backend untuk semakan peranan (Guru/Murid/Admin)
+      fetch(`${APPS_SCRIPT_URL}?email=${encodeURIComponent(emailLower)}&action=login&oauth=true`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.status === 'success') {
+            currentUserData = data.user;
+            if (data.user.isAdmin || data.role === 'guru_admin') {
+              document.getElementById('modal-admin-nama').innerText = "Selamat Datang, " + (userData.name || data.user.nama);
+              document.getElementById('modal-role-select').classList.remove('hidden');
+            } else {
+              saveSessionAndRedirect(data.role, userData.name || data.user.nama, emailLower, data.user.kelas);
+            }
+          } 
+          else if (data.status === 'first_login_guru') {
+            pendingFirstTimeEmail = emailLower;
+            document.getElementById('firsttime-user-nama').innerText = userData.name || data.nama || 'Guru';
+            document.getElementById('form-login-standard').classList.add('hidden');
+            document.getElementById('form-login-firsttime').classList.remove('hidden');
+            document.getElementById('login-modal-title').innerHTML = '<i class="fa-solid fa-key text-amber-600"></i> Cipta Kata Laluan Baharu';
+            showBanner("Log masuk rasmi kali pertama dikesan. Sila tetapkan kata laluan aplikasi anda.", 'success');
+          } 
+          else {
+            showBanner(data.message || 'Rekod akaun tidak dijumpai dalam Sheet Profil.', 'error');
+          }
+        })
+        .catch(err => {
+          showBanner('Ralat sambungan dengan pelayan Apps Script backend.', 'error');
+        });
     }
 
     function handleLoginSubmit(e) {
@@ -322,8 +442,24 @@
       }
     }
 
-    // Semak jika sudah ada sesi aktif
     window.onload = function() {
+      // Inisialisasi Google OAuth SDK dengan menarik Client ID dari Backend Apps Script secara automatik
+      if (typeof APPS_SCRIPT_URL !== 'undefined') {
+        fetch(`${APPS_SCRIPT_URL}?action=get_config`)
+          .then(res => res.json())
+          .then(config => {
+            if (config.clientId && window.google && google.accounts && google.accounts.id) {
+              google.accounts.id.initialize({
+                client_id: config.clientId,
+                callback: handleGoogleCredentialResponse,
+                hd: "moe-dl.edu.my"
+              });
+            }
+          })
+          .catch(err => console.error("Gagal menarik konfigurasi OAuth dari backend:", err));
+      }
+
+      // Semak jika sudah ada sesi aktif
       const sessionData = localStorage.getItem('pdpr_session');
       if (sessionData) {
         try {
