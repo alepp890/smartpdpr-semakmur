@@ -58,22 +58,27 @@
       background-color: #ffffff;
       color: #1f2937;
       border: 1px solid #d1d5db;
-      border-radius: 8px;
-      padding: 12px 20px;
+      border-radius: 10px;
+      padding: 14px 20px;
       font-weight: 700;
-      font-size: 14px;
+      font-size: 15px;
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 12px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
       transition: all 0.2s ease-in-out;
+      cursor: pointer;
     }
     .btn-google-moe:hover {
-      background-color: #f9fafb;
-      border-color: #9ca3af;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+      background-color: #f8fafc;
+      border-color: #94a3b8;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transform: translateY(-1px);
+    }
+    .btn-google-moe:active {
+      transform: translateY(0);
     }
   </style>
 </head>
@@ -100,23 +105,29 @@
     </header>
 
     <!-- KANDUNGAN UTAMA LOG MASUK -->
-    <main class="flex items-center justify-center my-6">
-      <div class="bg-white rounded-xl max-w-md w-full p-5 sm:p-6 shadow-lg border border-[#dde3ec] space-y-4">
+    <main class="flex items-center justify-center my-10">
+      <div class="bg-white rounded-xl max-w-md w-full p-6 sm:p-8 shadow-xl border border-[#dde3ec] space-y-6">
         
-        <div class="flex justify-between items-center border-b border-[#dde3ec] pb-3">
-          <h3 class="text-base font-extrabold text-[#10264d] flex items-center gap-2" id="login-modal-title">
-            <i class="fa-solid fa-user-shield text-[#1d4ed8]"></i> Pengesahan ID DELIMa KPM
+        <div class="text-center border-b border-[#dde3ec] pb-4 space-y-1">
+          <div class="inline-flex bg-blue-50 text-[#1d4ed8] p-3 rounded-full mb-1">
+            <i class="fa-solid fa-user-shield text-2xl"></i>
+          </div>
+          <h3 class="text-lg font-extrabold text-[#10264d]" id="login-modal-title">
+            Pengesahan ID DELIMa KPM
           </h3>
+          <p class="text-xs text-[#667085]">Portal khas untuk pengurusan guru & murid sekolah</p>
         </div>
 
         <div id="login-msg-banner" class="hidden p-3 rounded-lg border text-xs sm:text-sm font-semibold"></div>
 
-        <!-- UTAMA: LOG MASUK GOOGLE MOE OAUTH -->
-        <div class="space-y-3">
-          <p class="text-xs text-[#667085] text-center">Log masuk menggunakan Google Workspace KPM rasmi (<code class="bg-slate-100 font-bold px-1 rounded border text-blue-800">@moe-dl.edu.my</code>).</p>
+        <!-- UTAMA: TUNGGAL BUTANG LOG MASUK GOOGLE MOE OAUTH -->
+        <div class="space-y-4 py-2">
+          <p class="text-xs text-[#667085] text-center leading-relaxed">
+            Sila log masuk menggunakan akaun rasmi Google Workspace KPM (<code class="bg-blue-50 font-bold px-1.5 py-0.5 rounded border border-blue-200 text-blue-800">@moe-dl.edu.my</code>).
+          </p>
           
           <button type="button" onclick="triggerGoogleSignIn()" id="btn-google-custom" class="btn-google-moe">
-            <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24">
+            <svg class="w-6 h-6 flex-shrink-0" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
               <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
               <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
@@ -126,82 +137,13 @@
           </button>
         </div>
 
-        <!-- PEMISAH LOG MASUK MANUAL -->
-        <div class="relative flex py-1 items-center">
-          <div class="flex-grow border-t border-[#dde3ec]"></div>
-          <span class="flex-shrink mx-3 text-[#667085] text-xs font-bold uppercase">Atau Log Masuk Manual</span>
-          <div class="flex-grow border-t border-[#dde3ec]"></div>
-        </div>
-
-        <!-- BORANG LOG MASUK MANUAL / FALLBACK -->
-        <form id="form-login-standard" onsubmit="handleLoginSubmit(event)" class="space-y-3.5 text-xs sm:text-sm">
-          <div>
-            <label class="block font-bold text-[#1b2433] mb-1">Emel DELIMa (@moe-dl.edu.my)</label>
-            <input type="email" id="login-email-input" placeholder="g-12345678@moe-dl.edu.my atau m-12049281@moe-dl.edu.my" required class="w-full p-3 rounded-lg border border-[#dde3ec] focus:border-[#1d4ed8] outline-none text-[#1b2433] font-medium">
-          </div>
-
-          <div>
-            <div class="flex justify-between items-center mb-1">
-              <label class="block font-bold text-[#1b2433]">Kata Laluan</label>
-              <span class="text-xs text-[#667085]">Murid lalai: <code class="bg-slate-100 font-bold px-1 rounded border text-blue-700">Murid@123</code></span>
-            </div>
-            <div class="relative">
-              <input type="password" id="login-password-input" placeholder="Masukkan kata laluan" required class="w-full p-3 pr-10 rounded-lg border border-[#dde3ec] focus:border-[#1d4ed8] outline-none text-[#1b2433] font-medium">
-              <button type="button" onclick="togglePasswordVisibility('login-password-input')" class="absolute right-3.5 top-3.5 text-[#667085] hover:text-[#1b2433]">
-                <i class="fa-solid fa-eye text-sm"></i>
-              </button>
-            </div>
-          </div>
-
-          <button type="submit" id="btn-submit-login" class="w-full btn-classic-pr py-3 flex items-center justify-center gap-2 text-sm font-bold">
-            <i class="fa-solid fa-right-to-bracket"></i> Semak & Log Masuk
-          </button>
-        </form>
-
-        <!-- BORANG PENETAPAN KATA LALUAN KALI PERTAMA -->
-        <form id="form-login-firsttime" onsubmit="handleCreatePasswordSubmit(event)" class="hidden space-y-3 text-xs sm:text-sm">
-          <div class="bg-amber-50 border border-amber-200 text-amber-900 p-3 rounded-lg text-xs sm:text-sm font-medium">
-            <i class="fa-solid fa-circle-info text-amber-700 mr-1"></i>
-            Selamat datang <strong id="firsttime-user-nama">Guru</strong>! Log masuk kali pertama dikesan. Sila tetapkan kata laluan baharu anda.
-          </div>
-
-          <div>
-            <label class="block font-bold text-[#1b2433] mb-1">Kata Laluan Baharu</label>
-            <input type="password" id="new-password-input" minlength="4" placeholder="Cipta kata laluan baharu" required class="w-full p-3 rounded-lg border border-[#dde3ec] focus:border-[#1d4ed8] outline-none text-[#1b2433]">
-          </div>
-
-          <div>
-            <label class="block font-bold text-[#1b2433] mb-1">Sahkan Kata Laluan Baharu</label>
-            <input type="password" id="confirm-password-input" minlength="4" placeholder="Ulang kata laluan baharu" required class="w-full p-3 rounded-lg border border-[#dde3ec] focus:border-[#1d4ed8] outline-none text-[#1b2433]">
-          </div>
-
-          <button type="submit" id="btn-submit-createpwd" class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-3 rounded-lg transition flex items-center justify-center gap-2 text-sm">
-            <i class="fa-solid fa-floppy-disk"></i> Simpan Kata Laluan & Masuk
-          </button>
-        </form>
-
-        <!-- PEMISAH UJIAN DEMO -->
-        <div class="relative flex py-1 items-center">
-          <div class="flex-grow border-t border-[#dde3ec]"></div>
-          <span class="flex-shrink mx-3 text-[#667085] text-xs font-bold uppercase">Atau Ujian Pantas Demo</span>
-          <div class="flex-grow border-t border-[#dde3ec]"></div>
-        </div>
-
-        <div class="bg-[#f4f6fa] p-3 rounded-xl border border-[#dde3ec]">
-          <div class="grid grid-cols-3 gap-2 text-xs">
-            <button onclick="demoFill('admin@moe-dl.edu.my', 'admin123')" class="bg-[#10264d] hover:bg-[#0a1426] text-white py-2 rounded-lg font-bold transition">Admin</button>
-            <button onclick="demoFill('g-05006920@moe-dl.edu.my', '')" class="bg-[#1d4ed8] hover:bg-blue-700 text-white py-2 rounded-lg font-bold transition">Guru</button>
-            <button onclick="demoFill('m-12049281@moe-dl.edu.my', 'Murid@123')" class="bg-emerald-700 hover:bg-emerald-800 text-white py-2 rounded-lg font-bold transition">Murid</button>
-          </div>
-        </div>
-
       </div>
     </main>
 
     <!-- FOOTER PORTAL -->
     <footer class="bg-[#10264d] text-slate-300 text-xs p-4 text-center rounded-xl border border-[#0d1f3f] flex flex-col sm:flex-row justify-between items-center gap-2">
       <p>© Smart Portal Pengurusan PdPR Sekolah • Kementerian Pendidikan Malaysia</p>
-      <p class="text-slate-400">Google Workspace KPM OAuth: <span class="text-emerald-400 font-bold">Active</span></p>
+      <p class="text-slate-400">Google Workspace KPM OAuth: <span class="text-emerald-400 font-bold">Aktif</span></p>
     </footer>
 
   </div>
@@ -229,23 +171,10 @@
     </div>
   </div>
 
-  <!-- SKRIP LOG MASUK & OAUTH -->
+  <!-- SKRIP LOG MASUK & GOOGLE OAUTH POPUP -->
   <script>
+    let tokenClient = null;
     let currentUserData = null;
-    let pendingFirstTimeEmail = '';
-
-    function parseJwt(token) {
-      try {
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-        return JSON.parse(jsonPayload);
-      } catch (e) {
-        return null;
-      }
-    }
 
     function showBanner(msg, type = 'error') {
       const banner = document.getElementById('login-msg-banner');
@@ -259,166 +188,93 @@
       document.getElementById('login-msg-banner').classList.add('hidden');
     }
 
-    function togglePasswordVisibility(inputId) {
-      const input = document.getElementById(inputId);
-      input.type = input.type === 'password' ? 'text' : 'password';
+    // Inisialisasi Token Client OAuth (GSI Popup)
+    function initGoogleOAuth(clientId) {
+      if (window.google && google.accounts && google.accounts.oauth2) {
+        tokenClient = google.accounts.oauth2.initTokenClient({
+          client_id: clientId,
+          scope: 'email profile openid',
+          callback: handleTokenResponse
+        });
+      } else {
+        setTimeout(() => initGoogleOAuth(clientId), 300);
+      }
     }
 
-    function demoFill(email, pwd) {
-      document.getElementById('login-email-input').value = email;
-      document.getElementById('login-password-input').value = pwd;
-    }
-
-    // PENGENDALI OAUTH GOOGLE SIGN IN
+    // FUNGSI POPUP: Dicetuskan secara terus apabila butang ditekan
     function triggerGoogleSignIn() {
       hideBanner();
-      if (window.google && google.accounts && google.accounts.id) {
-        google.accounts.id.prompt();
+      if (tokenClient) {
+        // Buka popup pengesahan & pilihan akaun Google
+        tokenClient.requestAccessToken({ prompt: 'select_account' });
       } else {
         showBanner("SDK Google OAuth sedang dimuatkan, sila cuba seketika lagi.", "error");
       }
     }
 
-    function handleGoogleCredentialResponse(response) {
-      hideBanner();
-      if (!response.credential) {
-        showBanner("Pengesahan Google OAuth gagal.", "error");
+    // Pengendali Maklum Balas Token dari Popup Google
+    function handleTokenResponse(response) {
+      if (response.error) {
+        showBanner("Pengesahan Google OAuth dibatalkan atau gagal.", "error");
         return;
       }
 
-      const userData = parseJwt(response.credential);
-      if (!userData || !userData.email) {
-        showBanner("Gagal membaca profil pengguna daripada Google.", "error");
-        return;
-      }
+      if (response.access_token) {
+        showBanner('<i class="fa-solid fa-spinner fa-spin mr-1"></i> Mengesahkan akaun Google anda...', "success");
 
-      const emailLower = userData.email.toLowerCase().trim();
-
-      if (!emailLower.endsWith('@moe-dl.edu.my')) {
-        showBanner("Akses Ditolak: Hanya akaun emel rasmi MOE (@moe-dl.edu.my) sahaja dibenarkan.", "error");
-        return;
-      }
-
-      showBanner('<i class="fa-solid fa-spinner fa-spin mr-1"></i> Pengesahan OAuth berjaya. Menyemak peranan di pangkalan data...', "success");
-
-      // Hantar emel ke Apps Script Backend untuk semakan peranan (Guru/Murid/Admin)
-      fetch(`${APPS_SCRIPT_URL}?email=${encodeURIComponent(emailLower)}&action=login&oauth=true`)
+        // Dapatkan profil e-mel pengguna secara terus dari Google API
+        fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+          headers: { Authorization: `Bearer ${response.access_token}` }
+        })
         .then(res => res.json())
-        .then(data => {
-          if (data.status === 'success') {
-            currentUserData = data.user;
-            if (data.user.isAdmin || data.role === 'guru_admin') {
-              document.getElementById('modal-admin-nama').innerText = "Selamat Datang, " + (userData.name || data.user.nama);
-              document.getElementById('modal-role-select').classList.remove('hidden');
-            } else {
-              saveSessionAndRedirect(data.role, userData.name || data.user.nama, emailLower, data.user.kelas);
-            }
-          } 
-          else if (data.status === 'first_login_guru') {
-            pendingFirstTimeEmail = emailLower;
-            document.getElementById('firsttime-user-nama').innerText = userData.name || data.nama || 'Guru';
-            document.getElementById('form-login-standard').classList.add('hidden');
-            document.getElementById('form-login-firsttime').classList.remove('hidden');
-            document.getElementById('login-modal-title').innerHTML = '<i class="fa-solid fa-key text-amber-600"></i> Cipta Kata Laluan Baharu';
-            showBanner("Log masuk rasmi kali pertama dikesan. Sila tetapkan kata laluan aplikasi anda.", 'success');
-          } 
-          else {
-            showBanner(data.message || 'Rekod akaun tidak dijumpai dalam Sheet Profil.', 'error');
+        .then(userInfo => {
+          if (!userInfo || !userInfo.email) {
+            showBanner("Gagal membaca profil e-mel daripada Google.", "error");
+            return;
           }
+
+          const emailLower = userInfo.email.toLowerCase().trim();
+
+          // Kawalan Domain Ketat MOE
+          if (!emailLower.endsWith('@moe-dl.edu.my')) {
+            showBanner("Akses Ditolak: Hanya emel rasmi MOE (@moe-dl.edu.my) sahaja dibenarkan.", "error");
+            return;
+          }
+
+          showBanner('<i class="fa-solid fa-spinner fa-spin mr-1"></i> Pengesahan OAuth berjaya. Menyemak peranan di pangkalan data...', "success");
+
+          const backendUrl = (typeof APPS_SCRIPT_URL !== 'undefined') ? APPS_SCRIPT_URL : "";
+          if (!backendUrl) {
+            showBanner("Ralat: APPS_SCRIPT_URL tidak dijumpai dalam config.js", "error");
+            return;
+          }
+
+          // Semak peranan pengguna dalam Apps Script backend
+          fetch(`${backendUrl}?email=${encodeURIComponent(emailLower)}&action=login&oauth=true`)
+            .then(res => res.json())
+            .then(data => {
+              if (data.status === 'success') {
+                currentUserData = data.user;
+                const displayName = userInfo.name || data.user.nama;
+
+                if (data.user.isAdmin || data.role === 'guru_admin') {
+                  document.getElementById('modal-admin-nama').innerText = "Selamat Datang, " + displayName;
+                  document.getElementById('modal-role-select').classList.remove('hidden');
+                } else {
+                  saveSessionAndRedirect(data.role, displayName, emailLower, data.user.kelas);
+                }
+              } else {
+                showBanner(data.message || 'Rekod akaun tidak dijumpai dalam Sheet Profil.', 'error');
+              }
+            })
+            .catch(err => {
+              showBanner('Ralat sambungan dengan pelayan Apps Script backend.', 'error');
+            });
         })
         .catch(err => {
-          showBanner('Ralat sambungan dengan pelayan Apps Script backend.', 'error');
+          showBanner("Ralat semasa mengambil maklumat akaun daripada Google.", "error");
         });
-    }
-
-    function handleLoginSubmit(e) {
-      e.preventDefault();
-      hideBanner();
-
-      const emailInput = document.getElementById('login-email-input').value.trim().toLowerCase();
-      const passwordInput = document.getElementById('login-password-input').value.trim();
-
-      if (!emailInput.endsWith('@moe-dl.edu.my')) {
-        showBanner('Sila gunakan emel rasmi ID DELIMa (@moe-dl.edu.my).', 'error');
-        return;
       }
-
-      const btn = document.getElementById('btn-submit-login');
-      btn.disabled = true;
-      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Menyemak...';
-
-      fetch(`${APPS_SCRIPT_URL}?email=${encodeURIComponent(emailInput)}&password=${encodeURIComponent(passwordInput)}&action=login`)
-        .then(res => res.json())
-        .then(data => {
-          btn.disabled = false;
-          btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Semak & Log Masuk';
-
-          if (data.status === 'success') {
-            currentUserData = data.user;
-
-            if (data.user.isAdmin || data.role === 'guru_admin') {
-              document.getElementById('modal-admin-nama').innerText = "Selamat Datang, " + data.user.nama;
-              document.getElementById('modal-role-select').classList.remove('hidden');
-            } else {
-              saveSessionAndRedirect(data.role, data.user.nama, data.user.email, data.user.kelas);
-            }
-          } 
-          else if (data.status === 'first_login_guru') {
-            pendingFirstTimeEmail = emailInput;
-            document.getElementById('firsttime-user-nama').innerText = data.nama || 'Guru';
-            document.getElementById('form-login-standard').classList.add('hidden');
-            document.getElementById('form-login-firsttime').classList.remove('hidden');
-            document.getElementById('login-modal-title').innerHTML = '<i class="fa-solid fa-key text-amber-600"></i> Cipta Kata Laluan Baharu';
-            showBanner(data.message, 'success');
-          } 
-          else {
-            showBanner(data.message || 'Log masuk gagal. Sila semak emel dan kata laluan.', 'error');
-          }
-        })
-        .catch(err => {
-          btn.disabled = false;
-          btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Semak & Log Masuk';
-          showBanner('Ralat sambungan API Backend.', 'error');
-        });
-    }
-
-    function handleCreatePasswordSubmit(e) {
-      e.preventDefault();
-      hideBanner();
-
-      const newPwd = document.getElementById('new-password-input').value.trim();
-      const confirmPwd = document.getElementById('confirm-password-input').value.trim();
-
-      if (newPwd !== confirmPwd) {
-        showBanner('Kata laluan baharu dan sahkan kata laluan tidak padan!', 'error');
-        return;
-      }
-
-      const btn = document.getElementById('btn-submit-createpwd');
-      btn.disabled = true;
-
-      fetch(`${APPS_SCRIPT_URL}?email=${encodeURIComponent(pendingFirstTimeEmail)}&action=create_password&new_password=${encodeURIComponent(newPwd)}`)
-        .then(res => res.json())
-        .then(data => {
-          btn.disabled = false;
-          if (data.status === 'success') {
-            alert('Kata laluan baharu berjaya disimpan!');
-            currentUserData = data.user;
-
-            if (data.user.isAdmin || data.role === 'guru_admin') {
-              document.getElementById('modal-admin-nama').innerText = "Selamat Datang, " + data.user.nama;
-              document.getElementById('modal-role-select').classList.remove('hidden');
-            } else {
-              saveSessionAndRedirect(data.role, data.user.nama, data.user.email, data.user.kelas);
-            }
-          } else {
-            showBanner(data.message || 'Gagal menyimpan kata laluan baharu.', 'error');
-          }
-        })
-        .catch(err => {
-          btn.disabled = false;
-          showBanner('Ralat sambungan.', 'error');
-        });
     }
 
     function confirmAdminRoleChoice(selectedRole) {
@@ -443,17 +299,13 @@
     }
 
     window.onload = function() {
-      // Inisialisasi Google OAuth SDK dengan menarik Client ID dari Backend Apps Script secara automatik
-      if (typeof APPS_SCRIPT_URL !== 'undefined') {
-        fetch(`${APPS_SCRIPT_URL}?action=get_config`)
+      const backendUrl = (typeof APPS_SCRIPT_URL !== 'undefined') ? APPS_SCRIPT_URL : "";
+      if (backendUrl) {
+        fetch(`${backendUrl}?action=get_config`)
           .then(res => res.json())
           .then(config => {
-            if (config.clientId && window.google && google.accounts && google.accounts.id) {
-              google.accounts.id.initialize({
-                client_id: config.clientId,
-                callback: handleGoogleCredentialResponse,
-                hd: "moe-dl.edu.my"
-              });
+            if (config.clientId) {
+              initGoogleOAuth(config.clientId);
             }
           })
           .catch(err => console.error("Gagal menarik konfigurasi OAuth dari backend:", err));
