@@ -12,6 +12,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Muatkan Config Penyambung Backend -->
+  <script src="config.js"></script>
 
   <style>
     :root {
@@ -96,51 +98,51 @@
     }
   </style>
 </head>
-<body class="antialiased min-h-screen p-2 sm:p-5">
+<body class="antialiased min-h-screen">
 
-  <div class="max-w-7xl mx-auto space-y-5">
-    
-    <!-- HEADER PORTAL -->
-    <header class="hdr-classic rounded-xl p-4 sm:p-5 shadow-sm border border-[#0d1f3f]">
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
-          <div class="bg-white/10 text-white p-3 rounded-xl border border-white/20">
-            <i class="fa-solid fa-graduation-cap text-2xl sm:text-3xl"></i>
-          </div>
-          <div>
-            <h1 class="text-xl font-extrabold tracking-tight text-white uppercase">SMART PORTAL PdPR ONLINE</h1>
-            <p class="text-xs sm:text-sm text-slate-300 font-medium">Ruang Murid Smart PdPR</p>
-          </div>
+  <!-- HEADER PORTAL (RAPAT ATAS, LEBAR PENUH, ANEKA BUTANG) -->
+  <header class="hdr-classic w-full border-b border-[#0d1f3f] py-2 px-3 sm:px-6 shadow-sm sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
+      
+      <div class="flex items-center gap-2.5 cursor-pointer" onclick="window.location.href='index.html'">
+        <div class="bg-white/10 text-white p-1.5 rounded-lg border border-white/20">
+          <i class="fa-solid fa-graduation-cap text-lg sm:text-xl"></i>
         </div>
-
-        <div class="flex items-center gap-3" id="nav-user-area">
-          <div class="flex items-center gap-3 bg-[#0a1426] p-2 px-3.5 rounded-lg border border-[#0d1f3f]">
-            <div class="text-left">
-              <p class="text-xs text-slate-300">Selamat Datang,</p>
-              <span id="student-user-display-name" class="text-xs sm:text-sm font-bold text-white">Murid DELIMa</span>
-            </div>
-            <button onclick="logout()" class="bg-rose-700 hover:bg-rose-800 text-white text-xs font-bold px-3 py-1.5 rounded transition flex items-center gap-1">
-              <i class="fa-solid fa-power-off"></i> Keluar
-            </button>
-          </div>
-        </div>
+        <h1 class="text-sm sm:text-base font-extrabold tracking-tight text-white uppercase">SMART PORTAL PdPR ONLINE</h1>
       </div>
-    </header>
+
+      <div class="flex items-center gap-2">
+        <button onclick="window.location.href='index.html'" class="bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-3 py-1.5 rounded-lg border border-white/20 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-house"></i> <span class="hidden sm:inline">Portal Utama</span>
+        </button>
+        <button onclick="logout()" class="bg-rose-700 hover:bg-rose-800 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
+          <i class="fa-solid fa-power-off"></i> <span>Keluar</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- KANDUNGAN UTAMA DASHBOARD -->
+  <div class="max-w-7xl mx-auto p-2 sm:p-5 space-y-5">
 
     <!-- DASHBOARD MURID -->
     <main id="view-murid" class="border border-[#dde3ec] rounded-xl bg-white overflow-hidden shadow-sm space-y-0">
       
-      <!-- HEADER DASHBOARD MURID -->
+      <!-- HEADER DASHBOARD MURID / BANNER UTAMA -->
       <div class="flex justify-between items-center hdr-classic p-4 sm:p-5 border-b border-[#0d1f3f]">
         <div class="flex items-center gap-3">
           <button onclick="toggleMuridSidebar()" class="bg-white/10 hover:bg-white/20 text-white p-2.5 rounded-lg border border-white/20 transition text-base">
             <i class="fa-solid fa-bars"></i>
           </button>
           <div>
-            <h2 class="text-base sm:text-lg font-extrabold flex items-center gap-2">
-              <i class="fa-solid fa-user-graduate text-blue-300"></i> Ruang Murid Smart PdPR
+            <p class="text-xs text-slate-300 font-medium">Selamat Datang,</p>
+            <h2 class="text-lg sm:text-2xl font-black text-white leading-tight" id="student-user-display-name">
+              Murid DELIMa
             </h2>
-            <p class="text-xs sm:text-sm text-slate-300">Akses Kelas Hari Ini, Tugasan & Rekod Kehadiran Automatik DELIMa.</p>
+            <p class="text-xs sm:text-sm text-blue-200 font-semibold mt-0.5">
+              <span id="student-user-display-email"></span> • <span id="student-user-display-kelas">Tahun 1</span>
+            </p>
           </div>
         </div>
         <span id="student-kelas-badge" class="bg-emerald-700 text-white border border-emerald-400/30 text-xs sm:text-sm font-bold px-3 py-1.5 rounded-lg">
@@ -287,7 +289,7 @@
 
   <!-- SKRIP DASHBOARD MURID -->
   <script>
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbziw3GU3xZAXn9wuEpFIYfKX1GPBeDNCGQBQ5Yw7VUAqIHHVo4nVZurdoOFJ2Wo3Kju/exec";
+    const backendUrl = (typeof APPS_SCRIPT_URL !== 'undefined') ? APPS_SCRIPT_URL : "https://script.google.com/macros/s/AKfycbziw3GU3xZAXn9wuEpFIYfKX1GPBeDNCGQBQ5Yw7VUAqIHHVo4nVZurdoOFJ2Wo3Kju/exec";
 
     let listJadualMaster = [];
     let listTugasanMaster = [];
@@ -324,12 +326,21 @@
 
       try {
         const session = JSON.parse(sessionData);
-        if (session.role !== 'murid' && session.role !== 'admin') {
+        if (session.role !== 'murid' && session.role !== 'admin' && session.role !== 'guru_admin') {
           window.location.href = "LoginOuth.html";
           return;
         }
         currentUserSession = session;
-        document.getElementById('student-user-display-name').innerText = session.username || "Murid DELIMa";
+
+        const nameElem = document.getElementById('student-user-display-name');
+        if (nameElem) nameElem.innerText = session.username || "Murid DELIMa";
+
+        const emailElem = document.getElementById('student-user-display-email');
+        if (emailElem) emailElem.innerText = session.email || "";
+
+        const kelasElem = document.getElementById('student-user-display-kelas');
+        if (kelasElem) kelasElem.innerText = session.kelas || "Tahun 1";
+
       } catch (e) {
         window.location.href = "LoginOuth.html";
       }
@@ -341,7 +352,7 @@
     }
 
     function loadInitialBackendData() {
-      fetch(`${APPS_SCRIPT_URL}?action=get_jadual`)
+      fetch(`${backendUrl}?action=get_jadual`)
         .then(res => res.json())
         .then(data => {
           if (data.status === 'success' && data.jadualList) {
@@ -351,7 +362,7 @@
         })
         .catch(err => console.error("Gagal memuat turun Jadual_PdPR:", err));
 
-      fetch(`${APPS_SCRIPT_URL}?action=get_tugasan`)
+      fetch(`${backendUrl}?action=get_tugasan`)
         .then(res => res.json())
         .then(data => {
           if (data.status === 'success' && data.tugasanList) {
@@ -499,19 +510,23 @@
       if (btnRekod) btnRekod.className = defaultBtnClass;
 
       if (viewType === 'today') {
-        document.getElementById('murid-subview-today').classList.remove('hidden');
+        const target = document.getElementById('murid-subview-today');
+        if (target) target.classList.remove('hidden');
         if (btnToday) btnToday.className = activeBtnClass;
         renderMuridTodayClasses();
       } else if (viewType === 'jadual-minggu') {
-        document.getElementById('murid-subview-jadual-minggu').classList.remove('hidden');
+        const target = document.getElementById('murid-subview-jadual-minggu');
+        if (target) target.classList.remove('hidden');
         if (btnJadualMinggu) btnJadualMinggu.className = activeBtnClass;
         renderMuridWeeklyScheduleTable();
       } else if (viewType === 'tugasan') {
-        document.getElementById('murid-subview-tugasan').classList.remove('hidden');
+        const target = document.getElementById('murid-subview-tugasan');
+        if (target) target.classList.remove('hidden');
         if (btnTugasan) btnTugasan.className = activeBtnClass;
         renderMuridAllTasks();
       } else if (viewType === 'rekod') {
-        document.getElementById('murid-subview-rekod').classList.remove('hidden');
+        const target = document.getElementById('murid-subview-rekod');
+        if (target) target.classList.remove('hidden');
         if (btnRekod) btnRekod.className = activeBtnClass;
         renderMuridAttendanceHistory();
       }
@@ -595,8 +610,11 @@
           badgeHtml = `<span class="bg-slate-100 text-slate-700 border border-slate-300 text-[10px] font-extrabold px-2 py-0.5 rounded-full">Telah selesai</span>`;
         }
 
+        let subjekClean = (slot.subjek || '').replace(/'/g, "\\'");
+        let masaClean = (slot.slotMasa || '').replace(/'/g, "\\'");
+
         html += `
-          <div onclick="openMuridTaskModal('${slot.id}', '${existingTask ? existingTask.id : ''}', '${(slot.subjek || '').replace(/'/g, "\\'")}', '${(slot.slotMasa || '').replace(/'/g, "\\\'")}')" class="card bg-white border ${isLive ? 'border-emerald-500 ring-2 ring-emerald-400/20' : 'border-[#dde3ec]'} p-3 sm:p-3.5 flex flex-col justify-between items-center text-center cursor-pointer hover:border-blue-600 hover:shadow-md transition relative space-y-2 min-h-[140px]">
+          <div onclick="openMuridTaskModal('${slot.id}', '${existingTask ? existingTask.id : ''}', '${subjekClean}', '${masaClean}')" class="card bg-white border ${isLive ? 'border-emerald-500 ring-2 ring-emerald-400/20' : 'border-[#dde3ec]'} p-3 sm:p-3.5 flex flex-col justify-between items-center text-center cursor-pointer hover:border-blue-600 hover:shadow-md transition relative space-y-2 min-h-[140px]">
             
             <div class="w-full flex justify-end">
               ${badgeHtml}
@@ -884,7 +902,7 @@
         btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Menghantar ke Google Sheet & Drive...';
       }
 
-      fetch(APPS_SCRIPT_URL, {
+      fetch(backendUrl, {
         method: "POST",
         body: JSON.stringify({
           action: "submit_tugasan_murid",
@@ -953,6 +971,8 @@
         let taskKey = getTaskKey(null, t, t.id);
         let submittedRecord = localStorage.getItem(`pdpr_submitted_${taskKey}_${studentEmail}`);
         let timeStatus = getClassTimeStatus(t.tarikh, t.slotMasa);
+        let subjekClean = (t.subjek || '').replace(/'/g, "\\'");
+        let masaClean = (t.slotMasa || '').replace(/'/g, "\\'");
 
         html += `
           <div class="card p-4 bg-white border border-[#dde3ec] space-y-2.5">
@@ -976,7 +996,7 @@
                   <i class="fa-solid fa-lock text-xs"></i> Kelas belum bermula
                 </span>
               ` : `
-                <button onclick="openMuridTaskModal('', '${t.id}', '${(t.subjek \vert{}\vert{} '').replace(/'/g, "\\'")}', '${(t.slotMasa || '').replace(/'/g, "\\\'")}')" class="btn-classic-pr text-xs py-1.5 px-3 flex items-center gap-1.5 font-bold">
+                <button onclick="openMuridTaskModal('', '${t.id}', '${subjekClean}', '${masaClean}')" class="btn-classic-pr text-xs py-1.5 px-3 flex items-center gap-1.5 font-bold">
                   <i class="fa-solid fa-paper-plane"></i> Hantar Tugasan
                 </button>
               `)}
