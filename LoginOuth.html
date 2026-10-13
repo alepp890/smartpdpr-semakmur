@@ -302,28 +302,24 @@
     }
 
     window.onload = function() {
-      const backendUrl = (typeof APPS_SCRIPT_URL !== 'undefined') ? APPS_SCRIPT_URL : "";
-      if (backendUrl) {
-        fetch(`${backendUrl}?action=get_config`)
-          .then(res => res.json())
-          .then(config => {
-            if (config.clientId) {
-              initGoogleOAuth(config.clientId);
-            }
-          })
-          .catch(err => console.error("Gagal menarik konfigurasi OAuth dari backend:", err));
-      }
+  // Terus inisialisasi Google OAuth secara pantas dari config.js
+  if (typeof GOOGLE_CLIENT_ID !== 'undefined' && GOOGLE_CLIENT_ID) {
+    initGoogleOAuth(GOOGLE_CLIENT_ID);
+  } else {
+    showBanner("Ralat: GOOGLE_CLIENT_ID tidak dijumpai dalam config.js", "error");
+  }
 
-      const sessionData = localStorage.getItem('pdpr_session');
-      if (sessionData) {
-        try {
-          const session = JSON.parse(sessionData);
-          if (session.role) {
-            saveSessionAndRedirect(session.role, session.username, session.email, session.kelas);
-          }
-        } catch (e) {}
+  // Semak jika sudah ada sesi aktif
+  const sessionData = localStorage.getItem('pdpr_session');
+  if (sessionData) {
+    try {
+      const session = JSON.parse(sessionData);
+      if (session.role) {
+        saveSessionAndRedirect(session.role, session.username, session.email, session.kelas);
       }
-    };
+    } catch (e) {}
+  }
+};
   </script>
 </body>
 </html>
