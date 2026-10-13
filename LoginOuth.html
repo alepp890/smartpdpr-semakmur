@@ -19,7 +19,7 @@
 
   <style>
     :root {
-      --bg-page: #f8fafc;
+      --bg-page: #e2e8f0;
       --navy-brand: #0f172a;
     }
 
@@ -40,7 +40,7 @@
     .btn-google-corporate {
       background-color: #ffffff;
       color: #0f172a;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #cbd5e1;
       border-radius: 12px;
       padding: 12px 20px;
       font-weight: 600;
@@ -50,14 +50,14 @@
       align-items: center;
       justify-content: center;
       gap: 12px;
-      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03);
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       cursor: pointer;
     }
     .btn-google-corporate:hover {
       background-color: #f8fafc;
-      border-color: #cbd5e1;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+      border-color: #94a3b8;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
       transform: translateY(-1px);
     }
     .btn-google-corporate:active {
@@ -65,9 +65,19 @@
       box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
     }
 
-    /* Ambient Decorative Gradient Background */
+    /* High Contrast Ambient Gradient Background */
     .bg-ambient {
-      background: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.05) 0%, rgba(248, 250, 252, 0) 70%);
+      background: radial-gradient(circle at 50% 25%, #dbeafe 0%, #e2e8f0 50%, #cbd5e1 100%);
+    }
+
+    /* Custom Interactive Progress Bar Animation */
+    @keyframes progressSlide {
+      0% { width: 0%; margin-left: 0%; }
+      50% { width: 70%; margin-left: 15%; }
+      100% { width: 100%; margin-left: 0%; }
+    }
+    .animate-progress-slide {
+      animation: progressSlide 1.8s ease-in-out infinite;
     }
   </style>
 </head>
@@ -76,7 +86,7 @@
   <div class="w-full flex flex-col min-h-screen justify-between">
     
     <!-- HEADER PORTAL KORPORAT -->
-    <header class="hdr-corporate py-3.5 px-4 sm:px-8 border-b border-slate-800/80 shadow-sm sticky top-0 z-30">
+    <header class="hdr-corporate py-3.5 px-4 sm:px-8 border-b border-slate-800/80 shadow-md sticky top-0 z-30">
       <div class="max-w-7xl mx-auto flex items-center justify-between">
         <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
           <div class="bg-gradient-to-tr from-blue-600 to-indigo-600 text-white p-2 rounded-xl shadow-md shadow-blue-500/20 border border-white/10">
@@ -95,12 +105,15 @@
       </div>
     </header>
 
-    <!-- KANDUNGAN UTAMA LOG MASUK (KAD ELEGAN & PROFESIONAL) -->
-    <main class="flex-grow flex items-center justify-center p-4 sm:p-6 my-4">
-      <div class="bg-white/90 backdrop-blur-md rounded-2xl max-w-sm w-full p-7 sm:p-9 shadow-xl shadow-slate-200/60 border border-slate-200/80 space-y-6 transition-all duration-300">
+    <!-- KANDUNGAN UTAMA LOG MASUK (KAD PUTIH BERKONTRA TINGGI & ELEGAN) -->
+    <main class="flex-grow flex items-center justify-center p-4 sm:p-6 my-6">
+      <div class="relative bg-white rounded-2xl max-w-sm w-full p-7 sm:p-9 shadow-2xl shadow-slate-900/10 border border-slate-300/80 space-y-6 transition-all duration-300 overflow-hidden">
         
+        <!-- TOP ACCENT BAR -->
+        <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500"></div>
+
         <!-- TAJUK UTAMA & IKON ELEGAN -->
-        <div class="text-center space-y-2">
+        <div class="text-center space-y-2 pt-1">
           <div class="inline-flex bg-gradient-to-tr from-blue-50 to-indigo-50 text-blue-600 p-3.5 rounded-2xl border border-blue-100 shadow-sm mb-1">
             <i class="fa-solid fa-shield-halved text-2xl"></i>
           </div>
@@ -113,7 +126,7 @@
         </div>
 
         <!-- SEKSYEN BUTANG UTAMA & MESEJ STATUS DI BAWAH -->
-        <div class="space-y-3.5 pt-1">
+        <div class="space-y-4 pt-1">
           <button type="button" onclick="triggerGoogleSignIn()" id="btn-google-custom" class="btn-google-corporate">
             <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -124,13 +137,13 @@
             <span>Log Masuk dengan Akaun MOE</span>
           </button>
 
-          <!-- MESEJ STATUS / RALAT (DI BAWAH BUTANG - TULISAN BIASA/MINIMA) -->
-          <div id="login-msg-banner" class="hidden text-xs text-center py-2 px-1 text-slate-500 font-normal leading-relaxed transition-all duration-200"></div>
+          <!-- MESEJ STATUS / RALAT (DI BAWAH BUTANG - ELEGAN, BORDER NIPIS & DI TENGAH) -->
+          <div id="login-msg-banner" class="hidden text-xs text-center py-2.5 px-3.5 rounded-xl border border-slate-200 bg-slate-50 transition-all duration-300 shadow-sm"></div>
         </div>
 
         <!-- FOOTER KECIL KAD -->
-        <div class="pt-2 border-t border-slate-100 text-center">
-          <span class="text-[11px] text-slate-400 font-medium inline-flex items-center gap-1.5">
+        <div class="pt-3 border-t border-slate-100 text-center">
+          <span class="text-[11px] text-slate-500 font-medium inline-flex items-center gap-1.5">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
             Pengesahan Rasmi Google Workspace KPM
           </span>
@@ -149,9 +162,47 @@
 
   </div>
 
+  <!-- OVERLAY FREEZE SCREEN / LOADING INTERAKTIF SEMASA MENYEMAK PANGKALAN DATA -->
+  <div id="loading-overlay" class="hidden fixed inset-0 bg-slate-950/70 backdrop-blur-md z-50 flex items-center justify-center p-4 transition-all duration-300">
+    <div class="bg-white/95 backdrop-blur-xl border border-slate-200 rounded-2xl p-7 sm:p-8 max-w-sm w-full text-center shadow-2xl space-y-5 relative overflow-hidden">
+      
+      <!-- Top Line Accent -->
+      <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 animate-pulse"></div>
+
+      <!-- Interactive Animated Spinner & Database Icon -->
+      <div class="relative w-20 h-20 mx-auto flex items-center justify-center">
+        <!-- Outer Glowing Pulse Ring -->
+        <div class="absolute inset-0 rounded-full border-2 border-blue-500/20 animate-ping"></div>
+        <!-- Middle Spinning Ring -->
+        <div class="absolute inset-0 rounded-full border-4 border-transparent border-t-blue-600 border-r-indigo-600 animate-spin"></div>
+        <!-- Center Icon -->
+        <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center shadow-inner">
+          <i class="fa-solid fa-database text-xl animate-pulse"></i>
+        </div>
+      </div>
+
+      <!-- Loading Text Details -->
+      <div class="space-y-1.5">
+        <h3 class="text-base font-bold text-slate-800 tracking-tight" id="loading-title">Menyemak Pangkalan Data</h3>
+        <p class="text-xs text-slate-500 font-medium" id="loading-text">Mengesahkan rekod & peranan akaun anda...</p>
+      </div>
+
+      <!-- Animated Interactive Progress Bar -->
+      <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+        <div class="bg-gradient-to-r from-blue-600 to-indigo-600 h-full rounded-full animate-progress-slide"></div>
+      </div>
+
+      <p class="text-[11px] text-slate-400 font-medium flex items-center justify-center gap-1.5">
+        <i class="fa-solid fa-lock text-slate-400 text-[10px]"></i>
+        <span>Sambungan Selamat KPM DELIMa</span>
+      </p>
+    </div>
+  </div>
+
   <!-- MODAL PILIHAN PERANAN (ADMIN / GURU) -->
   <div id="modal-role-select" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 text-center space-y-5">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 text-center space-y-5 relative overflow-hidden">
+      <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-600 to-indigo-600"></div>
       <div class="inline-flex bg-slate-900 text-white p-3.5 rounded-2xl shadow-md">
         <i class="fa-solid fa-user-gear text-2xl"></i>
       </div>
@@ -177,24 +228,53 @@
     let tokenClient = null;
     let currentUserData = null;
 
-    // FUNGSI PAPAR MESEJ STATUS MINIMA DI BAWAH BUTANG
+    // FUNGSI SKRIN FREEZE / LOADING INTERAKTIF
+    function showLoading(text = "Menyemak pangkalan data...") {
+      const overlay = document.getElementById('loading-overlay');
+      const txtEl = document.getElementById('loading-text');
+      if (txtEl) txtEl.innerText = text;
+      if (overlay) overlay.classList.remove('hidden');
+    }
+
+    function hideLoading() {
+      const overlay = document.getElementById('loading-overlay');
+      if (overlay) overlay.classList.add('hidden');
+    }
+
+    // FUNGSI PAPAR MESEJ STATUS DI BAWAH BUTANG (BORDER NIPIS, BERWARNA, DI TENGAH)
     function showBanner(msg, type = 'error') {
       const banner = document.getElementById('login-msg-banner');
-      banner.classList.remove('hidden', 'text-rose-600', 'text-emerald-600', 'text-slate-500');
+      banner.classList.remove(
+        'hidden',
+        'border-rose-200', 'bg-rose-50/90', 'text-rose-700',
+        'border-emerald-200', 'bg-emerald-50/90', 'text-emerald-700',
+        'border-blue-200', 'bg-blue-50/90', 'text-blue-700',
+        'border-slate-200', 'bg-slate-50', 'text-slate-600'
+      );
       
+      let icon = 'fa-circle-info';
+      let iconColor = 'text-blue-500';
+
       if (type === 'error') {
-        banner.classList.add('text-rose-600');
+        banner.classList.add('border-rose-200', 'bg-rose-50/90', 'text-rose-700');
+        icon = 'fa-circle-exclamation';
+        iconColor = 'text-rose-500';
       } else if (type === 'success') {
-        banner.classList.add('text-emerald-600');
+        banner.classList.add('border-emerald-200', 'bg-emerald-50/90', 'text-emerald-700');
+        icon = 'fa-circle-check';
+        iconColor = 'text-emerald-500';
       } else {
-        banner.classList.add('text-slate-500');
+        banner.classList.add('border-blue-200', 'bg-blue-50/90', 'text-blue-700');
+        icon = 'fa-circle-info';
+        iconColor = 'text-blue-500';
       }
 
-      banner.innerHTML = msg;
+      banner.innerHTML = `<div class="flex items-center justify-center gap-2 font-medium leading-relaxed"><i class="fa-solid ${icon} ${iconColor} text-xs flex-shrink-0"></i><span>${msg}</span></div>`;
     }
 
     function hideBanner() {
-      document.getElementById('login-msg-banner').classList.add('hidden');
+      const banner = document.getElementById('login-msg-banner');
+      banner.classList.add('hidden');
     }
 
     // Inisialisasi Token Client OAuth (GSI Popup)
@@ -221,11 +301,13 @@
 
     function handleTokenResponse(response) {
       if (response.error) {
+        hideLoading();
         showBanner("Pengesahan Google OAuth dibatalkan.", "info");
         return;
       }
 
       if (response.access_token) {
+        showLoading("Mengesahkan akaun Google anda...");
         showBanner("Mengesahkan akaun anda...", "info");
 
         fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
@@ -234,6 +316,7 @@
         .then(res => res.json())
         .then(userInfo => {
           if (!userInfo || !userInfo.email) {
+            hideLoading();
             showBanner("Gagal membaca profil e-mel daripada Google.", "error");
             return;
           }
@@ -241,14 +324,17 @@
           const emailLower = userInfo.email.toLowerCase().trim();
 
           if (!emailLower.endsWith('@moe-dl.edu.my')) {
+            hideLoading();
             showBanner("Sila gunakan emel rasmi MOE (@moe-dl.edu.my).", "error");
             return;
           }
 
+          showLoading("Menyemak peranan di pangkalan data KPM...");
           showBanner("Menyemak peranan di pangkalan data...", "info");
 
           const backendUrl = (typeof APPS_SCRIPT_URL !== 'undefined') ? APPS_SCRIPT_URL : "";
           if (!backendUrl) {
+            hideLoading();
             showBanner("Ralat konfigurasi pelayan backend.", "error");
             return;
           }
@@ -256,6 +342,7 @@
           fetch(`${backendUrl}?email=${encodeURIComponent(emailLower)}&action=login&oauth=true`)
             .then(res => res.json())
             .then(data => {
+              hideLoading();
               if (data.status === 'success') {
                 currentUserData = data.user;
                 const displayName = userInfo.name || data.user.nama;
@@ -271,10 +358,12 @@
               }
             })
             .catch(err => {
+              hideLoading();
               showBanner("Ralat sambungan dengan pelayan backend.", "error");
             });
         })
         .catch(err => {
+          hideLoading();
           showBanner("Ralat semasa mengambil maklumat akaun.", "error");
         });
       }
@@ -302,24 +391,24 @@
     }
 
     window.onload = function() {
-  // Terus inisialisasi Google OAuth secara pantas dari config.js
-  if (typeof GOOGLE_CLIENT_ID !== 'undefined' && GOOGLE_CLIENT_ID) {
-    initGoogleOAuth(GOOGLE_CLIENT_ID);
-  } else {
-    showBanner("Ralat: GOOGLE_CLIENT_ID tidak dijumpai dalam config.js", "error");
-  }
-
-  // Semak jika sudah ada sesi aktif
-  const sessionData = localStorage.getItem('pdpr_session');
-  if (sessionData) {
-    try {
-      const session = JSON.parse(sessionData);
-      if (session.role) {
-        saveSessionAndRedirect(session.role, session.username, session.email, session.kelas);
+      // Terus inisialisasi Google OAuth secara pantas dari config.js
+      if (typeof GOOGLE_CLIENT_ID !== 'undefined' && GOOGLE_CLIENT_ID) {
+        initGoogleOAuth(GOOGLE_CLIENT_ID);
+      } else {
+        showBanner("Ralat: GOOGLE_CLIENT_ID tidak dijumpai dalam config.js", "error");
       }
-    } catch (e) {}
-  }
-};
+
+      // Semak jika sudah ada sesi aktif
+      const sessionData = localStorage.getItem('pdpr_session');
+      if (sessionData) {
+        try {
+          const session = JSON.parse(sessionData);
+          if (session.role) {
+            saveSessionAndRedirect(session.role, session.username, session.email, session.kelas);
+          }
+        } catch (e) {}
+      }
+    };
   </script>
 </body>
 </html>
