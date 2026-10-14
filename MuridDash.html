@@ -176,6 +176,12 @@
               <span class="murid-menu-text truncate">Kelas Hari Ini</span>
             </button>
 
+            <!-- BUTANG GOOGLE MEET STATIK DI SIDEBAR MURID -->
+            <button onclick="openStaticMeetLink()" id="btn-murid-menu-meet" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs sm:text-sm font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition shadow-sm">
+              <i class="fa-solid fa-video text-lg w-6 flex-shrink-0 text-center text-emerald-600"></i>
+              <span class="murid-menu-text truncate">Google Meet Live (<span id="label-aliran-meet">Tahun 1</span>)</span>
+            </button>
+
             <button onclick="switchMuridSubView('jadual-minggu')" id="btn-murid-menu-jadual-minggu" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 hover:bg-white hover:text-blue-600 border border-transparent hover:border-slate-200 transition">
               <i class="fa-solid fa-calendar-week text-lg w-6 flex-shrink-0 text-center text-blue-600"></i>
               <span class="murid-menu-text truncate">Jadual PdPR Minggu Ini</span>
@@ -298,8 +304,8 @@
   </div>
 
   <!-- SKRIP DASHBOARD MURID -->
-  <script>
-    const backendUrl = (typeof APPS_SCRIPT_URL !== 'undefined') ? APPS_SCRIPT_URL : "https://script.google.com/macros/s/AKfycbziw3GU3xZAXn9wuEpFIYfKX1GPBeDNCGQBQ5Yw7VUAqIHHVo4nVZurdoOFJ2Wo3Kju/exec";
+   <script>
+    const backendUrl = (typeof APPS_SCRIPT_URL !== 'undefined') ? APPS_SCRIPT_URL : "https://script.google.com/macros/s/AKfycbx-oiKHSEFqEpf0R5gxdGpscOlvVjTsgvvQR09e4pBsbyGtT_vL5QwbbDwOnqPeV0Sh2Q/exec";
 
     let listJadualMaster = [];
     let listTugasanMaster = [];
@@ -659,6 +665,38 @@
       container.innerHTML = html;
     }
 
+// Membuka Pautan Meet Statik Aliran Murid Apabila Butang Sidebar Ditekan
+    function openStaticMeetLink() {
+      const studentKelas = getActiveStudentKelas();
+      const studentAliran = getAliranFromKelas(studentKelas);
+      
+      const meetUrl = (typeof MEET_LINKS_ALIRAN !== 'undefined' && MEET_LINKS_ALIRAN[studentAliran])
+        ? MEET_LINKS_ALIRAN[studentAliran]
+        : "https://meet.google.com/";
+        
+      window.open(meetUrl, '_blank');
+    }
+
+    // Kemas kini Label Pada Butang Meet Sidebar mengikut Aliran Murid
+    function updateMeetSidebarBadge() {
+      const studentKelas = getActiveStudentKelas();
+      const studentAliran = getAliranFromKelas(studentKelas);
+      const labelElem = document.getElementById('label-aliran-meet');
+      if (labelElem) {
+        labelElem.innerText = studentAliran;
+      }
+    }
+
+    function renderMuridDashboardMain() {
+      const studentKelas = getActiveStudentKelas();
+      const studentAliran = getAliranFromKelas(studentKelas);
+      const badge = document.getElementById('student-kelas-badge');
+      if (badge) badge.innerText = `${studentKelas} (${studentAliran})`;
+
+      updateMeetSidebarBadge(); // Kemas kini label butang Meet
+      renderMuridTodayClasses();
+    }
+
     function renderMuridWeeklyScheduleTable() {
       const container = document.getElementById('murid-weekly-table-container');
       if (!container) return;
@@ -821,8 +859,8 @@
 
                 <div class="pt-2 flex flex-wrap gap-2">
                   ${existingTask.pautan ? `
-                    <a href="${existingTask.pautan}" target="_blank" class="inline-flex items-center gap-1.5 text-xs text-blue-700 font-bold bg-blue-50 px-3.5 py-2 rounded-xl border border-blue-200 hover:bg-blue-100 transition">
-                      <i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Pautan Sesi / Meet
+                    <a href="${existingTask.jenis === 'Google Meet' ? ((typeof MEET_LINKS_ALIRAN !== 'undefined' && MEET_LINKS_ALIRAN[studentAliran]) ? MEET_LINKS_ALIRAN[studentAliran] : existingTask.pautan) : existingTask.pautan}" target="_blank" class="inline-flex items-center gap-1.5 text-xs text-white font-bold bg-emerald-600 px-3.5 py-2 rounded-xl border border-emerald-700 hover:bg-emerald-700 transition shadow-sm">
+                      <i class="fa-solid fa-video"></i> Sertai Google Meet Live (${studentAliran})
                     </a>
                   ` : ''}
 
