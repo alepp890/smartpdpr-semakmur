@@ -554,15 +554,7 @@
       }
     }
 
-    function renderMuridDashboardMain() {
-      const studentKelas = getActiveStudentKelas();
-      const studentAliran = getAliranFromKelas(studentKelas);
-      const badge = document.getElementById('student-kelas-badge');
-      if (badge) badge.innerText = `${studentKelas} (${studentAliran})`;
-
-      renderMuridTodayClasses();
-    }
-
+   
     function renderMuridTodayClasses() {
       const container = document.getElementById('murid-today-classes-container');
       const dateText = document.getElementById('murid-today-date-text');
