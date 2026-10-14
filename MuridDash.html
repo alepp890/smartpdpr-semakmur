@@ -17,13 +17,13 @@
 
   <style>
     :root {
-      --bg: #f4f6fa;
+      --bg: #f8fafc;
       --card: #ffffff;
-      --tx: #1b2433;
-      --mu: #667085;
-      --bd: #dde3ec;
-      --pr: #1d4ed8;
-      --sb: #10264d;
+      --tx: #0f172a;
+      --mu: #64748b;
+      --bd: #e2e8f0;
+      --pr: #2563eb;
+      --sb: #0f172a;
     }
 
     body {
@@ -32,90 +32,100 @@
       font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       font-size: 14px;
       line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
     }
 
     .card {
       background: var(--card);
       border: 1px solid var(--bd);
-      border-radius: 12px;
-      padding: 18px;
+      border-radius: 16px;
+      padding: 20px;
     }
 
     .hdr-classic {
-      background-color: var(--sb);
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
       color: #ffffff;
     }
 
     .btn-classic-pr {
       background-color: var(--pr);
       color: #ffffff;
-      border-radius: 8px;
+      border-radius: 10px;
       padding: 9px 18px;
       font-weight: 600;
       font-size: 13px;
-      transition: background-color 0.15s ease-in-out;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
     }
     .btn-classic-pr:hover {
-      background-color: #1a44c2;
+      background-color: #1d4ed8;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
     }
 
     .btn-classic-sec {
       background-color: #ffffff;
       color: var(--tx);
       border: 1px solid var(--bd);
-      border-radius: 8px;
+      border-radius: 10px;
       padding: 9px 16px;
       font-weight: 600;
       font-size: 13px;
+      transition: all 0.2s;
     }
     .btn-classic-sec:hover {
       border-color: var(--pr);
       color: var(--pr);
+      background-color: #f8fafc;
     }
 
     .tb-classic {
       width: 100%;
-      border-collapse: collapse;
+      border-collapse: separate;
+      border-spacing: 0;
     }
     .tb-classic th {
-      background-color: #e8edf7;
-      color: var(--sb);
+      background-color: #f1f5f9;
+      color: #0f172a;
       font-weight: 700;
       font-size: 12px;
       text-transform: uppercase;
-      padding: 10px 14px;
-      border: 1px solid var(--bd);
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--bd);
       text-align: left;
     }
     .tb-classic td {
-      padding: 10px 14px;
-      border: 1px solid var(--bd);
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--bd);
       font-size: 13px;
     }
 
     .guru-sidebar-transition {
-      transition: width 0.25s ease-in-out, padding 0.25s ease-in-out;
+      transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1), padding 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
   </style>
 </head>
 <body class="antialiased min-h-screen">
 
-  <!-- HEADER PORTAL (RAPAT ATAS, LEBAR PENUH, ANEKA BUTANG) -->
-  <header class="hdr-classic w-full border-b border-[#0d1f3f] py-2 px-3 sm:px-6 shadow-sm sticky top-0 z-40">
+  <!-- HEADER PORTAL (RAPAT ATAS, LEBAR PENUH, SERAGAM CORPORATE) -->
+  <header class="bg-slate-900 border-b border-slate-800 py-2.5 px-3 sm:px-6 shadow-md sticky top-0 z-40">
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
       
       <div class="flex items-center gap-2.5 cursor-pointer" onclick="window.location.href='index.html'">
-        <div class="bg-white/10 text-white p-1.5 rounded-lg border border-white/20">
+        <div class="bg-gradient-to-tr from-blue-600 to-indigo-600 text-white p-2 rounded-xl shadow-md shadow-blue-500/20 border border-white/10">
           <i class="fa-solid fa-graduation-cap text-lg sm:text-xl"></i>
         </div>
-        <h1 class="text-sm sm:text-base font-extrabold tracking-tight text-white uppercase">SMART PORTAL PdPR ONLINE</h1>
+        <div>
+          <h1 class="text-xs sm:text-sm font-extrabold tracking-tight text-white uppercase leading-tight">SMART PORTAL PdPR ONLINE</h1>
+          <span class="text-[10px] text-slate-400 font-medium tracking-wider uppercase hidden sm:inline-block">Kementerian Pendidikan Malaysia</span>
+        </div>
       </div>
 
       <div class="flex items-center gap-2">
-        <button onclick="window.location.href='index.html'" class="bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-3 py-1.5 rounded-lg border border-white/20 transition flex items-center gap-1.5">
-          <i class="fa-solid fa-house"></i> <span class="hidden sm:inline">Portal Utama</span>
+        <button onclick="window.location.href='index.html'" class="bg-white/5 hover:bg-white/10 text-slate-200 hover:text-white text-xs font-semibold px-3 py-1.5 rounded-lg border border-white/10 transition flex items-center gap-1.5 backdrop-blur-sm">
+          <i class="fa-solid fa-house text-slate-400"></i> <span class="hidden sm:inline">Portal Utama</span>
         </button>
-        <button onclick="logout()" class="bg-rose-700 hover:bg-rose-800 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
+        <button onclick="logout()" class="bg-rose-600/90 hover:bg-rose-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 shadow-sm">
           <i class="fa-solid fa-power-off"></i> <span>Keluar</span>
         </button>
       </div>
@@ -124,28 +134,28 @@
   </header>
 
   <!-- KANDUNGAN UTAMA DASHBOARD -->
-  <div class="max-w-7xl mx-auto p-2 sm:p-5 space-y-5">
+  <div class="max-w-7xl mx-auto p-3 sm:p-6 space-y-6">
 
-    <!-- DASHBOARD MURID -->
-    <main id="view-murid" class="border border-[#dde3ec] rounded-xl bg-white overflow-hidden shadow-sm space-y-0">
+    <!-- DASHBOARD MURID CONTAINER -->
+    <main id="view-murid" class="border border-slate-200/80 rounded-2xl bg-white overflow-hidden shadow-xl shadow-slate-200/50 space-y-0">
       
-      <!-- HEADER DASHBOARD MURID / BANNER UTAMA -->
-      <div class="flex justify-between items-center hdr-classic p-4 sm:p-5 border-b border-[#0d1f3f]">
-        <div class="flex items-center gap-3">
-          <button onclick="toggleMuridSidebar()" class="bg-white/10 hover:bg-white/20 text-white p-2.5 rounded-lg border border-white/20 transition text-base">
+      <!-- HEADER DASHBOARD MURID / BANNER UTAMA SERAGAM -->
+      <div class="flex justify-between items-center hdr-classic p-4 sm:p-6 border-b border-slate-800">
+        <div class="flex items-center gap-3.5">
+          <button onclick="toggleMuridSidebar()" class="bg-white/10 hover:bg-white/20 text-white p-2.5 rounded-xl border border-white/10 transition text-base flex-shrink-0 backdrop-blur-md">
             <i class="fa-solid fa-bars"></i>
           </button>
           <div>
-            <p class="text-xs text-slate-300 font-medium">Selamat Datang,</p>
+            <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">Selamat Datang,</p>
             <h2 class="text-lg sm:text-2xl font-black text-white leading-tight" id="student-user-display-name">
               Murid DELIMa
             </h2>
-            <p class="text-xs sm:text-sm text-blue-200 font-semibold mt-0.5">
+            <p class="text-xs sm:text-sm text-slate-300 font-medium mt-0.5">
               <span id="student-user-display-email"></span> • <span id="student-user-display-kelas">Tahun 1</span>
             </p>
           </div>
         </div>
-        <span id="student-kelas-badge" class="bg-emerald-700 text-white border border-emerald-400/30 text-xs sm:text-sm font-bold px-3 py-1.5 rounded-lg">
+        <span id="student-kelas-badge" class="bg-emerald-600/90 text-white border border-emerald-400/30 text-xs sm:text-sm font-bold px-3.5 py-1.5 rounded-xl shadow-sm">
           Tahun 1
         </span>
       </div>
@@ -154,68 +164,68 @@
       <div class="flex flex-col md:flex-row items-stretch">
         
         <!-- SIDEBAR MURID -->
-        <aside id="murid-sidebar" class="guru-sidebar-transition w-full md:w-60 bg-[#f8fafc] border-r border-[#dde3ec] p-4 space-y-3 flex-shrink-0">
-          <div class="text-xs font-bold text-[#667085] uppercase tracking-wider px-2 pb-2 border-b border-[#dde3ec] flex items-center justify-between">
+        <aside id="murid-sidebar" class="guru-sidebar-transition w-full md:w-60 bg-slate-50/80 border-r border-slate-200 p-4 space-y-3 flex-shrink-0">
+          <div class="text-xs font-extrabold text-slate-400 uppercase tracking-wider px-2 pb-2 border-b border-slate-200 flex items-center justify-between">
             <span class="murid-menu-text">Menu Utama</span>
-            <i class="fa-solid fa-graduation-cap text-blue-700"></i>
+            <i class="fa-solid fa-graduation-cap text-blue-600 text-sm"></i>
           </div>
 
           <nav class="space-y-1.5">
-            <button onclick="switchMuridSubView('today')" id="btn-murid-menu-today" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-lg text-xs sm:text-sm font-bold bg-[#1d4ed8] text-white transition shadow-sm">
-              <i class="fa-solid fa-calendar-day text-lg"></i>
-              <span class="murid-menu-text">Kelas Hari Ini</span>
+            <button onclick="switchMuridSubView('today')" id="btn-murid-menu-today" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs sm:text-sm font-bold bg-blue-600 text-white transition shadow-sm shadow-blue-500/20">
+              <i class="fa-solid fa-calendar-day text-lg w-6 flex-shrink-0 text-center"></i>
+              <span class="murid-menu-text truncate">Kelas Hari Ini</span>
             </button>
 
-            <button onclick="switchMuridSubView('jadual-minggu')" id="btn-murid-menu-jadual-minggu" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-lg text-xs sm:text-sm font-bold text-[#1b2433] hover:bg-white hover:text-[#1d4ed8] border border-transparent hover:border-[#dde3ec] transition">
-              <i class="fa-solid fa-calendar-week text-lg text-blue-700"></i>
-              <span class="murid-menu-text">Jadual PdPR Minggu Ini</span>
+            <button onclick="switchMuridSubView('jadual-minggu')" id="btn-murid-menu-jadual-minggu" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 hover:bg-white hover:text-blue-600 border border-transparent hover:border-slate-200 transition">
+              <i class="fa-solid fa-calendar-week text-lg w-6 flex-shrink-0 text-center text-blue-600"></i>
+              <span class="murid-menu-text truncate">Jadual PdPR Minggu Ini</span>
             </button>
 
-            <button onclick="switchMuridSubView('tugasan')" id="btn-murid-menu-tugasan" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-lg text-xs sm:text-sm font-bold text-[#1b2433] hover:bg-white hover:text-[#1d4ed8] border border-transparent hover:border-[#dde3ec] transition">
-              <i class="fa-solid fa-list-check text-lg text-emerald-700"></i>
-              <span class="murid-menu-text">Senarai Tugasan</span>
+            <button onclick="switchMuridSubView('tugasan')" id="btn-murid-menu-tugasan" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 hover:bg-white hover:text-blue-600 border border-transparent hover:border-slate-200 transition">
+              <i class="fa-solid fa-list-check text-lg w-6 flex-shrink-0 text-center text-emerald-600"></i>
+              <span class="murid-menu-text truncate">Senarai Tugasan</span>
             </button>
 
-            <button onclick="switchMuridSubView('rekod')" id="btn-murid-menu-rekod" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-lg text-xs sm:text-sm font-bold text-[#1b2433] hover:bg-white hover:text-[#1d4ed8] border border-transparent hover:border-[#dde3ec] transition">
-              <i class="fa-solid fa-clipboard-user text-lg text-purple-700"></i>
-              <span class="murid-menu-text">Rekod Kehadiran Saya</span>
+            <button onclick="switchMuridSubView('rekod')" id="btn-murid-menu-rekod" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 hover:bg-white hover:text-blue-600 border border-transparent hover:border-slate-200 transition">
+              <i class="fa-solid fa-clipboard-user text-lg w-6 flex-shrink-0 text-center text-purple-600"></i>
+              <span class="murid-menu-text truncate">Rekod Kehadiran Saya</span>
             </button>
           </nav>
         </aside>
 
         <!-- KAWASAN KANDUNGAN UTAMA MURID -->
-        <div class="flex-grow w-full p-4 sm:p-5 space-y-5 bg-white">
+        <div class="flex-grow w-full p-4 sm:p-6 space-y-6 bg-white">
           
           <!-- SUB-VIEW 1: KELAS HARI INI -->
           <div id="murid-subview-today" class="space-y-5">
-            <div class="flex flex-col sm:flex-row justify-between sm:items-center border-b border-[#dde3ec] pb-3 gap-2">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center border-b border-slate-200 pb-3.5 gap-2">
               <div>
-                <h3 class="text-sm sm:text-base font-extrabold text-[#10264d] flex items-center gap-2">
-                  <i class="fa-solid fa-clock-rotate-left text-[#1d4ed8]"></i> Sesi Kelas PdPR Hari Ini
+                <h3 class="text-sm sm:text-base font-extrabold text-slate-900 flex items-center gap-2">
+                  <i class="fa-solid fa-clock-rotate-left text-blue-600"></i> Sesi Kelas PdPR Hari Ini
                 </h3>
-                <p class="text-xs text-[#667085] mt-0.5" id="murid-today-date-text">Tarikh: -</p>
+                <p class="text-xs text-slate-500 mt-0.5" id="murid-today-date-text">Tarikh: -</p>
               </div>
               <div class="flex items-center gap-2">
-                <span class="text-xs bg-blue-50 text-blue-800 border border-blue-200 font-bold px-2.5 py-1 rounded-lg">
+                <span class="text-xs bg-blue-50 text-blue-800 border border-blue-200 font-bold px-3 py-1 rounded-xl">
                   <i class="fa-solid fa-circle-check mr-1 text-emerald-600"></i>Kehadiran Automatik DELIMa
                 </span>
               </div>
             </div>
 
             <!-- CONTAINER KAD KELAS HARI INI -->
-            <div id="murid-today-classes-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+            <div id="murid-today-classes-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               <!-- Dijana Dinamik -->
             </div>
           </div>
 
           <!-- SUB-VIEW 2: JADUAL PDPR MINGGU INI -->
-          <div id="murid-subview-jadual-minggu" class="hidden space-y-4">
-            <div class="flex justify-between items-center border-b border-[#dde3ec] pb-3">
+          <div id="murid-subview-jadual-minggu" class="hidden space-y-5">
+            <div class="flex justify-between items-center border-b border-slate-200 pb-3.5">
               <div>
-                <h3 class="text-sm sm:text-base font-extrabold text-[#10264d] flex items-center gap-2">
-                  <i class="fa-solid fa-calendar-week text-[#1d4ed8]"></i> Jadual PdPR Minggu Ini
+                <h3 class="text-sm sm:text-base font-extrabold text-slate-900 flex items-center gap-2">
+                  <i class="fa-solid fa-calendar-week text-blue-600"></i> Jadual PdPR Minggu Ini
                 </h3>
-                <p class="text-xs text-[#667085] mt-0.5">Jadual waktu harian pembelajaran mengikut hari, subjek, guru dan jenis tugasan.</p>
+                <p class="text-xs text-slate-500 mt-0.5">Jadual waktu harian pembelajaran mengikut hari, subjek, guru dan jenis tugasan.</p>
               </div>
             </div>
 
@@ -225,29 +235,29 @@
           </div>
 
           <!-- SUB-VIEW 3: SENARAI TUGASAN -->
-          <div id="murid-subview-tugasan" class="hidden space-y-4">
-            <div class="flex justify-between items-center border-b border-[#dde3ec] pb-3">
+          <div id="murid-subview-tugasan" class="hidden space-y-5">
+            <div class="flex justify-between items-center border-b border-slate-200 pb-3.5">
               <div>
-                <h3 class="text-sm sm:text-base font-extrabold text-[#10264d] flex items-center gap-2">
-                  <i class="fa-solid fa-book-open text-[#1d4ed8]"></i> Senarai Semua Tugasan Kelas
+                <h3 class="text-sm sm:text-base font-extrabold text-slate-900 flex items-center gap-2">
+                  <i class="fa-solid fa-book-open text-blue-600"></i> Senarai Semua Tugasan Kelas
                 </h3>
-                <p class="text-xs text-[#667085] mt-0.5">Ringkasan tugasan yang diterbitkan oleh guru mengikut aliran tahun anda.</p>
+                <p class="text-xs text-slate-500 mt-0.5">Ringkasan tugasan yang diterbitkan oleh guru mengikut aliran tahun anda.</p>
               </div>
             </div>
 
-            <div id="murid-all-tasks-container" class="space-y-3">
+            <div id="murid-all-tasks-container" class="space-y-3.5">
               <!-- Dijana Dinamik -->
             </div>
           </div>
 
           <!-- SUB-VIEW 4: REKOD KEHADIRAN SAYA -->
-          <div id="murid-subview-rekod" class="hidden space-y-4">
-            <div class="flex justify-between items-center border-b border-[#dde3ec] pb-3">
+          <div id="murid-subview-rekod" class="hidden space-y-5">
+            <div class="flex justify-between items-center border-b border-slate-200 pb-3.5">
               <div>
-                <h3 class="text-sm sm:text-base font-extrabold text-[#10264d] flex items-center gap-2">
-                  <i class="fa-solid fa-clipboard-user text-[#1d4ed8]"></i> Rekod Serahan & Pengesahan Kehadiran
+                <h3 class="text-sm sm:text-base font-extrabold text-slate-900 flex items-center gap-2">
+                  <i class="fa-solid fa-clipboard-user text-blue-600"></i> Rekod Serahan & Pengesahan Kehadiran
                 </h3>
-                <p class="text-xs text-[#667085] mt-0.5">Ringkasan penglibatan kehadiran anda dikumpulkan mengikut tarikh.</p>
+                <p class="text-xs text-slate-500 mt-0.5">Ringkasan penglibatan kehadiran anda dikumpulkan mengikut tarikh.</p>
               </div>
             </div>
 
@@ -261,23 +271,23 @@
       </div>
     </main>
 
-    <!-- FOOTER PORTAL -->
-    <footer class="bg-[#10264d] text-slate-300 text-xs sm:text-sm p-4 text-center rounded-xl border border-[#0d1f3f] flex flex-col sm:flex-row justify-between items-center gap-2">
+    <!-- FOOTER PORTAL KORPORAT -->
+    <footer class="bg-slate-900 text-slate-400 text-xs sm:text-sm p-4 text-center rounded-2xl border border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-2 shadow-md">
       <p>© Smart Portal Pengurusan PdPR Sekolah • Kementerian Pendidikan Malaysia</p>
-      <p class="text-slate-400">Google Workspace KPM API Status: <span class="text-emerald-400 font-bold">Connected</span></p>
+      <p class="text-slate-500">Google Workspace KPM API Status: <span class="text-emerald-400 font-bold">Connected</span></p>
     </footer>
 
   </div>
 
   <!-- MODAL POPUP DETAIL & SERAHAN TUGASAN MURID -->
-  <div id="modal-murid-task-detail" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-none z-50 flex items-center justify-center p-4 overflow-y-auto">
-    <div class="bg-white rounded-xl max-w-2xl w-full p-6 shadow-xl border border-[#dde3ec] my-8 space-y-4">
+  <div id="modal-murid-task-detail" class="hidden fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-7 shadow-2xl border border-slate-200 my-8 space-y-5">
       
-      <div class="flex justify-between items-center border-b border-[#dde3ec] pb-3">
-        <h3 class="text-base sm:text-lg font-extrabold text-[#10264d] flex items-center gap-2">
-          <i class="fa-solid fa-book-open text-[#1d4ed8]"></i> Detail & Serahan Tugasan Kelas
+      <div class="flex justify-between items-center border-b border-slate-200 pb-3.5">
+        <h3 class="text-base sm:text-lg font-extrabold text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-book-open text-blue-600"></i> Detail & Serahan Tugasan Kelas
         </h3>
-        <button onclick="closeMuridTaskModal()" class="text-[#667085] hover:text-[#1b2433] font-bold"><i class="fa-solid fa-xmark text-lg"></i></button>
+        <button onclick="closeMuridTaskModal()" class="text-slate-400 hover:text-slate-700 font-bold p-1 transition"><i class="fa-solid fa-xmark text-xl"></i></button>
       </div>
 
       <div id="murid-modal-content" class="space-y-4 text-xs sm:text-sm">
@@ -476,17 +486,20 @@
     function toggleMuridSidebar() {
       const sidebar = document.getElementById('murid-sidebar');
       const menuTexts = sidebar.querySelectorAll('.murid-menu-text');
+      const navBtns = sidebar.querySelectorAll('nav button');
 
       isMuridSidebarExpanded = !isMuridSidebarExpanded;
 
       if (isMuridSidebarExpanded) {
-        sidebar.classList.remove('w-16');
-        sidebar.classList.add('w-full', 'md:w-60');
+        sidebar.classList.remove('md:w-16', 'px-2');
+        sidebar.classList.add('w-full', 'md:w-60', 'p-4');
         menuTexts.forEach(t => t.classList.remove('hidden'));
+        navBtns.forEach(b => b.classList.remove('justify-center', 'px-2'));
       } else {
-        sidebar.classList.remove('w-full', 'md:w-60');
-        sidebar.classList.add('w-16');
+        sidebar.classList.remove('w-full', 'md:w-60', 'p-4');
+        sidebar.classList.add('md:w-16', 'px-2', 'py-4');
         menuTexts.forEach(t => t.classList.add('hidden'));
+        navBtns.forEach(b => b.classList.add('justify-center', 'px-2'));
       }
     }
 
@@ -501,8 +514,11 @@
       const btnTugasan = document.getElementById('btn-murid-menu-tugasan');
       const btnRekod = document.getElementById('btn-murid-menu-rekod');
 
-      const defaultBtnClass = "w-full flex items-center gap-3 px-3.5 py-3 rounded-lg text-xs sm:text-sm font-bold text-[#1b2433] hover:bg-white hover:text-[#1d4ed8] border border-transparent hover:border-[#dde3ec] transition";
-      const activeBtnClass = "w-full flex items-center gap-3 px-3.5 py-3 rounded-lg text-xs sm:text-sm font-bold bg-[#1d4ed8] text-white transition shadow-sm";
+      const isCollapsed = !isMuridSidebarExpanded;
+      const extraClasses = isCollapsed ? 'justify-center px-2' : '';
+
+      const defaultBtnClass = `w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 hover:bg-white hover:text-blue-600 border border-transparent hover:border-slate-200 transition ${extraClasses}`;
+      const activeBtnClass = `w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs sm:text-sm font-bold bg-blue-600 text-white transition shadow-sm shadow-blue-500/20 ${extraClasses}`;
 
       if (btnToday) btnToday.className = defaultBtnClass;
       if (btnJadualMinggu) btnJadualMinggu.className = defaultBtnClass;
@@ -571,9 +587,9 @@
 
       if (todaySlots.length === 0) {
         container.innerHTML = `
-          <div class="col-span-full card text-center p-8 text-xs sm:text-sm text-[#667085] space-y-2">
+          <div class="col-span-full card text-center p-8 text-xs sm:text-sm text-slate-500 space-y-2">
             <i class="fa-solid fa-calendar-xmark text-4xl text-slate-300"></i>
-            <p class="font-bold text-[#10264d] text-base">Tiada Kelas PdPR Dijadualkan</p>
+            <p class="font-bold text-slate-900 text-base">Tiada Kelas PdPR Dijadualkan</p>
             <p>Tiada rekod jadual kelas ditemui untuk <strong>${studentAliran} (${studentKelas})</strong>.</p>
           </div>
         `;
@@ -601,36 +617,36 @@
 
         let badgeHtml = '';
         if (submittedRecord) {
-          badgeHtml = `<span class="bg-emerald-100 text-emerald-800 border border-emerald-300 text-[10px] font-extrabold px-2 py-0.5 rounded-full"><i class="fa-solid fa-check-circle"></i> HADIR</span>`;
+          badgeHtml = `<span class="bg-emerald-100 text-emerald-800 border border-emerald-300 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full"><i class="fa-solid fa-check-circle"></i> HADIR</span>`;
         } else if (isLive) {
-          badgeHtml = `<span class="bg-emerald-100 text-emerald-800 border border-emerald-300 text-[10px] font-extrabold px-2 py-0.5 rounded-full animate-pulse">Berlangsung</span>`;
+          badgeHtml = `<span class="bg-emerald-100 text-emerald-800 border border-emerald-300 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full animate-pulse">Berlangsung</span>`;
         } else if (isUpcoming) {
-          badgeHtml = `<span class="bg-amber-100 text-amber-800 border border-amber-300 text-[10px] font-extrabold px-2 py-0.5 rounded-full">Akan datang</span>`;
+          badgeHtml = `<span class="bg-amber-100 text-amber-800 border border-amber-300 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full">Akan datang</span>`;
         } else {
-          badgeHtml = `<span class="bg-slate-100 text-slate-700 border border-slate-300 text-[10px] font-extrabold px-2 py-0.5 rounded-full">Telah selesai</span>`;
+          badgeHtml = `<span class="bg-slate-100 text-slate-700 border border-slate-300 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full">Telah selesai</span>`;
         }
 
         let subjekClean = (slot.subjek || '').replace(/'/g, "\\'");
         let masaClean = (slot.slotMasa || '').replace(/'/g, "\\'");
 
         html += `
-          <div onclick="openMuridTaskModal('${slot.id}', '${existingTask ? existingTask.id : ''}', '${subjekClean}', '${masaClean}')" class="card bg-white border ${isLive ? 'border-emerald-500 ring-2 ring-emerald-400/20' : 'border-[#dde3ec]'} p-3 sm:p-3.5 flex flex-col justify-between items-center text-center cursor-pointer hover:border-blue-600 hover:shadow-md transition relative space-y-2 min-h-[140px]">
+          <div onclick="openMuridTaskModal('${slot.id}', '${existingTask ? existingTask.id : ''}', '${subjekClean}', '${masaClean}')" class="card bg-white border ${isLive ? 'border-emerald-500 ring-2 ring-emerald-400/20 shadow-md' : 'border-slate-200'} p-3.5 flex flex-col justify-between items-center text-center cursor-pointer hover:border-blue-600 hover:shadow-lg transition relative space-y-2 min-h-[145px]">
             
             <div class="w-full flex justify-end">
               ${badgeHtml}
             </div>
 
             <div class="w-full my-auto">
-              <h4 class="text-sm sm:text-base font-black text-[#10264d] uppercase leading-tight">${slot.subjek}</h4>
-              <div class="text-[11px] sm:text-xs font-semibold text-blue-700 mt-1">
+              <h4 class="text-sm sm:text-base font-black text-slate-900 uppercase leading-tight">${slot.subjek}</h4>
+              <div class="text-[11px] sm:text-xs font-bold text-blue-700 mt-1">
                 <i class="fa-regular fa-clock mr-1"></i>${slot.slotMasa}
               </div>
-              <p class="text-[11px] sm:text-xs text-[#667085] truncate max-w-[180px] mx-auto mt-0.5">
+              <p class="text-[11px] sm:text-xs text-slate-500 truncate max-w-[180px] mx-auto mt-0.5">
                 <i class="fa-solid fa-user-tie mr-1"></i>${slot.guru}
               </p>
             </div>
 
-            <div class="w-full pt-1.5 border-t border-[#dde3ec]">
+            <div class="w-full pt-2 border-t border-slate-100">
               <span class="text-[11px] sm:text-xs font-bold text-blue-700 hover:underline flex items-center justify-center gap-1">
                 Detail Tugasan <i class="fa-solid fa-chevron-right text-[9px]"></i>
               </span>
@@ -654,9 +670,9 @@
 
       if (slots.length === 0) {
         container.innerHTML = `
-          <div class="card text-center p-8 text-xs sm:text-sm text-[#667085] space-y-2">
+          <div class="card text-center p-8 text-xs sm:text-sm text-slate-500 space-y-2">
             <i class="fa-solid fa-calendar-xmark text-4xl text-slate-300"></i>
-            <p class="font-bold text-[#10264d] text-base">Tiada Jadual PdPR Mingguan</p>
+            <p class="font-bold text-slate-900 text-base">Tiada Jadual PdPR Mingguan</p>
             <p>Tiada rekod jadual PdPR ditemui untuk <strong>${studentAliran} (${studentKelas})</strong>.</p>
           </div>
         `;
@@ -699,22 +715,22 @@
           return `
             <tr>
               <td>
-                <div class="font-bold text-[#10264d] text-sm">${s.subjek}</div>
-                <div class="text-xs text-[#667085] font-semibold mt-0.5"><i class="fa-regular fa-clock mr-1"></i>${s.slotMasa}</div>
+                <div class="font-bold text-slate-900 text-sm">${s.subjek}</div>
+                <div class="text-xs text-slate-500 font-semibold mt-0.5"><i class="fa-regular fa-clock mr-1"></i>${s.slotMasa}</div>
               </td>
-              <td class="font-semibold text-[#1b2433]">${s.guru || '-'}</td>
+              <td class="font-semibold text-slate-800">${s.guru || '-'}</td>
               <td>${jenisBadge}</td>
             </tr>
           `;
         }).join('');
 
         html += `
-          <div class="card p-4 bg-white border border-[#dde3ec] space-y-3">
-            <div class="flex items-center justify-between border-b border-[#dde3ec] pb-2">
-              <h4 class="font-extrabold text-sm sm:text-base text-[#10264d] flex items-center gap-2">
-                <i class="fa-solid fa-calendar-day text-blue-700"></i> Hari ${day}
+          <div class="card p-4 sm:p-5 bg-white border border-slate-200 space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-2.5">
+              <h4 class="font-extrabold text-sm sm:text-base text-slate-900 flex items-center gap-2">
+                <i class="fa-solid fa-calendar-day text-blue-600"></i> Hari ${day}
               </h4>
-              <span class="text-xs font-bold text-blue-800 bg-blue-50 border border-blue-200 px-2.5 py-0.5 rounded-md">
+              <span class="text-xs font-bold text-blue-800 bg-blue-50 border border-blue-200 px-3 py-0.5 rounded-lg">
                 ${daySlots.length} Subjek
               </span>
             </div>
@@ -770,77 +786,78 @@
       if (!content) return;
 
       content.innerHTML = `
-        <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 space-y-1 text-blue-900 font-semibold">
+        <div class="bg-blue-50 border border-blue-200 rounded-2xl p-4 space-y-1 text-blue-900 font-semibold">
           <div class="flex justify-between items-center">
             <span class="text-xs text-blue-700 font-bold uppercase"><i class="fa-regular fa-clock mr-1"></i>Masa: ${slot ? slot.slotMasa : '-'}</span>
-            <span class="text-xs font-extrabold px-2.5 py-0.5 rounded-full ${isUpcoming ? 'bg-amber-100 text-amber-800 border border-amber-300' : (timeStatus === 'sedang_berlangsung' ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-slate-200 text-slate-700')}">
+            <span class="text-xs font-extrabold px-3 py-0.5 rounded-full ${isUpcoming ? 'bg-amber-100 text-amber-800 border border-amber-300' : (timeStatus === 'sedang_berlangsung' ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-slate-200 text-slate-700')}">
               ${isUpcoming ? 'Akan datang' : (timeStatus === 'sedang_berlangsung' ? 'Berlangsung' : 'Telah selesai')}
             </span>
           </div>
-          <h4 class="text-lg font-black text-[#10264d] uppercase">${slot ? slot.subjek : '-'}</h4>
-          <p class="text-xs text-[#667085]"><i class="fa-solid fa-user-tie mr-1"></i>Guru Bertugas: ${slot ? slot.guru : '-'}</p>
+          <h4 class="text-lg font-black text-slate-900 uppercase">${slot ? slot.subjek : '-'}</h4>
+          <p class="text-xs text-slate-500"><i class="fa-solid fa-user-tie mr-1"></i>Guru Bertugas: ${slot ? slot.guru : '-'}</p>
         </div>
 
         ${isUpcoming ? `
-          <div class="bg-amber-50 border border-amber-200 rounded-xl p-5 text-center space-y-3">
-            <div class="inline-flex bg-amber-100 text-amber-700 p-3.5 rounded-full text-2xl">
+          <div class="bg-amber-50 border border-amber-200 rounded-2xl p-6 text-center space-y-3">
+            <div class="inline-flex bg-amber-100 text-amber-700 p-3.5 rounded-full text-2xl shadow-inner">
               <i class="fa-solid fa-lock"></i>
             </div>
             <div>
               <h5 class="text-sm font-extrabold text-amber-900">Kelas Belum Bermula (Dikunci)</h5>
-              <p class="text-xs sm:text-sm text-amber-800 mt-1">Kelas ini belum berlangsung. Detail tugasan, bahan pembelajaran, dan borang hantaran tugasan dikunci dan akan dibuka secara automatik apabila kelas bermula pada <strong>${slot ? slot.slotMasa : ''}</strong>.</p>
+              <p class="text-xs sm:text-sm text-amber-800 mt-1 leading-relaxed">Kelas ini belum berlangsung. Detail tugasan, bahan pembelajaran, dan borang hantaran tugasan dikunci dan akan dibuka secara automatik apabila kelas bermula pada <strong>${slot ? slot.slotMasa : ''}</strong>.</p>
             </div>
-            <span class="inline-block bg-amber-100 text-amber-800 border border-amber-300 text-xs font-extrabold px-3 py-1 rounded-full uppercase">
+            <span class="inline-block bg-amber-100 text-amber-800 border border-amber-300 text-xs font-extrabold px-3.5 py-1 rounded-full uppercase">
               Status: Akan datang
             </span>
           </div>
         ` : `
           <div class="space-y-4">
             ${existingTask ? `
-              <div class="bg-[#f8fafc] p-4 rounded-xl border border-[#dde3ec] space-y-2.5">
-                <span class="bg-blue-100 text-blue-800 text-xs font-extrabold px-2.5 py-0.5 rounded uppercase">${existingTask.jenis}</span>
-                <h5 class="text-sm font-extrabold text-[#1b2433]">${existingTask.tajuk}</h5>
-                <p class="text-xs sm:text-sm text-[#667085] leading-relaxed">${existingTask.arahan}</p>
+              <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2.5">
+                <span class="bg-blue-100 text-blue-800 text-xs font-extrabold px-2.5 py-0.5 rounded-md uppercase">${existingTask.jenis}</span>
+                <h5 class="text-sm font-extrabold text-slate-900">${existingTask.tajuk}</h5>
+                <!-- Arahan dengan Line-Breaks (whitespace-pre-line) -->
+                <p class="text-xs sm:text-sm text-slate-700 whitespace-pre-line leading-relaxed bg-white p-3 rounded-xl border border-slate-200">${existingTask.arahan}</p>
 
                 <div class="pt-2 flex flex-wrap gap-2">
                   ${existingTask.pautan ? `
-                    <a href="${existingTask.pautan}" target="_blank" class="inline-flex items-center gap-1.5 text-xs text-blue-700 font-bold bg-blue-50 px-3 py-2 rounded-lg border border-blue-200 hover:bg-blue-100">
+                    <a href="${existingTask.pautan}" target="_blank" class="inline-flex items-center gap-1.5 text-xs text-blue-700 font-bold bg-blue-50 px-3.5 py-2 rounded-xl border border-blue-200 hover:bg-blue-100 transition">
                       <i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Pautan Sesi / Meet
                     </a>
                   ` : ''}
 
                   ${existingTask.pautanFail ? `
-                    <a href="${existingTask.pautanFail}" target="_blank" class="inline-flex items-center gap-1.5 text-xs text-emerald-700 font-bold bg-emerald-50 px-3 py-2 rounded-lg border border-emerald-200 hover:bg-emerald-100">
+                    <a href="${existingTask.pautanFail}" target="_blank" class="inline-flex items-center gap-1.5 text-xs text-emerald-700 font-bold bg-emerald-50 px-3.5 py-2 rounded-xl border border-emerald-200 hover:bg-emerald-100 transition">
                       <i class="fa-solid fa-file-arrow-down"></i> Muat Turun Bahan (${existingTask.namaFail || 'Fail Bahan'})
                     </a>
                   ` : ''}
                 </div>
               </div>
             ` : `
-              <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-[#667085] text-center">
+              <div class="p-4 bg-slate-50 border border-slate-200 rounded-2xl text-xs sm:text-sm text-slate-500 text-center">
                 <i class="fa-solid fa-circle-info mr-1 text-blue-600"></i> Guru belum memasukkan tugasan bertulis untuk slot ini. Anda boleh terus membuat serahan pengesahan kehadiran di bawah.
               </div>
             `}
 
             <!-- RUANGAN MUAT NAIK & SUBMIT KEHADIRAN -->
-            <div class="pt-2 border-t border-[#dde3ec]">
+            <div class="pt-2 border-t border-slate-200">
               ${submittedRecord ? `
-                <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5 text-xs sm:text-sm text-emerald-900 font-bold flex items-center justify-between">
+                <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 text-xs sm:text-sm text-emerald-900 font-bold flex items-center justify-between">
                   <span class="flex items-center gap-2">
-                    <i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i> Tugasan Dihantar & Kehadiran Direkodkan
+                    <i class="fa-solid fa-circle-check text-emerald-600 text-xl"></i> Tugasan Dihantar & Kehadiran Direkodkan
                   </span>
-                  <span class="bg-emerald-700 text-white text-xs px-3 py-1 rounded-lg font-extrabold uppercase">HADIR</span>
+                  <span class="bg-emerald-700 text-white text-xs px-3.5 py-1 rounded-xl font-extrabold uppercase shadow-sm">HADIR</span>
                 </div>
               ` : `
-                <div class="bg-[#f4f6fa] p-4 rounded-xl border border-[#dde3ec] space-y-3">
-                  <label class="block font-bold text-xs sm:text-sm text-[#10264d]">Muat Naik Tugasan / Bukti Pembelajaran (Format PDF/Gambar/Dokumen):</label>
+                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
+                  <label class="block font-bold text-xs sm:text-sm text-slate-900">Muat Naik Tugasan / Bukti Pembelajaran (Format PDF/Gambar/Dokumen):</label>
                   
                   <div class="flex items-center gap-2">
                     <input type="file" id="student-file-${taskKey}" class="hidden" onchange="handleStudentFileSelect(this, '${taskKey}')">
-                    <button type="button" onclick="document.getElementById('student-file-${taskKey}').click()" class="bg-white hover:bg-slate-100 text-[#10264d] border border-[#dde3ec] px-3.5 py-2 rounded-lg font-bold text-xs flex items-center gap-2 shadow-sm transition">
-                      <i class="fa-solid fa-cloud-arrow-up text-blue-700 text-sm"></i> Pilih Fail Tugasan
+                    <button type="button" onclick="document.getElementById('student-file-${taskKey}').click()" class="bg-white hover:bg-slate-100 text-slate-900 border border-slate-300 px-3.5 py-2 rounded-xl font-bold text-xs flex items-center gap-2 shadow-sm transition">
+                      <i class="fa-solid fa-cloud-arrow-up text-blue-600 text-sm"></i> Pilih Fail Tugasan
                     </button>
-                    <span id="student-file-label-${taskKey}" class="text-xs text-[#667085] italic truncate max-w-[220px]">Tiada fail dipilih</span>
+                    <span id="student-file-label-${taskKey}" class="text-xs text-slate-500 italic truncate max-w-[220px]">Tiada fail dipilih</span>
                   </div>
 
                   <button id="btn-submit-task-${taskKey}" onclick="submitStudentTask('${taskKey}', '${existingTask ? existingTask.id : ''}', '${slot ? slot.guru : ''}')" class="w-full btn-classic-pr py-3 flex items-center justify-center gap-2 text-xs sm:text-sm font-bold">
@@ -872,8 +889,8 @@
           const label = document.getElementById(`student-file-label-${taskKey}`);
           if (label) {
             label.innerText = file.name;
-            label.classList.remove('italic', 'text-[#667085]');
-            label.classList.add('font-bold', 'text-blue-800');
+            label.classList.remove('italic', 'text-slate-500');
+            label.classList.add('font-bold', 'text-blue-700');
           }
         };
         reader.readAsDataURL(file);
@@ -957,9 +974,9 @@
 
       if (myTasks.length === 0) {
         container.innerHTML = `
-          <div class="card text-center p-8 text-xs sm:text-sm text-[#667085] space-y-2">
+          <div class="card text-center p-8 text-xs sm:text-sm text-slate-500 space-y-2">
             <i class="fa-solid fa-folder-open text-4xl text-slate-300"></i>
-            <p class="font-bold text-[#10264d] text-base">Tiada Tugasan Diterbitkan Lagi</p>
+            <p class="font-bold text-slate-900 text-base">Tiada Tugasan Diterbitkan Lagi</p>
             <p>Belum ada tugasan diterbitkan untuk <strong>${studentAliran} (${studentKelas})</strong>.</p>
           </div>
         `;
@@ -975,24 +992,25 @@
         let masaClean = (t.slotMasa || '').replace(/'/g, "\\'");
 
         html += `
-          <div class="card p-4 bg-white border border-[#dde3ec] space-y-2.5">
+          <div class="card p-4 sm:p-5 bg-white border border-slate-200 space-y-3">
             <div class="flex justify-between items-center">
-              <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-0.5 rounded">${t.subjek}</span>
-              <span class="text-xs text-[#667085] font-bold"><i class="fa-regular fa-calendar mr-1"></i>${t.tarikh} (${t.slotMasa})</span>
+              <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-0.5 rounded-md">${t.subjek}</span>
+              <span class="text-xs text-slate-500 font-bold"><i class="fa-regular fa-calendar mr-1"></i>${t.tarikh} (${t.slotMasa})</span>
             </div>
             
-            <h4 class="text-xs sm:text-sm font-extrabold text-[#1b2433]">${t.tajuk}</h4>
-            <p class="text-xs text-[#667085]">${t.arahan}</p>
-            <p class="text-xs text-[#667085]"><i class="fa-solid fa-user-tie mr-1"></i>Guru: ${t.namaGuru || 'Guru DELIMa'}</p>
+            <h4 class="text-xs sm:text-sm font-extrabold text-slate-900">${t.tajuk}</h4>
+            <!-- Arahan dengan Line-Breaks (whitespace-pre-line) -->
+            <p class="text-xs text-slate-600 whitespace-pre-line leading-relaxed bg-slate-50 p-2.5 rounded-xl border border-slate-100">${t.arahan}</p>
+            <p class="text-xs text-slate-500"><i class="fa-solid fa-user-tie mr-1"></i>Guru: ${t.namaGuru || 'Guru DELIMa'}</p>
 
-            <div class="pt-2 border-t border-[#dde3ec] flex justify-between items-center">
-              <span class="text-xs font-bold text-[#10264d]">Status Serahan:</span>
+            <div class="pt-2 border-t border-slate-200 flex justify-between items-center">
+              <span class="text-xs font-bold text-slate-900">Status Serahan:</span>
               ${submittedRecord ? `
-                <span class="bg-emerald-100 text-emerald-800 border border-emerald-300 font-extrabold px-3 py-1 rounded-lg text-xs flex items-center gap-1.5">
+                <span class="bg-emerald-100 text-emerald-800 border border-emerald-300 font-extrabold px-3 py-1 rounded-xl text-xs flex items-center gap-1.5">
                   <i class="fa-solid fa-circle-check"></i> Selesai Menghantar
                 </span>
               ` : (timeStatus === 'akan_datang' ? `
-                <span class="bg-amber-100 text-amber-800 border border-amber-300 font-extrabold px-3 py-1 rounded-lg text-xs flex items-center gap-1.5">
+                <span class="bg-amber-100 text-amber-800 border border-amber-300 font-extrabold px-3 py-1 rounded-xl text-xs flex items-center gap-1.5">
                   <i class="fa-solid fa-lock text-xs"></i> Kelas belum bermula
                 </span>
               ` : `
@@ -1020,9 +1038,9 @@
 
       if (studentSlots.length === 0) {
         container.innerHTML = `
-          <div class="card text-center p-8 text-xs sm:text-sm text-[#667085] space-y-2">
+          <div class="card text-center p-8 text-xs sm:text-sm text-slate-500 space-y-2">
             <i class="fa-solid fa-user-clock text-4xl text-slate-300"></i>
-            <p class="font-bold text-[#10264d] text-base">Belum Ada Rekod Kehadiran</p>
+            <p class="font-bold text-slate-900 text-base">Belum Ada Rekod Kehadiran</p>
             <p>Selesaikan tugasan harian anda untuk merekodkan kehadiran automatik.</p>
           </div>
         `;
@@ -1060,24 +1078,24 @@
             let submittedTime = dataObj.submittedAt ? new Date(dataObj.submittedAt).toLocaleTimeString('ms-MY', { hour: '2-digit', minute: '2-digit' }) : '';
 
             slotItemsHtml += `
-              <div class="p-2.5 bg-emerald-50/50 border border-emerald-200 rounded-lg flex justify-between items-center text-xs">
+              <div class="p-3 bg-emerald-50/60 border border-emerald-200 rounded-xl flex justify-between items-center text-xs">
                 <div>
-                  <span class="font-extrabold text-[#10264d] block">${slot.subjek} (${slot.slotMasa})</span>
-                  <span class="text-[#667085]">Guru: ${slot.guru} ${submittedTime ? '• Masa Serahan: ' + submittedTime : ''}</span>
+                  <span class="font-extrabold text-slate-900 block">${slot.subjek} (${slot.slotMasa})</span>
+                  <span class="text-slate-500">Guru: ${slot.guru} ${submittedTime ? '• Masa Serahan: ' + submittedTime : ''}</span>
                 </div>
-                <span class="bg-emerald-100 text-emerald-800 font-extrabold px-2.5 py-0.5 rounded text-[11px]">
+                <span class="bg-emerald-100 text-emerald-800 font-extrabold px-2.5 py-0.5 rounded-md text-[11px]">
                   <i class="fa-solid fa-check-circle mr-1"></i>HADIR
                 </span>
               </div>
             `;
           } else {
             slotItemsHtml += `
-              <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg flex justify-between items-center text-xs">
+              <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl flex justify-between items-center text-xs">
                 <div>
-                  <span class="font-extrabold text-[#10264d] block">${slot.subjek} (${slot.slotMasa})</span>
-                  <span class="text-[#667085]">Guru: ${slot.guru}</span>
+                  <span class="font-extrabold text-slate-900 block">${slot.subjek} (${slot.slotMasa})</span>
+                  <span class="text-slate-500">Guru: ${slot.guru}</span>
                 </div>
-                <span class="bg-slate-200 text-slate-700 font-extrabold px-2.5 py-0.5 rounded text-[11px]">
+                <span class="bg-slate-200 text-slate-700 font-extrabold px-2.5 py-0.5 rounded-md text-[11px]">
                   BELUM HADIR
                 </span>
               </div>
@@ -1086,12 +1104,12 @@
         });
 
         html += `
-          <div class="card p-4 bg-white border border-[#dde3ec] space-y-3">
-            <div class="flex flex-wrap justify-between items-center gap-2 border-b border-[#dde3ec] pb-2.5">
-              <span class="font-extrabold text-sm text-[#10264d] flex items-center gap-1.5">
-                <i class="fa-regular fa-calendar-check text-blue-700"></i> Tarikh: ${dateStr}
+          <div class="card p-4 sm:p-5 bg-white border border-slate-200 space-y-3">
+            <div class="flex flex-wrap justify-between items-center gap-2 border-b border-slate-200 pb-2.5">
+              <span class="font-extrabold text-sm text-slate-900 flex items-center gap-1.5">
+                <i class="fa-regular fa-calendar-check text-blue-600"></i> Tarikh: ${dateStr}
               </span>
-              <span class="bg-blue-100 text-blue-900 border border-blue-200 px-3 py-1 rounded-lg font-extrabold text-xs">
+              <span class="bg-blue-100 text-blue-900 border border-blue-200 px-3 py-1 rounded-xl font-extrabold text-xs">
                 ${attendedClasses}/${totalClasses} kelas telah hadir
               </span>
             </div>
