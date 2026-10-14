@@ -7,323 +7,410 @@
   <!-- Google Font: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Google Identity Services (GSI) SDK -->
+  <!-- Google Identity Services SDK (OAuth 2.0) -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <!-- Panggil Config Backend -->
+  <!-- Muatkan Config Penyambung Backend -->
   <script src="config.js"></script>
 
   <style>
     :root {
-      --bg: #f8fafc;
-      --card: #ffffff;
-      --tx: #0f172a;
-      --mu: #64748b;
-      --bd: #e2e8f0;
-      --pr: #2563eb;
-      --sb: #0f172a;
+      --bg-page: #e2e8f0;
+      --navy-brand: #0f172a;
     }
 
     body {
-      background-color: var(--bg);
-      color: var(--tx);
+      background-color: var(--bg-page);
+      color: #0f172a;
       font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       font-size: 14px;
-      line-height: 1.5;
       -webkit-font-smoothing: antialiased;
     }
 
-    .btn-classic-pr {
-      background-color: var(--pr);
+    .hdr-corporate {
+      background-color: var(--navy-brand);
       color: #ffffff;
-      border-radius: 10px;
-      padding: 10px 18px;
-      font-weight: 600;
-      font-size: 13px;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
     }
-    .btn-classic-pr:hover {
-      background-color: #1d4ed8;
+
+    /* Modern Corporate Google Button Style */
+    .btn-google-corporate {
+      background-color: #ffffff;
+      color: #0f172a;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 20px;
+      font-weight: 600;
+      font-size: 14px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+    .btn-google-corporate:hover {
+      background-color: #f8fafc;
+      border-color: #94a3b8;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
       transform: translateY(-1px);
-      box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+    }
+    .btn-google-corporate:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+    }
+
+    /* High Contrast Ambient Gradient Background */
+    .bg-ambient {
+      background: radial-gradient(circle at 50% 25%, #dbeafe 0%, #e2e8f0 50%, #cbd5e1 100%);
+    }
+
+    /* Custom Interactive Progress Bar Animation */
+    @keyframes progressSlide {
+      0% { width: 0%; margin-left: 0%; }
+      50% { width: 70%; margin-left: 15%; }
+      100% { width: 100%; margin-left: 0%; }
+    }
+    .animate-progress-slide {
+      animation: progressSlide 1.8s ease-in-out infinite;
     }
   </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col justify-between">
+<body class="antialiased min-h-screen flex flex-col justify-between bg-ambient">
 
-  <!-- HEADER PORTAL -->
-  <header class="bg-slate-900 border-b border-slate-800 py-3 px-4 sm:px-6 shadow-md sticky top-0 z-40">
-    <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
-      <div class="flex items-center gap-2.5 cursor-pointer" onclick="window.location.href='index.html'">
-        <div class="bg-gradient-to-tr from-blue-600 to-indigo-600 text-white p-2 rounded-xl shadow-md border border-white/10">
-          <i class="fa-solid fa-graduation-cap text-lg sm:text-xl"></i>
-        </div>
-        <div>
-          <h1 class="text-xs sm:text-sm font-extrabold tracking-tight text-white uppercase leading-tight">SMART PORTAL PdPR ONLINE</h1>
-          <span class="text-[10px] text-slate-400 font-medium tracking-wider uppercase hidden sm:inline-block">Kementerian Pendidikan Malaysia</span>
-        </div>
-      </div>
-
-      <button onclick="window.location.href='index.html'" class="bg-white/5 hover:bg-white/10 text-slate-200 hover:text-white text-xs font-semibold px-3 py-1.5 rounded-lg border border-white/10 transition flex items-center gap-1.5">
-        <i class="fa-solid fa-house text-slate-400"></i> <span>Utama</span>
-      </button>
-    </div>
-  </header>
-
-  <!-- KANDUNGAN UTAMA / BORANG LOG MASUK -->
-  <main class="flex-grow flex items-center justify-center p-4 sm:p-6">
-    <div class="bg-white rounded-2xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-6">
-      
-      <!-- TAJUK DOKUMEN -->
-      <div class="text-center space-y-2">
-        <div class="inline-flex bg-blue-50 text-blue-700 p-3.5 rounded-2xl border border-blue-200 mb-1">
-          <i class="fa-solid fa-user-check text-2xl"></i>
-        </div>
-        <h2 class="text-xl sm:text-2xl font-black text-slate-900 leading-snug">Log Masuk Portal</h2>
-        <p class="text-xs sm:text-sm text-slate-500">Gunakan ID DELIMa rasmi (@moe-dl.edu.my) untuk melog masuk ke sistem.</p>
-      </div>
-
-      <!-- BANNER NOTIFIKASI ERRORS -->
-      <div id="login-alert-box" class="hidden p-3.5 rounded-xl text-xs font-semibold border space-y-1">
-        <p id="login-alert-title" class="font-extrabold flex items-center gap-1.5"></p>
-        <p id="login-alert-desc" class="text-slate-700 leading-relaxed"></p>
-      </div>
-
-      <!-- KAEDAH 1: GOOGLE OAUTH 2.0 LOG IN (UTAMA) -->
-      <div class="space-y-3 pt-2">
-        <label class="block text-xs font-extrabold text-slate-400 uppercase tracking-wider text-center">
-          Daftar / Log Masuk Pantas Google DELIMa
-        </label>
-        
-        <div class="flex justify-center">
-          <div id="g_id_onload"
-               data-client_id="637460698521-djt73cs1emsa5n5m7p2q8s4feohmhnuh.apps.googleusercontent.com"
-               data-context="signin"
-               data-ux_mode="popup"
-               data-callback="handleCredentialResponse"
-               data-auto_prompt="false">
+  <div class="w-full flex flex-col min-h-screen justify-between">
+    
+    <!-- HEADER PORTAL KORPORAT -->
+    <header class="hdr-corporate py-3.5 px-4 sm:px-8 border-b border-slate-800/80 shadow-md sticky top-0 z-30">
+      <div class="max-w-7xl mx-auto flex items-center justify-between">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
+          <div class="bg-gradient-to-tr from-blue-600 to-indigo-600 text-white p-2 rounded-xl shadow-md shadow-blue-500/20 border border-white/10">
+            <i class="fa-solid fa-graduation-cap text-base sm:text-lg"></i>
           </div>
-
-          <div class="g_id_signin"
-               data-type="standard"
-               data-shape="rectangular"
-               data-theme="outline"
-               data-text="signin_with"
-               data-size="large"
-               data-logo_alignment="left"
-               data-width="320">
-          </div>
-        </div>
-      </div>
-
-      <!-- SEPARATOR -->
-      <div class="relative flex py-2 items-center">
-        <div class="flex-grow border-t border-slate-200"></div>
-        <span class="flex-shrink mx-3 text-[11px] text-slate-400 font-extrabold uppercase">Atau Guna Kata Laluan Manual</span>
-        <div class="flex-grow border-t border-slate-200"></div>
-      </div>
-
-      <!-- KAEDAH 2: LOG MASUK MANUAL -->
-      <form id="form-manual-login" onsubmit="handleManualLogin(event)" class="space-y-4 text-xs sm:text-sm">
-        <div>
-          <label class="block font-bold text-slate-800 mb-1">ID Emel DELIMa</label>
-          <div class="relative">
-            <i class="fa-solid fa-envelope absolute left-3 top-3 text-slate-400"></i>
-            <input type="email" id="login-email" placeholder="g-12345678@moe-dl.edu.my" required class="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-300 font-medium focus:border-blue-500 outline-none">
+          <div>
+            <h1 class="text-sm sm:text-base font-bold tracking-tight text-white uppercase leading-none">SMART PORTAL PdPR ONLINE</h1>
+            <span class="text-[10px] text-slate-400 font-medium tracking-wider uppercase">Sistem Pengurusan Pembelajaran KPM</span>
           </div>
         </div>
 
-        <div id="container-password-field">
-          <label class="block font-bold text-slate-800 mb-1">Kata Laluan</label>
-          <div class="relative">
-            <i class="fa-solid fa-lock absolute left-3 top-3 text-slate-400"></i>
-            <input type="password" id="login-password" placeholder="••••••••" class="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-300 font-medium focus:border-blue-500 outline-none">
-          </div>
-        </div>
-
-        <div id="container-new-password-field" class="hidden space-y-1 bg-amber-50 p-3 rounded-xl border border-amber-200">
-          <label class="block font-bold text-amber-900 mb-1">Cipta Kata Laluan Baharu Anda</label>
-          <div class="relative">
-            <i class="fa-solid fa-key absolute left-3 top-3 text-amber-500"></i>
-            <input type="password" id="login-new-password" placeholder="Masukkan kata laluan baharu" class="w-full pl-9 pr-3 py-2.5 rounded-xl border border-amber-300 font-medium focus:border-blue-500 outline-none bg-white">
-          </div>
-          <p class="text-[11px] text-amber-700">Sila ingat kata laluan ini untuk log masuk seterusnya.</p>
-        </div>
-
-        <button type="submit" id="btn-login-submit" class="w-full btn-classic-pr py-3 font-bold text-xs sm:text-sm flex items-center justify-center gap-2">
-          <i class="fa-solid fa-right-to-bracket"></i> Log Masuk Manual
+        <button onclick="window.location.href='index.html'" class="bg-white/5 hover:bg-white/10 text-slate-200 hover:text-white text-xs font-semibold px-3.5 py-2 rounded-lg border border-white/10 transition flex items-center gap-2 backdrop-blur-sm">
+          <i class="fa-solid fa-house text-slate-400"></i>
+          <span>Utama</span>
         </button>
-      </form>
+      </div>
+    </header>
 
+    <!-- KANDUNGAN UTAMA LOG MASUK -->
+    <main class="flex-grow flex items-center justify-center p-4 sm:p-6 my-6">
+      <div class="relative bg-white rounded-2xl max-w-sm w-full p-7 sm:p-9 shadow-2xl shadow-slate-900/10 border border-slate-300/80 space-y-6 transition-all duration-300 overflow-hidden">
+        
+        <!-- TOP ACCENT BAR -->
+        <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500"></div>
+
+        <!-- TAJUK UTAMA & IKON ELEGAN -->
+        <div class="text-center space-y-2 pt-1">
+          <div class="inline-flex bg-gradient-to-tr from-blue-50 to-indigo-50 text-blue-600 p-3.5 rounded-2xl border border-blue-100 shadow-sm mb-1">
+            <i class="fa-solid fa-shield-halved text-2xl"></i>
+          </div>
+          <div>
+            <h2 class="text-xl font-bold text-slate-900 tracking-tight" id="login-modal-title">
+              Sila Log Masuk
+            </h2>
+            <p class="text-xs text-slate-500 font-medium mt-1">Sahkan peranan anda untuk mengakses portal</p>
+          </div>
+        </div>
+
+        <!-- SEKSYEN BUTANG GOOGLE OAUTH & MESEJ STATUS DI BAWAH -->
+        <div class="space-y-4 pt-1">
+          <button type="button" onclick="triggerGoogleSignIn()" id="btn-google-custom" class="btn-google-corporate">
+            <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span>Log Masuk dengan Akaun MOE</span>
+          </button>
+
+          <!-- MESEJ STATUS / RALAT -->
+          <div id="login-msg-banner" class="hidden text-xs text-center py-2.5 px-3.5 rounded-xl border border-slate-200 bg-slate-50 transition-all duration-300 shadow-sm"></div>
+        </div>
+
+        <!-- FOOTER KECIL KAD -->
+        <div class="pt-3 border-t border-slate-100 text-center">
+          <span class="text-[11px] text-slate-500 font-medium inline-flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
+            Pengesahan Rasmi Google Workspace KPM
+          </span>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- FOOTER PORTAL KORPORAT -->
+    <footer class="bg-[#0f172a] text-slate-400 text-xs py-4 px-4 text-center border-t border-slate-800/80">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+        <p>© Smart Portal Pengurusan PdPR Sekolah • Kementerian Pendidikan Malaysia</p>
+        <p class="text-slate-500 text-[11px]">Sistem Pengesahan DELIMa v2.0</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- OVERLAY FREEZE SCREEN / LOADING INTERAKTIF SEMASA MENYEMAK PANGKALAN DATA -->
+  <div id="loading-overlay" class="hidden fixed inset-0 bg-slate-950/70 backdrop-blur-md z-50 flex items-center justify-center p-4 transition-all duration-300">
+    <div class="bg-white/95 backdrop-blur-xl border border-slate-200 rounded-2xl p-7 sm:p-8 max-w-sm w-full text-center shadow-2xl space-y-5 relative overflow-hidden">
+      
+      <!-- Top Line Accent -->
+      <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 animate-pulse"></div>
+
+      <!-- Interactive Animated Spinner & Database Icon -->
+      <div class="relative w-20 h-20 mx-auto flex items-center justify-center">
+        <div class="absolute inset-0 rounded-full border-2 border-blue-500/20 animate-ping"></div>
+        <div class="absolute inset-0 rounded-full border-4 border-transparent border-t-blue-600 border-r-indigo-600 animate-spin"></div>
+        <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center shadow-inner">
+          <i class="fa-solid fa-database text-xl animate-pulse"></i>
+        </div>
+      </div>
+
+      <!-- Loading Text Details -->
+      <div class="space-y-1.5">
+        <h3 class="text-base font-bold text-slate-800 tracking-tight" id="loading-title">Menyemak Pangkalan Data</h3>
+        <p class="text-xs text-slate-500 font-medium" id="loading-text">Mengesahkan rekod & peranan akaun anda...</p>
+      </div>
+
+      <!-- Animated Interactive Progress Bar -->
+      <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+        <div class="bg-gradient-to-r from-blue-600 to-indigo-600 h-full rounded-full animate-progress-slide"></div>
+      </div>
+
+      <p class="text-[11px] text-slate-400 font-medium flex items-center justify-center gap-1.5">
+        <i class="fa-solid fa-lock text-slate-400 text-[10px]"></i>
+        <span>Sambungan Selamat KPM DELIMa</span>
+      </p>
     </div>
-  </main>
+  </div>
 
-  <!-- FOOTER PORTAL -->
-  <footer class="bg-slate-900 text-slate-400 text-xs py-3 px-4 text-center border-t border-slate-800">
-    <p>© Smart Portal Pengurusan PdPR Online • Kementerian Pendidikan Malaysia</p>
-  </footer>
+  <!-- MODAL PILIHAN PERANAN (ADMIN / GURU) -->
+  <div id="modal-role-select" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 text-center space-y-5 relative overflow-hidden">
+      <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-600 to-indigo-600"></div>
+      <div class="inline-flex bg-slate-900 text-white p-3.5 rounded-2xl shadow-md">
+        <i class="fa-solid fa-user-gear text-2xl"></i>
+      </div>
+      <div>
+        <h3 class="text-base font-bold text-slate-900" id="modal-admin-nama">Selamat Datang, Pentadbir</h3>
+        <p class="text-xs text-slate-500 mt-1">Sila pilih ruang kerja pilihan anda:</p>
+      </div>
+      <div class="grid grid-cols-1 gap-2.5 pt-1">
+        <button onclick="confirmAdminRoleChoice('guru')" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold py-3 rounded-xl transition flex items-center justify-center gap-2 shadow-sm">
+          <i class="fa-solid fa-chalkboard-user"></i>
+          <span>Papan Kawalan Guru</span>
+        </button>
+        <button onclick="confirmAdminRoleChoice('admin')" class="w-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold py-3 rounded-xl transition flex items-center justify-center gap-2 border border-slate-800">
+          <i class="fa-solid fa-user-shield text-amber-300"></i>
+          <span>Papan Kawalan Admin</span>
+        </button>
+      </div>
+    </div>
+  </div>
 
-  <!-- SKRIP LOG MASUK -->
+  <!-- SKRIP LOG MASUK & GOOGLE OAUTH POPUP -->
   <script>
-    const activeBackendUrl = (typeof APPS_SCRIPT_URL !== 'undefined') 
-      ? APPS_SCRIPT_URL 
-      : "https://script.google.com/macros/s/AKfycbwv5FF2K0YtdEs6p_MNt_c-Cdstpkj1_p0yJGlFCHvtvNhdc-ujv46wKM_rYHxS0tg2Mg/exec";
+    let tokenClient = null;
+    let currentUserData = null;
 
-    let isFirstLoginMode = false;
-
-    function parseJwt(token) {
-      try {
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-        return JSON.parse(jsonPayload);
-      } catch (e) {
-        return null;
-      }
+    // FUNGSI SKRIN FREEZE / LOADING INTERAKTIF
+    function showLoading(text = "Menyemak pangkalan data...") {
+      const overlay = document.getElementById('loading-overlay');
+      const txtEl = document.getElementById('loading-text');
+      if (txtEl) txtEl.innerText = text;
+      if (overlay) overlay.classList.remove('hidden');
     }
 
-    function showAlert(title, desc, type = 'error') {
-      const alertBox = document.getElementById('login-alert-box');
-      const alertTitle = document.getElementById('login-alert-title');
-      const alertDesc = document.getElementById('login-alert-desc');
+    function hideLoading() {
+      const overlay = document.getElementById('loading-overlay');
+      if (overlay) overlay.classList.add('hidden');
+    }
 
-      alertBox.classList.remove('hidden', 'bg-rose-50', 'border-rose-200', 'text-rose-900', 'bg-emerald-50', 'border-emerald-200', 'text-emerald-900', 'bg-amber-50', 'border-amber-200', 'text-amber-900');
+    // FUNGSI PAPAR MESEJ STATUS DI BAWAH BUTANG
+    function showBanner(msg, type = 'error') {
+      const banner = document.getElementById('login-msg-banner');
+      banner.classList.remove(
+        'hidden',
+        'border-rose-200', 'bg-rose-50/90', 'text-rose-700',
+        'border-emerald-200', 'bg-emerald-50/90', 'text-emerald-700',
+        'border-blue-200', 'bg-blue-50/90', 'text-blue-700',
+        'border-slate-200', 'bg-slate-50', 'text-slate-600'
+      );
+      
+      let icon = 'fa-circle-info';
+      let iconColor = 'text-blue-500';
 
       if (type === 'error') {
-        alertBox.classList.add('bg-rose-50', 'border-rose-200', 'text-rose-900');
-        alertTitle.innerHTML = `<i class="fa-solid fa-circle-exclamation text-rose-600"></i> ${title}`;
+        banner.classList.add('border-rose-200', 'bg-rose-50/90', 'text-rose-700');
+        icon = 'fa-circle-exclamation';
+        iconColor = 'text-rose-500';
       } else if (type === 'success') {
-        alertBox.classList.add('bg-emerald-50', 'border-emerald-200', 'text-emerald-900');
-        alertTitle.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600"></i> ${title}`;
-      } else if (type === 'warning') {
-        alertBox.classList.add('bg-amber-50', 'border-amber-200', 'text-amber-900');
-        alertTitle.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-amber-600"></i> ${title}`;
+        banner.classList.add('border-emerald-200', 'bg-emerald-50/90', 'text-emerald-700');
+        icon = 'fa-circle-check';
+        iconColor = 'text-emerald-500';
+      } else {
+        banner.classList.add('border-blue-200', 'bg-blue-50/90', 'text-blue-700');
+        icon = 'fa-circle-info';
+        iconColor = 'text-blue-500';
       }
 
-      alertDesc.innerText = desc;
+      banner.innerHTML = `<div class="flex items-center justify-center gap-2 font-medium leading-relaxed"><i class="fa-solid ${icon} ${iconColor} text-xs flex-shrink-0"></i><span>${msg}</span></div>`;
     }
 
-    function handleCredentialResponse(response) {
-      const payload = parseJwt(response.credential);
-      if (!payload || !payload.email) {
-        showAlert("Ralat Google Auth", "Pengesahan Google gagal. Sila cuba lagi.");
+    function hideBanner() {
+      const banner = document.getElementById('login-msg-banner');
+      banner.classList.add('hidden');
+    }
+
+    // Inisialisasi Token Client OAuth (GSI Popup)
+    function initGoogleOAuth(clientId) {
+      if (window.google && google.accounts && google.accounts.oauth2) {
+        tokenClient = google.accounts.oauth2.initTokenClient({
+          client_id: clientId,
+          scope: 'email profile openid',
+          callback: handleTokenResponse
+        });
+      } else {
+        setTimeout(() => initGoogleOAuth(clientId), 300);
+      }
+    }
+
+    function triggerGoogleSignIn() {
+      hideBanner();
+      if (tokenClient) {
+        tokenClient.requestAccessToken({ prompt: 'select_account' });
+      } else if (typeof GOOGLE_CLIENT_ID !== 'undefined' && GOOGLE_CLIENT_ID) {
+        initGoogleOAuth(GOOGLE_CLIENT_ID);
+        showBanner("Sistem sedang memuatkan penyambung Google, sila cuba seketika lagi.", "info");
+      } else {
+        showBanner("Ralat: Client ID tidak dijumpai dalam config.js", "error");
+      }
+    }
+
+    function handleTokenResponse(response) {
+      if (response.error) {
+        hideLoading();
+        showBanner("Pengesahan Google OAuth dibatalkan.", "info");
         return;
       }
 
-      const userEmail = payload.email.toLowerCase().trim();
+      if (response.access_token) {
+        showLoading("Mengesahkan akaun Google anda...");
+        showBanner("Mengesahkan akaun anda...", "info");
 
-      if (!userEmail.endsWith("@moe-dl.edu.my")) {
-        showAlert("Domain Dibataskan", "Hanya emel rasmi ID DELIMa (@moe-dl.edu.my) sahaja dibenarkan untuk melog masuk.");
-        return;
-      }
-
-      const btnSubmit = document.getElementById('btn-login-submit');
-      btnSubmit.disabled = true;
-      btnSubmit.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menyemak Akaun Google...';
-
-      fetch(`${activeBackendUrl}?action=login&email=${encodeURIComponent(userEmail)}&oauth=true`)
+        fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+          headers: { Authorization: `Bearer ${response.access_token}` }
+        })
         .then(res => res.json())
-        .then(data => {
-          btnSubmit.disabled = false;
-          btnSubmit.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Log Masuk Manual';
-
-          if (data.status === 'success') {
-            saveSessionAndRedirect(data);
-          } else {
-            showAlert("Akses Ditolak", data.message || "Akaun anda tidak dijumpai dalam profil.");
+        .then(userInfo => {
+          if (!userInfo || !userInfo.email) {
+            hideLoading();
+            showBanner("Gagal membaca profil e-mel daripada Google.", "error");
+            return;
           }
+
+          const emailLower = userInfo.email.toLowerCase().trim();
+
+          if (!emailLower.endsWith('@moe-dl.edu.my')) {
+            hideLoading();
+            showBanner("Sila gunakan emel rasmi MOE (@moe-dl.edu.my).", "error");
+            return;
+          }
+
+          showLoading("Menyemak peranan di pangkalan data KPM...");
+          showBanner("Menyemak peranan di pangkalan data...", "info");
+
+          const backendUrl = (typeof APPS_SCRIPT_URL !== 'undefined') ? APPS_SCRIPT_URL : "";
+          if (!backendUrl) {
+            hideLoading();
+            showBanner("Ralat konfigurasi pelayan backend.", "error");
+            return;
+          }
+
+          fetch(`${backendUrl}?email=${encodeURIComponent(emailLower)}&action=login&oauth=true`)
+            .then(res => res.json())
+            .then(data => {
+              hideLoading();
+              if (data.status === 'success') {
+                currentUserData = data.user || {};
+                currentUserData.email = emailLower;
+                const displayName = userInfo.name || currentUserData.nama || emailLower.split('@')[0];
+                const userKelas = currentUserData.kelas || currentUserData.guruKelas || "";
+
+                if (currentUserData.isAdmin || data.role === 'guru_admin' || data.role === 'admin') {
+                  document.getElementById('modal-admin-nama').innerText = "Selamat Datang, " + displayName;
+                  document.getElementById('modal-role-select').classList.remove('hidden');
+                } else {
+                  saveSessionAndRedirect(data.role, displayName, emailLower, userKelas);
+                }
+              } else {
+                showBanner(data.message || "Rekod akaun tidak dijumpai dalam sistem.", "error");
+              }
+            })
+            .catch(err => {
+              hideLoading();
+              showBanner("Ralat sambungan dengan pelayan backend.", "error");
+            });
         })
         .catch(err => {
-          btnSubmit.disabled = false;
-          btnSubmit.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Log Masuk Manual';
-          showAlert("Ralat Pelayan", "Gagal berhubung dengan pangkalan data backend.");
+          hideLoading();
+          showBanner("Ralat semasa mengambil maklumat akaun.", "error");
         });
-    }
-
-    function handleManualLogin(e) {
-      e.preventDefault();
-
-      const email = document.getElementById('login-email').value.trim().toLowerCase();
-      const password = document.getElementById('login-password').value.trim();
-      const newPassword = document.getElementById('login-new-password').value.trim();
-
-      if (!email.endsWith("@moe-dl.edu.my")) {
-        showAlert("Domain Dibataskan", "Sila masukkan emel rasmi ID DELIMa (@moe-dl.edu.my).");
-        return;
       }
-
-      const btnSubmit = document.getElementById('btn-login-submit');
-      btnSubmit.disabled = true;
-      btnSubmit.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Memproses...';
-
-      let actionParam = isFirstLoginMode ? 'create_password' : 'login';
-      let fetchUrl = `${activeBackendUrl}?action=${actionParam}&email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}&new_password=${encodeURIComponent(newPassword)}`;
-
-      fetch(fetchUrl)
-        .then(res => res.json())
-        .then(data => {
-          btnSubmit.disabled = false;
-          btnSubmit.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Log Masuk Manual';
-
-          if (data.status === 'first_login_guru') {
-            isFirstLoginMode = true;
-            document.getElementById('container-new-password-field').classList.remove('hidden');
-            showAlert("Tetapkan Kata Laluan", "Ini adalah log masuk kali pertama anda. Sila tetapkan kata laluan baharu di bawah.", "warning");
-          } else if (data.status === 'success') {
-            saveSessionAndRedirect(data);
-          } else {
-            showAlert("Gagal Log Masuk", data.message || "E-mel atau kata laluan tidak sah.");
-          }
-        })
-        .catch(err => {
-          btnSubmit.disabled = false;
-          btnSubmit.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Log Masuk Manual';
-          showAlert("Ralat Pelayan", "Gagal berhubung dengan backend.");
-        });
     }
 
-    function saveSessionAndRedirect(data) {
-      const user = data.user || {};
-      const sessionObj = {
-        role: data.role,
-        email: user.email,
-        username: user.nama || user.email.split('@')[0],
-        kelas: user.kelas || user.guruKelas || "Tahun 1",
-        isAdmin: user.isAdmin || false,
-        loginAt: new Date().toISOString()
-      };
+    function confirmAdminRoleChoice(selectedRole) {
+      document.getElementById('modal-role-select').classList.add('hidden');
+      if (currentUserData) {
+        const displayName = currentUserData.nama || currentUserData.email.split('@')[0];
+        const userKelas = currentUserData.kelas || currentUserData.guruKelas || "";
+        saveSessionAndRedirect(selectedRole, displayName, currentUserData.email, userKelas);
+      }
+    }
 
-      localStorage.setItem('pdpr_session', JSON.stringify(sessionObj));
+    function saveSessionAndRedirect(role, username, email = "", kelas = "") {
+      localStorage.setItem('pdpr_session', JSON.stringify({ role, username, email, kelas }));
 
-      showAlert("Berjaya!", "Log masuk disahkan. Mengalih ke papan kawalan...", "success");
-
-      setTimeout(() => {
-        if (data.role === 'admin' || data.role === 'guru_admin') {
-          window.location.href = "AdminDash.html";
-        } else if (data.role === 'guru') {
-          window.location.href = "GuruDash.html";
-        } else {
-          window.location.href = "MuridDash.html";
-        }
-      }, 1000);
+      if (role === 'admin' || role === 'guru_admin') {
+        window.location.href = "AdminDash.html";
+      } else if (role === 'guru') {
+        window.location.href = "GuruDash.html";
+      } else if (role === 'murid') {
+        window.location.href = "MuridDash.html";
+      } else {
+        window.location.href = "index.html";
+      }
     }
 
     window.onload = function() {
-      const existingSession = localStorage.getItem('pdpr_session');
-      if (existingSession) {
+      // Inisialisasi Google OAuth secara pantas dari config.js
+      if (typeof GOOGLE_CLIENT_ID !== 'undefined' && GOOGLE_CLIENT_ID) {
+        initGoogleOAuth(GOOGLE_CLIENT_ID);
+      } else {
+        showBanner("Ralat: GOOGLE_CLIENT_ID tidak dijumpai dalam config.js", "error");
+      }
+
+      // Semak jika sudah ada sesi aktif
+      const sessionData = localStorage.getItem('pdpr_session');
+      if (sessionData) {
         try {
-          const session = JSON.parse(existingSession);
-          if (session.role === 'admin' || session.role === 'guru_admin') window.location.href = "AdminDash.html";
-          else if (session.role === 'guru') window.location.href = "GuruDash.html";
-          else if (session.role === 'murid') window.location.href = "MuridDash.html";
-        } catch(e) {}
+          const session = JSON.parse(sessionData);
+          if (session && session.role) {
+            saveSessionAndRedirect(session.role, session.username, session.email, session.kelas);
+          }
+        } catch (e) {}
       }
     };
   </script>
