@@ -939,17 +939,12 @@
         document.getElementById('preview-slot-subjek').innerText = slot.subjek;
         preview.classList.remove('hidden');
         
-        // Kemas kini notis paparan pautan Meet mengikut aliran slot
-        const targetMeetUrl = (typeof MEET_LINKS_ALIRAN !== 'undefined' && MEET_LINKS_ALIRAN[slot.tahun]) 
-          ? MEET_LINKS_ALIRAN[slot.tahun] 
-          : "https://meet.google.com/";
+       // Kemas kini notis paparan pautan Meet mengikut aliran slot + Emel Guru
+        const guruEmail = (currentUserSession && currentUserSession.email) ? currentUserSession.email : "";
+        const targetMeetUrl = getMeetLink(slot.tahun, guruEmail);
+
         const noticeName = document.getElementById('notice-aliran-name');
         const noticeLink = document.getElementById('notice-aliran-link');
-        if (noticeName) noticeName.innerText = slot.tahun;
-        if (noticeLink) {
-          noticeLink.innerText = targetMeetUrl;
-          noticeLink.href = targetMeetUrl;
-        }
 
         lockTugasanFormInputs(false);
       } else {
@@ -996,13 +991,12 @@
       let jenis = 'Tugasan';
       for (let r of jenisRadios) { if (r.checked) jenis = r.value; }
 
-      let pautan = document.getElementById('tugasan-input-pautan').value.trim();
+  let pautan = document.getElementById('tugasan-input-pautan').value.trim();
       if (jenis === 'Google Meet') {
-        // Sistem terus menarik pautan statik mengikut aliran slot terpilih (contoh: Tahun 1)
+        // Panggil terus dari config.js bersama emel guru
         const aliranSlot = selectedSlot.tahun;
-        pautan = (typeof MEET_LINKS_ALIRAN !== 'undefined' && MEET_LINKS_ALIRAN[aliranSlot]) 
-          ? MEET_LINKS_ALIRAN[aliranSlot] 
-          : "https://meet.google.com/";
+        const guruEmail = (currentUserSession && currentUserSession.email) ? currentUserSession.email : "";
+        pautan = getMeetLink(aliranSlot, guruEmail);
       }
 
       const payload = {
