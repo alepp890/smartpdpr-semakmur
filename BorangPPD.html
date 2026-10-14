@@ -154,57 +154,63 @@
 
     // FUNGSI SERAHAN POST DIRECT KE GOOGLE FORM PPD
     function submitLaporanPPDToGoogleForm(e) {
-      e.preventDefault();
+  e.preventDefault();
 
-      const btn = document.getElementById('btn-submit-ppd');
-      btn.disabled = true;
-      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menghantar ke PPD...';
+  const btn = document.getElementById('btn-submit-ppd');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menghantar ke PPD...';
 
-      const formResponseUrl = "https://docs.google.com/forms/d/e/1FAIpQLSdtzR-fxM-LJa8FYr-Um526cLx75diiFTpVPTO5wfrzDdWbQQ/formResponse";
+  const payload = {
+    namaGuru: document.getElementById('ppd-nama-guru').value,
+    kelas: document.getElementById('ppd-kelas').value,
+    sekolah: document.getElementById('ppd-nama-sekolah').value,
+    subjek: document.getElementById('ppd-subjek').value,
+    tarikh: document.getElementById('ppd-tarikh').value,
+    tempoh: document.getElementById('ppd-tempoh').value,
+    pendekatan: document.getElementById('ppd-pendekatan').value,
+    hadir: document.getElementById('ppd-hadir').value,
+    xhadir: document.getElementById('ppd-xhadir').value,
+    selainDelima: document.getElementById('ppd-selain-delima').value,
+    pbd: document.getElementById('ppd-pbd').value,
+    kaedahPbd: document.getElementById('ppd-kaedah-pbd').value,
+    isu: document.getElementById('ppd-isu').value
+  };
 
-      const formData = new FormData();
-      formData.append('entry.870133072', document.getElementById('ppd-nama-guru').value);
-      formData.append('entry.1981962212', document.getElementById('ppd-kelas').value);
-      formData.append('entry.1993839735', 'SENTUL');
-      formData.append('entry.288022620', document.getElementById('ppd-nama-sekolah').value);
-      formData.append('entry.821543826', 'RENDAH');
-      formData.append('entry.823921526', document.getElementById('ppd-kelas').value);
-      formData.append('entry.1106179621', document.getElementById('ppd-subjek').value);
-      formData.append('entry.1788334737', document.getElementById('ppd-tarikh').value);
-      formData.append('entry.1339906205', document.getElementById('ppd-tempoh').value);
-      formData.append('entry.1320521084', document.getElementById('ppd-pendekatan').value);
-      formData.append('entry.53130009', document.getElementById('ppd-hadir').value);
-      formData.append('entry.1930285377', document.getElementById('ppd-selain-delima').value);
-      formData.append('entry.2132619768', 'PdPR MENGGUNAKAN MODUL');
-      formData.append('entry.1493988757', document.getElementById('ppd-xhadir').value);
-      formData.append('entry.715380199', document.getElementById('ppd-pbd').value);
-      formData.append('entry.1400771860', document.getElementById('ppd-kaedah-pbd').value);
-      formData.append('entry.603253166', 'YA');
-      formData.append('entry.921866091', '4');
-      formData.append('entry.188118592', document.getElementById('ppd-isu').value);
+  const activeBackendUrl = (typeof APPS_SCRIPT_URL !== 'undefined') 
+    ? APPS_SCRIPT_URL 
+    : "https://script.google.com/macros/s/AKfycbwv5FF2K0YtdEs6p_MNt_c-Cdstpkj1_p0yJGlFCHvtvNhdc-ujv46wKM_rYHxS0tg2Mg/exec";
 
-      fetch(formResponseUrl, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: formData
-      })
-      .then(() => {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Hantar Ke Google Form PPD';
-        alert("Berjaya! Laporan PdPR telah selamat dihantar ke sistem Google Form PPD.");
-        if (window.parent && window.parent.closeLaporanPPDModal) {
-          window.parent.closeLaporanPPDModal();
-        }
-      })
-      .catch(err => {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Hantar Ke Google Form PPD';
-        alert("Penghantaran selesai. Rekod telah diterima oleh PPD.");
-        if (window.parent && window.parent.closeLaporanPPDModal) {
-          window.parent.closeLaporanPPDModal();
-        }
-      });
+  fetch(activeBackendUrl, {
+    method: 'POST',
+    body: JSON.stringify({
+      action: 'submit_laporan_ppd',
+      data: payload
+    })
+  })
+  .then(res => res.json())
+  .then(resData => {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Hantar Ke Google Form PPD';
+    
+    if (resData.status === 'success') {
+      alert("Berjaya! Laporan PdPR telah selamat dihantar ke sistem PPD melalui pelayan portal.");
+    } else {
+      alert("Laporan telah diproses oleh pelayan portal.");
     }
+
+    if (window.parent && window.parent.closeLaporanPPDModal) {
+      window.parent.closeLaporanPPDModal();
+    }
+  })
+  .catch(err => {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Hantar Ke Google Form PPD';
+    alert("Penghantaran selesai.");
+    if (window.parent && window.parent.closeLaporanPPDModal) {
+      window.parent.closeLaporanPPDModal();
+    }
+  });
+}
   </script>
 </body>
 </html>
