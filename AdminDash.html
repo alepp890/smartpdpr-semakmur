@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ms"> 
+<html lang="ms">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +11,9 @@
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-fontawesome/6.4.0/css/all.min.css">
+  <!-- Panggil Config Backend & Pautan Meet Statik -->
+  <script src="config.js"></script>
 
   <style>
     :root {
@@ -207,7 +209,7 @@
           </div>
 
           <button onclick="openCreateJadualModal()" class="btn-classic-pr text-xs sm:text-sm flex items-center justify-center gap-2">
-            <i class="fa-solid fa-circle-plus"></i> + Hasikan Jadual Baru
+            <i class="fa-solid fa-circle-plus"></i> + Hasilkan Jadual Baru
           </button>
         </div>
 
@@ -320,7 +322,9 @@
 
   <!-- SKRIP DASHBOARD ADMIN -->
   <script>
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxKGebSI59lH1sfpKKd2IL0Cf6b6d1w8PthoJ4GeMmCIAP2u2Iqdd_SAEgYudAUSV_WKg/exec";
+    const activeBackendUrl = (typeof APPS_SCRIPT_URL !== 'undefined') 
+      ? APPS_SCRIPT_URL 
+      : "https://script.google.com/macros/s/AKfycbwv5FF2K0YtdEs6p_MNt_c-Cdstpkj1_p0yJGlFCHvtvNhdc-ujv46wKM_rYHxS0tg2Mg/exec";
 
     const SENARAI_SUBJEK = [
       "BAHASA MELAYU",
@@ -395,7 +399,7 @@
     }
 
     function loadInitialBackendData() {
-      fetch(`${APPS_SCRIPT_URL}?action=get_teachers`)
+      fetch(`${activeBackendUrl}?action=get_teachers`)
         .then(res => res.json())
         .then(data => {
           if (data.status === 'success' && data.teachers && data.teachers.length > 0) {
@@ -410,7 +414,7 @@
           renderDynamicSlotInputs();
         });
 
-      fetch(`${APPS_SCRIPT_URL}?action=get_jadual`)
+      fetch(`${activeBackendUrl}?action=get_jadual`)
         .then(res => res.json())
         .then(data => {
           if (data.status === 'success' && data.jadualList) {
@@ -815,7 +819,13 @@
       btn.disabled = true;
       btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Menyimpan ke Sheet...';
 
-      fetch(`${APPS_SCRIPT_URL}?action=save_jadual&data=${encodeURIComponent(JSON.stringify(payload))}`)
+      fetch(activeBackendUrl, {
+        method: "POST",
+        body: JSON.stringify({
+          action: "save_jadual",
+          data: payload
+        })
+      })
         .then(res => res.json())
         .then(data => {
           btn.disabled = false;
