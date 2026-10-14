@@ -1,3 +1,17 @@
+// config.js
+
+// 1. URL Web App Apps Script Backend
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx-oiKHSEFqEpf0R5gxdGpscOlvVjTsgvvQR09e4pBsbyGtT_vL5QwbbDwOnqPeV0Sh2Q/exec";
-// Masukkan Client ID terus di sini
+
+// 2. Google OAuth Client ID
 const GOOGLE_CLIENT_ID = "637460698521-djt73cs1emsa5n5m7p2q8s4feohmhnuh.apps.googleusercontent.com";
+
+// 3. Kamus Pautan Statik Google Meet Mengikut Aliran
+const MEET_LINKS_ALIRAN = {
+  "Tahun 1": "https://meet.google.com/jur-pryy-yjp",
+  "Tahun 2": "https://meet.google.com/xid-eyuf-yjo",
+  "Tahun 3": "https://meet.google.com/bxd-pqzr-fea",
+  "Tahun 4": "https://meet.google.com/kxu-wghs-whd",
+  "Tahun 5": "https://meet.google.com/chk-ddbm-sso",
+  "Tahun 6": "https://meet.google.com/kxw-cufj-ugy"
+};
