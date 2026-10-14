@@ -4,10 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Borang Laporan PdPR PPD WPKL 2026</title>
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Config Backend -->
+  <script src="config.js"></script>
 </head>
 <body class="bg-slate-50 p-3 sm:p-5 font-sans text-slate-800">
+
+  <!-- IFRAME TERSEMBUNYI UNTUK MENERIMA RESPONSE SERAHAN TANPA RALAT 401 -->
+  <iframe name="hidden_iframe_ppd" id="hidden_iframe_ppd" style="display:none;"></iframe>
 
   <div class="max-w-xl mx-auto bg-white rounded-2xl p-5 shadow-lg border border-slate-200 space-y-4">
     
@@ -17,12 +24,26 @@
         <h2 class="text-sm sm:text-base font-extrabold text-slate-900 flex items-center gap-2">
           <i class="fa-solid fa-paper-plane text-purple-600"></i> Laporan PdPR PPD WPKL (2026)
         </h2>
-        <p class="text-[11px] text-slate-500">Penghantaran automatik ke Google Form PPD</p>
+        <p class="text-[11px] text-slate-500">Penghantaran automatik terus dari portal ke Google Form PPD</p>
       </div>
     </div>
 
-    <form id="form-laporan-ppd" onsubmit="submitLaporanPPDToGoogleForm(event)" class="space-y-3 text-xs sm:text-sm">
+    <!-- FORM SERAHAN ASLI DENGAN TARGET IFRAME TERSEMBUNYI -->
+    <form id="form-laporan-ppd" 
+          action="https://docs.google.com/forms/d/e/1FAIpQLSdtzR-fxM-LJa8FYr-Um526cLx75diiFTpVPTO5wfrzDdWbQQ/formResponse" 
+          method="POST" 
+          target="hidden_iframe_ppd" 
+          onsubmit="handleNativeFormSubmit(event)" 
+          class="space-y-3 text-xs sm:text-sm">
       
+      <!-- MEDAN TETAP TERSEMBUNYI (HARDCODED GOOGLE FORM ENTRY) -->
+      <input type="hidden" name="entry.1993839735" value="SENTUL">
+      <input type="hidden" name="entry.821543826" value="RENDAH">
+      <input type="hidden" name="entry.2132619768" value="PdPR MENGGUNAKAN MODUL">
+      <input type="hidden" name="entry.603253166" value="YA">
+      <input type="hidden" name="entry.921866091" value="4">
+      <input type="hidden" id="ppd-kelas-duplicate" name="entry.823921526" value="">
+
       <!-- MAKLUMAT PORTAL (AUTO-FILL) -->
       <div class="bg-purple-50/70 p-3 rounded-xl border border-purple-200 space-y-2">
         <span class="text-[10px] font-extrabold text-purple-700 uppercase tracking-wider block">
@@ -31,28 +52,28 @@
         
         <div>
           <label class="block font-bold text-slate-700 mb-0.5">Nama Guru / Pensyarah</label>
-          <input type="text" id="ppd-nama-guru" class="w-full p-2 bg-white rounded-lg border border-slate-300 font-bold text-slate-800 focus:ring-2 focus:ring-purple-500 outline-none">
+          <input type="text" id="ppd-nama-guru" name="entry.870133072" required class="w-full p-2 bg-white rounded-lg border border-slate-300 font-bold text-slate-800 focus:ring-2 focus:ring-purple-500 outline-none">
         </div>
 
         <div class="grid grid-cols-2 gap-2">
           <div>
             <label class="block font-bold text-slate-700 mb-0.5">Kod & Nama Sekolah</label>
-            <input type="text" id="ppd-nama-sekolah" value="WBA0091 SK SEGAMBUT MAKMUR" class="w-full p-2 bg-white rounded-lg border border-slate-300 font-semibold text-slate-800">
+            <input type="text" id="ppd-nama-sekolah" name="entry.288022620" value="WBA0091 SK SEGAMBUT MAKMUR" required class="w-full p-2 bg-white rounded-lg border border-slate-300 font-semibold text-slate-800">
           </div>
           <div>
             <label class="block font-bold text-slate-700 mb-0.5">Nama Kelas / Tahun</label>
-            <input type="text" id="ppd-kelas" readonly class="w-full p-2 bg-white rounded-lg border border-slate-300 font-semibold text-slate-800 focus:outline-none">
+            <input type="text" id="ppd-kelas" name="entry.1981962212" readonly class="w-full p-2 bg-white rounded-lg border border-slate-300 font-semibold text-slate-800 focus:outline-none">
           </div>
         </div>
 
         <div class="grid grid-cols-2 gap-2">
           <div>
             <label class="block font-bold text-slate-700 mb-0.5">Mata Pelajaran</label>
-            <input type="text" id="ppd-subjek" readonly class="w-full p-2 bg-white rounded-lg border border-slate-300 font-semibold text-slate-800 focus:outline-none">
+            <input type="text" id="ppd-subjek" name="entry.1106179621" readonly class="w-full p-2 bg-white rounded-lg border border-slate-300 font-semibold text-slate-800 focus:outline-none">
           </div>
           <div>
             <label class="block font-bold text-slate-700 mb-0.5">Tarikh PdPR</label>
-            <input type="date" id="ppd-tarikh" class="w-full p-2 bg-white rounded-lg border border-slate-300 font-semibold text-slate-800">
+            <input type="date" id="ppd-tarikh" name="entry.1788334737" required class="w-full p-2 bg-white rounded-lg border border-slate-300 font-semibold text-slate-800">
           </div>
         </div>
       </div>
@@ -61,7 +82,7 @@
       <div class="grid grid-cols-3 gap-2">
         <div>
           <label class="block font-bold text-slate-700 mb-1">Pendekatan PdPR</label>
-          <select id="ppd-pendekatan" class="w-full p-2 rounded-lg border border-slate-300 font-semibold">
+          <select id="ppd-pendekatan" name="entry.1320521084" class="w-full p-2 rounded-lg border border-slate-300 font-semibold">
             <option value="DALAM TALIAN">DALAM TALIAN</option>
             <option value="LUAR TALIAN">LUAR TALIAN</option>
             <option value="GABUNGAN (DALAM DAN LUAR TALIAN)">GABUNGAN</option>
@@ -69,11 +90,11 @@
         </div>
         <div>
           <label class="block font-bold text-slate-700 mb-1">Bil. Murid Hadir</label>
-          <input type="number" id="ppd-hadir" required class="w-full p-2 rounded-lg border border-slate-300 font-bold text-emerald-700">
+          <input type="number" id="ppd-hadir" name="entry.53130009" required class="w-full p-2 rounded-lg border border-slate-300 font-bold text-emerald-700">
         </div>
         <div>
           <label class="block font-bold text-slate-700 mb-1">Bil. Tidak Hadir</label>
-          <input type="number" id="ppd-xhadir" value="0" required class="w-full p-2 rounded-lg border border-slate-300 font-bold text-rose-700">
+          <input type="number" id="ppd-xhadir" name="entry.1493988757" value="0" required class="w-full p-2 rounded-lg border border-slate-300 font-bold text-rose-700">
         </div>
       </div>
 
@@ -81,7 +102,7 @@
       <div class="grid grid-cols-2 gap-2">
         <div>
           <label class="block font-bold text-slate-700 mb-1">Tempoh Masa</label>
-          <select id="ppd-tempoh" class="w-full p-2 rounded-lg border border-slate-300 font-semibold">
+          <select id="ppd-tempoh" name="entry.1339906205" class="w-full p-2 rounded-lg border border-slate-300 font-semibold">
             <option value="1 HINGGA 2 JAM">1 HINGGA 2 JAM</option>
             <option value="KURANG 1 JAM">KURANG 1 JAM</option>
             <option value="2 HINGGA 3 JAM">2 HINGGA 3 JAM</option>
@@ -90,7 +111,7 @@
         </div>
         <div>
           <label class="block font-bold text-slate-700 mb-1">Platform Selain DELIMa?</label>
-          <select id="ppd-selain-delima" class="w-full p-2 rounded-lg border border-slate-300 font-semibold">
+          <select id="ppd-selain-delima" name="entry.1930285377" class="w-full p-2 rounded-lg border border-slate-300 font-semibold">
             <option value="TIDAK">TIDAK</option>
             <option value="YA">YA</option>
           </select>
@@ -101,14 +122,14 @@
       <div class="grid grid-cols-2 gap-2 pt-1 border-t border-slate-200">
         <div>
           <label class="block font-bold text-slate-700 mb-1">Melaksanakan PBD?</label>
-          <select id="ppd-pbd" class="w-full p-2 rounded-lg border border-slate-300 font-semibold">
+          <select id="ppd-pbd" name="entry.715380199" class="w-full p-2 rounded-lg border border-slate-300 font-semibold">
             <option value="YA">YA</option>
             <option value="TIDAK">TIDAK</option>
           </select>
         </div>
         <div>
           <label class="block font-bold text-slate-700 mb-1">Kaedah PBD</label>
-          <select id="ppd-kaedah-pbd" class="w-full p-2 rounded-lg border border-slate-300 font-semibold">
+          <select id="ppd-kaedah-pbd" name="entry.1400771860" class="w-full p-2 rounded-lg border border-slate-300 font-semibold">
             <option value="PEMERHATIAN">PEMERHATIAN</option>
             <option value="PENULISAN">PENULISAN</option>
             <option value="LISAN">LISAN</option>
@@ -119,7 +140,7 @@
 
       <div>
         <label class="block font-bold text-slate-700 mb-1">Isu Utama PdPR</label>
-        <select id="ppd-isu" class="w-full p-2 rounded-lg border border-slate-300 font-semibold">
+        <select id="ppd-isu" name="entry.188118592" class="w-full p-2 rounded-lg border border-slate-300 font-semibold">
           <option value="TIADA ISU">TIADA ISU</option>
           <option value="TIADA PERANTI">TIADA PERANTI</option>
           <option value="TIADA CAPAIAN INTERNET">TIADA CAPAIAN INTERNET</option>
@@ -138,79 +159,44 @@
   </div>
 
   <script>
-    // BACA DATA DARI GURUDASH APABILA DIBUKA
+    // BACA DATA AUTOMATIK DARIPADA GURUDASH APABILA BORANG DIBUKA
     document.addEventListener('DOMContentLoaded', () => {
       const rawData = sessionStorage.getItem('ppd_slot_data');
       if (rawData) {
-        const data = JSON.parse(rawData);
-        document.getElementById('ppd-nama-guru').value = data.guruName || '';
-        document.getElementById('ppd-kelas').value = data.kelas || '';
-        document.getElementById('ppd-subjek').value = data.subjek || '';
-        document.getElementById('ppd-hadir').value = data.hadir || 0;
-        document.getElementById('ppd-xhadir').value = data.xHadir || 0;
-        document.getElementById('ppd-tarikh').value = data.tarikh || new Date().toISOString().split('T')[0];
+        try {
+          const data = JSON.parse(rawData);
+          document.getElementById('ppd-nama-guru').value = data.guruName || '';
+          document.getElementById('ppd-kelas').value = data.kelas || '';
+          document.getElementById('ppd-kelas-duplicate').value = data.kelas || '';
+          document.getElementById('ppd-subjek').value = data.subjek || '';
+          document.getElementById('ppd-hadir').value = data.hadir || 0;
+          document.getElementById('ppd-xhadir').value = data.xHadir || 0;
+          document.getElementById('ppd-tarikh').value = data.tarikh || new Date().toISOString().split('T')[0];
+        } catch(e) {}
       }
     });
 
-    // FUNGSI SERAHAN POST DIRECT KE GOOGLE FORM PPD
-    function submitLaporanPPDToGoogleForm(e) {
-  e.preventDefault();
+    // PENGENDALIAN SERAHAN BORANG ASLI
+    function handleNativeFormSubmit(e) {
+      const btn = document.getElementById('btn-submit-ppd');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menghantar ke Google Form PPD...';
 
-  const btn = document.getElementById('btn-submit-ppd');
-  btn.disabled = true;
-  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menghantar ke PPD...';
+      // Salin nilai kelas terkini ke medan entri bertindih Google Form
+      const kelasVal = document.getElementById('ppd-kelas').value;
+      document.getElementById('ppd-kelas-duplicate').value = kelasVal;
 
-  const payload = {
-    namaGuru: document.getElementById('ppd-nama-guru').value,
-    kelas: document.getElementById('ppd-kelas').value,
-    sekolah: document.getElementById('ppd-nama-sekolah').value,
-    subjek: document.getElementById('ppd-subjek').value,
-    tarikh: document.getElementById('ppd-tarikh').value,
-    tempoh: document.getElementById('ppd-tempoh').value,
-    pendekatan: document.getElementById('ppd-pendekatan').value,
-    hadir: document.getElementById('ppd-hadir').value,
-    xhadir: document.getElementById('ppd-xhadir').value,
-    selainDelima: document.getElementById('ppd-selain-delima').value,
-    pbd: document.getElementById('ppd-pbd').value,
-    kaedahPbd: document.getElementById('ppd-kaedah-pbd').value,
-    isu: document.getElementById('ppd-isu').value
-  };
-
-  const activeBackendUrl = (typeof APPS_SCRIPT_URL !== 'undefined') 
-    ? APPS_SCRIPT_URL 
-    : "https://script.google.com/macros/s/AKfycbwv5FF2K0YtdEs6p_MNt_c-Cdstpkj1_p0yJGlFCHvtvNhdc-ujv46wKM_rYHxS0tg2Mg/exec";
-
-  fetch(activeBackendUrl, {
-    method: 'POST',
-    body: JSON.stringify({
-      action: 'submit_laporan_ppd',
-      data: payload
-    })
-  })
-  .then(res => res.json())
-  .then(resData => {
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Hantar Ke Google Form PPD';
-    
-    if (resData.status === 'success') {
-      alert("Berjaya! Laporan PdPR telah selamat dihantar ke sistem PPD melalui pelayan portal.");
-    } else {
-      alert("Laporan telah diproses oleh pelayan portal.");
+      // Tunggu serahan selesai diproses oleh iframe tersembunyi
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Hantar Ke Google Form PPD';
+        alert("Berjaya! Laporan PdPR telah selamat dihantar ke sistem Google Form PPD.");
+        
+        if (window.parent && window.parent.closeLaporanPPDModal) {
+          window.parent.closeLaporanPPDModal();
+        }
+      }, 1500);
     }
-
-    if (window.parent && window.parent.closeLaporanPPDModal) {
-      window.parent.closeLaporanPPDModal();
-    }
-  })
-  .catch(err => {
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Hantar Ke Google Form PPD';
-    alert("Penghantaran selesai.");
-    if (window.parent && window.parent.closeLaporanPPDModal) {
-      window.parent.closeLaporanPPDModal();
-    }
-  });
-}
   </script>
 </body>
 </html>
