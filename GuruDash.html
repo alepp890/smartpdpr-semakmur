@@ -1112,39 +1112,40 @@
 
 // FUNGSI MEMANGGIL BORANG PPD DARI FAIL ASTAL BorangPPD.html
 function openLaporanPPDModalWithSlot(slotId) {
-  const guruName = (currentUserSession && currentUserSession.name) ? currentUserSession.name.toUpperCase() : "GURU DELIMA";
-  let slot = listJadualMaster.find(s => s.id === slotId);
-  if (!slot) return;
+      // Ambil nama sebenar guru yang sedang log masuk
+      const guruName = getActiveGuruName().toUpperCase();
+      let slot = listJadualMaster.find(s => s.id === slotId);
+      if (!slot) return;
 
-  // Cari kehadiran dari tugasan portal
-  let existingTask = listTugasanMaster.find(t => 
-    t.tahun === slot.tahun &&
-    t.subjek === slot.subjek &&
-    t.slotMasa === slot.slotMasa
-  );
+      // Cari kehadiran dari tugasan portal
+      let existingTask = listTugasanMaster.find(t => 
+        t.tahun === slot.tahun &&
+        t.subjek === slot.subjek &&
+        t.slotMasa === slot.slotMasa
+      );
 
-  let totalHadir = existingTask ? (existingTask.hadirCount || 0) : 0;
-  let totalMurid = existingTask ? (existingTask.totalMurid || 30) : 30;
-  let totalXHadir = totalMurid - totalHadir;
+      let totalHadir = existingTask ? (existingTask.hadirCount || 0) : 0;
+      let totalMurid = existingTask ? (existingTask.totalMurid || 30) : 30;
+      let totalXHadir = totalMurid - totalHadir;
 
-  // Simpan Data Slot Sementara dalam sessionStorage
-  const ppdData = {
-    guruName: guruName,
-    kelas: slot.tahun,
-    subjek: slot.subjek.toUpperCase(),
-    hadir: totalHadir,
-    xHadir: totalXHadir > 0 ? totalXHadir : 0,
-    tarikh: new Date().toISOString().split('T')[0]
-  };
+      // Simpan data slot sementara dalam sessionStorage
+      const ppdData = {
+        guruName: guruName,
+        kelas: slot.tahun,
+        subjek: slot.subjek.toUpperCase(),
+        hadir: totalHadir,
+        xHadir: totalXHadir > 0 ? totalXHadir : 0,
+        tarikh: new Date().toISOString().split('T')[0]
+      };
 
-  sessionStorage.setItem('ppd_slot_data', JSON.stringify(ppdData));
+      sessionStorage.setItem('ppd_slot_data', JSON.stringify(ppdData));
 
-  // Muat naik fail BorangPPD.html ke dalam Iframe Modal
-  const iframe = document.getElementById('iframe-ppd-frame');
-  iframe.src = 'BorangPPD.html?t=' + new Date().getTime(); // tambah timestamp supaya tak terlekat cache
+      // Buka BorangPPD.html dalam iframe
+      const iframe = document.getElementById('iframe-ppd-frame');
+      iframe.src = 'BorangPPD.html?t=' + new Date().getTime();
 
-  document.getElementById('modal-laporan-ppd').classList.remove('hidden');
-}
+      document.getElementById('modal-laporan-ppd').classList.remove('hidden');
+    }
 
 function closeLaporanPPDModal() {
   document.getElementById('modal-laporan-ppd').classList.add('hidden');
