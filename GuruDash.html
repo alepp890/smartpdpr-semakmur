@@ -12,7 +12,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<!-- Panggil Config Backend & Pautan Meet Statik -->
+  <!-- Panggil Config Backend & Pautan Meet Statik -->
   <script src="config.js"></script>
 
   <style>
@@ -107,7 +107,7 @@
 </head>
 <body class="antialiased min-h-screen">
 
-  <!-- HEADER PORTAL (RAPAT ATAS, LEBAR PENUH, SERAGAM CORPORATE) -->
+  <!-- HEADER PORTAL -->
   <header class="bg-slate-900 border-b border-slate-800 py-2.5 px-3 sm:px-6 shadow-md sticky top-0 z-40">
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
       
@@ -139,7 +139,7 @@
     <!-- DASHBOARD GURU CONTAINER -->
     <main id="view-guru" class="border border-slate-200/80 rounded-2xl bg-white overflow-hidden shadow-xl shadow-slate-200/50 space-y-0">
       
-      <!-- HEADER DASHBOARD GURU / BANNER UTAMA SERAGAM -->
+      <!-- HEADER DASHBOARD GURU -->
       <div class="flex justify-between items-center hdr-classic p-4 sm:p-6 border-b border-slate-800">
         <div class="flex items-center gap-3.5">
           <button onclick="toggleGuruSidebar()" class="bg-white/10 hover:bg-white/20 text-white p-2.5 rounded-xl border border-white/10 transition text-base flex-shrink-0 backdrop-blur-md">
@@ -271,7 +271,7 @@
 
   </div>
 
-  <!-- MODAL HASILKAN TUGASAN BAHARU (GURU) -->
+  <!-- MODAL HASILKAN TUGASAN BAHARU -->
   <div id="modal-create-tugasan" class="hidden fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-7 shadow-2xl border border-slate-200 my-8 space-y-5">
       
@@ -285,7 +285,6 @@
         <button onclick="closeCreateTugasanModal()" class="text-slate-400 hover:text-slate-700 font-bold p-1 transition"><i class="fa-solid fa-xmark text-xl"></i></button>
       </div>
 
-      <!-- AMARAN BORANG DIKUNCI JIKA TIADA JADUAL -->
       <div id="tugasan-locked-banner" class="hidden bg-rose-50 border border-rose-200 text-rose-900 p-4 rounded-xl space-y-1">
         <p class="font-extrabold flex items-center gap-2 text-sm text-rose-800">
           <i class="fa-solid fa-lock text-base"></i> Borang Hasilkan Tugasan Dikunci
@@ -297,15 +296,12 @@
 
       <form id="form-create-tugasan-body" onsubmit="handleSaveTugasanSubmit(event)" class="space-y-4 text-xs sm:text-sm">
         
-        <!-- Pilihan Slot Jadual Ikut Nama Guru -->
         <div>
           <label class="block font-bold text-slate-800 mb-1">Pilih Slot Jadual Terlibat (<span id="tugasan-form-guru-name" class="text-blue-700 font-extrabold">Nama Guru</span>)</label>
           <select id="tugasan-select-slot" required onchange="onSelectJadualSlotForTugasan()" class="w-full p-3 rounded-xl border border-slate-300 bg-white font-semibold text-slate-900 focus:border-blue-500 outline-none">
-            <!-- Pilihan Dijana Dinamik -->
           </select>
         </div>
 
-        <!-- Maklumat Ringkasan Slot Terpilih -->
         <div id="tugasan-slot-preview" class="hidden bg-blue-50 border border-blue-200 rounded-xl p-3.5 text-blue-900 flex flex-wrap gap-4 font-bold text-xs sm:text-sm">
           <span><i class="fa-solid fa-calendar mr-1"></i> Tarikh: <strong id="preview-slot-tarikh">-</strong></span>
           <span><i class="fa-solid fa-clock mr-1"></i> Masa: <strong id="preview-slot-masa">-</strong></span>
@@ -323,7 +319,6 @@
           <textarea id="tugasan-input-arahan" rows="3" placeholder="Sila baca helaian nota dan selesaikan soalan latihan..." required class="w-full p-3 rounded-xl border border-slate-300 outline-none font-medium focus:border-blue-500 whitespace-pre-line"></textarea>
         </div>
 
-        <!-- Pilihan Jenis Tugasan vs Google Meet -->
         <div>
           <label class="block font-bold text-slate-800 mb-1">Jenis Sesi / Pembelajaran</label>
           <div class="grid grid-cols-2 gap-3">
@@ -338,7 +333,6 @@
           </div>
         </div>
 
-        <!-- Pautan Bahan & Muat Naik Fail -->
         <div id="container-pautan-bahan" class="space-y-3">
           <div>
             <label class="block font-bold text-slate-800 mb-1">Pautan Bahan / Link (Google Drive / Forms / Quizizz)</label>
@@ -357,8 +351,7 @@
           </div>
         </div>
 
-        <!-- Notis Google Meet -->
-       <div id="container-meet-notice" class="hidden bg-emerald-50 border border-emerald-200 text-emerald-900 p-4 rounded-xl text-xs sm:text-sm space-y-1">
+        <div id="container-meet-notice" class="hidden bg-emerald-50 border border-emerald-200 text-emerald-900 p-4 rounded-xl text-xs sm:text-sm space-y-1">
           <p class="font-extrabold flex items-center gap-1.5"><i class="fa-solid fa-video text-emerald-700"></i> Pautan Google Meet Rasmi Digunakan</p>
           <p class="text-emerald-800 leading-relaxed">
             Pautan Meet bagi <strong id="notice-aliran-name" class="text-blue-800">Aliran Terpilih</strong>: 
@@ -377,9 +370,21 @@
     </div>
   </div>
 
-<!-- SKRIP DASHBOARD GURU -->
+  <!-- MODAL IFRAME BORANG PPD -->
+  <div id="modal-laporan-ppd" class="hidden fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-2xl w-full p-2 sm:p-4 shadow-2xl border border-slate-200 space-y-2 relative">
+      <div class="flex justify-between items-center px-2 pt-1 pb-2 border-b border-slate-200">
+        <span class="text-xs font-bold text-slate-600"><i class="fa-solid fa-window-restore mr-1 text-purple-600"></i> Borang Laporan PPD WPKL</span>
+        <button onclick="closeLaporanPPDModal()" class="text-slate-400 hover:text-slate-700 font-bold p-1">
+          <i class="fa-solid fa-xmark text-xl"></i>
+        </button>
+      </div>
+      <iframe id="iframe-ppd-frame" src="" class="w-full h-[580px] border-0 rounded-xl"></iframe>
+    </div>
+  </div>
+
+  <!-- SKRIP DASHBOARD GURU -->
   <script>
-    // Gunakan pembolehubah berbeza bagi mengelakkan ralat SyntaxError akibat hoisting
     const activeBackendUrl = (typeof APPS_SCRIPT_URL !== 'undefined') 
       ? APPS_SCRIPT_URL 
       : "https://script.google.com/macros/s/AKfycbx-oiKHSEFqEpf0R5gxdGpscOlvVjTsgvvQR09e4pBsbyGtT_vL5QwbbDwOnqPeV0Sh2Q/exec";
@@ -454,26 +459,38 @@
       return "Guru DELIMa";
     }
 
+    // ⚡ OPTIMASI UTAMA: LOAD CACHE LOKAL DULU (0 SAAT) + 1 PANGGILAN API BACKEND GABUNGAN
     function loadInitialBackendData() {
-      fetch(`${activeBackendUrl}?action=get_jadual`)
-        .then(res => res.json())
-        .then(data => {
-          if (data.status === 'success' && data.jadualList) {
-            listJadualMaster = data.jadualList;
-            renderGuruDashboardMain();
-          }
-        })
-        .catch(err => console.error("Gagal memuat turun Jadual_PdPR:", err));
+      const cachedJadual = localStorage.getItem('pdpr_cached_jadual');
+      const cachedTugasan = localStorage.getItem('pdpr_cached_tugasan');
 
-      fetch(`${activeBackendUrl}?action=get_tugasan`)
+      if (cachedJadual) {
+        try { listJadualMaster = JSON.parse(cachedJadual); } catch(e){}
+      }
+      if (cachedTugasan) {
+        try { listTugasanMaster = JSON.parse(cachedTugasan); } catch(e){}
+      }
+
+      if (listJadualMaster.length > 0 || listTugasanMaster.length > 0) {
+        renderGuruDashboardMain();
+      }
+
+      fetch(`${activeBackendUrl}?action=get_dashboard_data`)
         .then(res => res.json())
         .then(data => {
-          if (data.status === 'success' && data.tugasanList) {
-            listTugasanMaster = data.tugasanList;
+          if (data.status === 'success') {
+            if (data.jadualList) {
+              listJadualMaster = data.jadualList;
+              localStorage.setItem('pdpr_cached_jadual', JSON.stringify(data.jadualList));
+            }
+            if (data.tugasanList) {
+              listTugasanMaster = data.tugasanList;
+              localStorage.setItem('pdpr_cached_tugasan', JSON.stringify(data.tugasanList));
+            }
             renderGuruDashboardMain();
           }
         })
-        .catch(err => console.error("Gagal memuat turun Tugasan_PdPR:", err));
+        .catch(err => console.error("Gagal memuat turun data terkini:", err));
     }
 
     function toggleGuruSidebar() {
@@ -595,7 +612,6 @@
             </div>
 
             <h4 class="text-xs sm:text-sm font-extrabold text-slate-900 leading-snug">${t.tajuk}</h4>
-            <!-- Arahan dengan Format Line-Breaks (whitespace-pre-line) -->
             <p class="text-xs sm:text-sm text-slate-600 whitespace-pre-line line-clamp-3 leading-relaxed bg-slate-50 p-2.5 rounded-xl border border-slate-100">${t.arahan}</p>
 
             ${t.pautanFail ? `
@@ -643,10 +659,8 @@
       const xHadir = total - hadir;
       const pct = Math.round((hadir / total) * 100);
 
-      // Dapatkan Emel Guru yang sedang log masuk portal untuk auto-host
       const guruEmail = (currentUserSession && currentUserSession.email) ? currentUserSession.email : "";
 
-      // Memastikan pautan Google Meet sentiasa dipasang parameter ?authuser=EMEL_GURU
       let meetUrl = "";
       if (t.jenis === 'Google Meet' || (t.pautan && t.pautan.includes('meet.google.com'))) {
         if (typeof getMeetLink === 'function') {
@@ -664,21 +678,18 @@
       let isMeet = t.jenis === 'Google Meet';
 
       container.innerHTML = `
-        <!-- RINGKASAN TUGASAN TERPILIH -->
         <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1">
           <span class="text-xs font-bold text-blue-700 uppercase">${t.tahun} • ${t.subjek}</span>
           <h4 class="text-xs sm:text-sm font-extrabold text-slate-900 leading-snug">${t.tajuk}</h4>
           <p class="text-xs text-slate-500"><i class="fa-regular fa-clock mr-1"></i>${t.tarikh} (${t.slotMasa})</p>
         </div>
 
-        <!-- CARTA PERATUS KEHADIRAN -->
         <div class="text-center p-4 bg-blue-50 border border-blue-200 rounded-xl">
           <p class="text-xs font-bold text-blue-800 uppercase tracking-wide">Peratus Kehadiran / Serahan</p>
           <h3 class="text-3xl font-black text-blue-700 mt-1">${pct}%</h3>
           <p class="text-xs sm:text-sm text-blue-900 font-semibold mt-1">${hadir} daripada ${total} murid telah hadir/menghantar</p>
         </div>
 
-        <!-- STATISTIK KOTAK BILANGAN -->
         <div class="grid grid-cols-2 gap-2.5 text-center text-xs sm:text-sm">
           <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl">
             <span class="block text-xs font-bold text-emerald-800">Hadir</span>
@@ -690,7 +701,6 @@
           </div>
         </div>
 
-        <!-- SEKSYEN BAHARU: JENIS TUGASAN & PAUTAN AKSES -->
         <div class="pt-3 border-t border-slate-200 space-y-3">
           <div class="flex items-center justify-between">
             <span class="text-xs font-extrabold text-slate-900 uppercase tracking-wider">Jenis Sesi / Tugasan:</span>
@@ -705,17 +715,14 @@
             `}
           </div>
 
-          <!-- PAUTAN AKSES / BUTANG IKON -->
           <div class="space-y-2">
             ${isMeet ? `
-              <!-- BUTANG GOOGLE MEET DENGAN EMEL MOE GURU (AUTO HOST) -->
               <a href="${meetUrl}" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-2.5 px-3.5 rounded-xl shadow-md transition flex items-center justify-center gap-2 border border-emerald-700">
                 <i class="fa-solid fa-video text-sm"></i>
                 <span>Sertai Google Meet Live (Host)</span>
                 <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-auto"></i>
               </a>
             ` : `
-              <!-- TUGASAN BAHAN / KUIZ / FORMS -->
               ${t.pautan ? `
                 <a href="${t.pautan}" target="_blank" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-2.5 px-3.5 rounded-xl shadow-sm transition flex items-center justify-center gap-2 border border-blue-700">
                   <i class="fa-solid fa-link text-sm"></i>
@@ -739,7 +746,6 @@
               ` : ''}
             `}
 
-            <!-- FOLDER GOOGLE DRIVE JIKA ADA -->
             ${t.idFolder ? `
               <a href="https://drive.google.com/drive/folders/${t.idFolder}" target="_blank" class="w-full bg-purple-50 hover:bg-purple-100 text-purple-900 border border-purple-200 font-bold text-xs py-2 px-3 rounded-xl transition flex items-center justify-center gap-2 mt-1">
                 <i class="fa-solid fa-folder-open text-purple-600 text-sm"></i>
@@ -866,7 +872,6 @@
                 ${isAfterPdPR
                   ? `<button onclick="openLaporanPPDModalWithSlot('${slot.id}')" class="bg-purple-700 hover:bg-purple-800 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 shadow-sm"><i class="fa-solid fa-paper-plane"></i> Hantar Laporan PPD</button>`
                   : `<span class="text-[11px] font-semibold text-slate-400 border border-slate-200 bg-slate-100 px-2.5 py-1 rounded-lg" title="Butang hantar laporan hanya aktif selepas masa PdPR tamat"><i class="fa-solid fa-clock mr-1"></i>Laporan PPD (Selepas PdPR)</span>`
-                
                 }
               </div>
             </div>
@@ -1000,13 +1005,6 @@
         document.getElementById('preview-slot-subjek').innerText = slot.subjek;
         preview.classList.remove('hidden');
         
-       // Kemas kini notis paparan pautan Meet mengikut aliran slot + Emel Guru
-        const guruEmail = (currentUserSession && currentUserSession.email) ? currentUserSession.email : "";
-        const targetMeetUrl = getMeetLink(slot.tahun, guruEmail);
-
-        const noticeName = document.getElementById('notice-aliran-name');
-        const noticeLink = document.getElementById('notice-aliran-link');
-
         lockTugasanFormInputs(false);
       } else {
         preview.classList.add('hidden');
@@ -1052,12 +1050,15 @@
       let jenis = 'Tugasan';
       for (let r of jenisRadios) { if (r.checked) jenis = r.value; }
 
-  let pautan = document.getElementById('tugasan-input-pautan').value.trim();
+      let pautan = document.getElementById('tugasan-input-pautan').value.trim();
       if (jenis === 'Google Meet') {
-        // Panggil terus dari config.js bersama emel guru
         const aliranSlot = selectedSlot.tahun;
         const guruEmail = (currentUserSession && currentUserSession.email) ? currentUserSession.email : "";
-        pautan = getMeetLink(aliranSlot, guruEmail);
+        if (typeof getMeetLink === 'function') {
+          pautan = getMeetLink(aliranSlot, guruEmail);
+        } else {
+          pautan = "https://meet.google.com/";
+        }
       }
 
       const payload = {
@@ -1110,15 +1111,14 @@
       });
     }
 
-// FUNGSI MEMANGGIL BORANG PPD DARI FAIL ASTAL BorangPPD.html
-function openLaporanPPDModalWithSlot(slotId) {
-      // Ambil nama sebenar guru yang sedang log masuk
+    // FUNGSI MEMANGGIL BORANG PPD
+    function openLaporanPPDModalWithSlot(slotId) {
       const guruName = getActiveGuruName().toUpperCase();
       let slot = listJadualMaster.find(s => s.id === slotId);
       if (!slot) return;
 
-      // Cari kehadiran dari tugasan portal
       let existingTask = listTugasanMaster.find(t => 
+        formatDateFormatted(t.tarikh) === formatDateFormatted(slot.tarikh) &&
         t.tahun === slot.tahun &&
         t.subjek === slot.subjek &&
         t.slotMasa === slot.slotMasa
@@ -1128,7 +1128,6 @@ function openLaporanPPDModalWithSlot(slotId) {
       let totalMurid = existingTask ? (existingTask.totalMurid || 30) : 30;
       let totalXHadir = totalMurid - totalHadir;
 
-      // Simpan data slot sementara dalam sessionStorage
       const ppdData = {
         guruName: guruName,
         kelas: slot.tahun,
@@ -1140,41 +1139,20 @@ function openLaporanPPDModalWithSlot(slotId) {
 
       sessionStorage.setItem('ppd_slot_data', JSON.stringify(ppdData));
 
-      // Buka BorangPPD.html dalam iframe
       const iframe = document.getElementById('iframe-ppd-frame');
       iframe.src = 'BorangPPD.html?t=' + new Date().getTime();
 
       document.getElementById('modal-laporan-ppd').classList.remove('hidden');
     }
 
-function closeLaporanPPDModal() {
-  document.getElementById('modal-laporan-ppd').classList.add('hidden');
-}
+    function closeLaporanPPDModal() {
+      document.getElementById('modal-laporan-ppd').classList.add('hidden');
+    }
 
     window.onload = function() {
       checkGuruSession();
       loadInitialBackendData();
     };
   </script>
-
-<!-- ========================================== -->
-<!-- MODAL IFRAME BORANG PPD (DITAMPAL DI SINI) -->
-<!-- ========================================== -->
-<div id="modal-laporan-ppd" class="hidden fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-  <div class="bg-white rounded-2xl max-w-2xl w-full p-2 sm:p-4 shadow-2xl border border-slate-200 space-y-2 relative">
-    
-    <!-- HEADER MODAL -->
-    <div class="flex justify-between items-center px-2 pt-1 pb-2 border-b border-slate-200">
-      <span class="text-xs font-bold text-slate-600"><i class="fa-solid fa-window-restore mr-1 text-purple-600"></i> Borang Laporan PPD WPKL</span>
-      <button onclick="closeLaporanPPDModal()" class="text-slate-400 hover:text-slate-700 font-bold p-1">
-        <i class="fa-solid fa-xmark text-xl"></i>
-      </button>
-    </div>
-
-    <!-- IFRAME FAIL BORANG PPD -->
-    <iframe id="iframe-ppd-frame" src="" class="w-full h-[580px] border-0 rounded-xl"></iframe>
-
-  </div>
-</div>
 </body>
 </html>
