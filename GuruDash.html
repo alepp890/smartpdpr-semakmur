@@ -377,12 +377,12 @@
     </div>
   </div>
 
-  <!-- SKRIP DASHBOARD GURU -->
-<script>
-    // URL diambil automatik dari config.js, jika tiada baru gunakan fallback ini
-    if (typeof APPS_SCRIPT_URL === 'undefined') {
-      var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx-oiKHSEFqEpf0R5gxdGpscOlvVjTsgvvQR09e4pBsbyGtT_vL5QwbbDwOnqPeV0Sh2Q/exec";
-    }
+<!-- SKRIP DASHBOARD GURU -->
+  <script>
+    // Gunakan pembolehubah berbeza bagi mengelakkan ralat SyntaxError akibat hoisting
+    const activeBackendUrl = (typeof APPS_SCRIPT_URL !== 'undefined') 
+      ? APPS_SCRIPT_URL 
+      : "https://script.google.com/macros/s/AKfycbx-oiKHSEFqEpf0R5gxdGpscOlvVjTsgvvQR09e4pBsbyGtT_vL5QwbbDwOnqPeV0Sh2Q/exec";
 
     let listJadualMaster = [];
     let listTugasanMaster = [];
@@ -455,7 +455,7 @@
     }
 
     function loadInitialBackendData() {
-      fetch(`${APPS_SCRIPT_URL}?action=get_jadual`)
+      fetch(`${activeBackendUrl}?action=get_jadual`)
         .then(res => res.json())
         .then(data => {
           if (data.status === 'success' && data.jadualList) {
@@ -465,7 +465,7 @@
         })
         .catch(err => console.error("Gagal memuat turun Jadual_PdPR:", err));
 
-      fetch(`${APPS_SCRIPT_URL}?action=get_tugasan`)
+      fetch(`${activeBackendUrl}?action=get_tugasan`)
         .then(res => res.json())
         .then(data => {
           if (data.status === 'success' && data.tugasanList) {
@@ -1028,7 +1028,7 @@
       saveBtn.disabled = true;
       saveBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Menyimpan ke Sheet & Drive...';
 
-      fetch(APPS_SCRIPT_URL, {
+      fetch(activeBackendUrl, {
         method: "POST",
         body: JSON.stringify({
           action: "save_tugasan",
