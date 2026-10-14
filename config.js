@@ -1,7 +1,7 @@
 // config.js
 
 // 1. URL Web App Apps Script Backend
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxgJBadWQ12zBLR6uwRRtu5fKrcdEzM-vV_0A2DRDe_WL9_3sC_QjquTleorxbNjIoRtQ/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx1on02e3fnNgc6CPnL8EuE2l0dYnoM1V7Zl6S6rqIO777cttovHthMcusAGQCtd_j7TQ/exec";
 
 // 2. Google OAuth Client ID
 const GOOGLE_CLIENT_ID = "637460698521-djt73cs1emsa5n5m7p2q8s4feohmhnuh.apps.googleusercontent.com";
