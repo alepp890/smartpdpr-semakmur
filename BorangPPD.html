@@ -158,7 +158,7 @@
       }
     });
 
-    // FUNGSI SERAHAN MENERUSI BACKEND APPS SCRIPT (MEMINTAS 403 & 401)
+    // FUNGSI SERAHAN MENERUSI BACKEND APPS SCRIPT
     function submitLaporanPPDToGoogleForm(e) {
       e.preventDefault();
 
@@ -184,7 +184,7 @@
 
       const activeBackendUrl = (typeof APPS_SCRIPT_URL !== 'undefined') 
         ? APPS_SCRIPT_URL 
-        : "https://script.google.com/macros/s/AKfycbxgJBadWQ12zBLR6uwRRtu5fKrcdEzM-vV_0A2DRDe_WL9_3sC_QjquTleorxbNjIoRtQ/exec";
+        : "https://script.google.com/macros/s/AKfycbwv5FF2K0YtdEs6p_MNt_c-Cdstpkj1_p0yJGlFCHvtvNhdc-ujv46wKM_rYHxS0tg2Mg/exec";
 
       fetch(activeBackendUrl, {
         method: 'POST',
