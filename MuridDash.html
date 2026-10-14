@@ -304,8 +304,10 @@
   </div>
 
   <!-- SKRIP DASHBOARD MURID -->
-   <script>
-    const backendUrl = (typeof APPS_SCRIPT_URL !== 'undefined') ? APPS_SCRIPT_URL : "https://script.google.com/macros/s/AKfycbxKGebSI59lH1sfpKKd2IL0Cf6b6d1w8PthoJ4GeMmCIAP2u2Iqdd_SAEgYudAUSV_WKg/exec";
+  <script>
+    const backendUrl = (typeof APPS_SCRIPT_URL !== 'undefined') 
+      ? APPS_SCRIPT_URL 
+      : "https://script.google.com/macros/s/AKfycbwv5FF2K0YtdEs6p_MNt_c-Cdstpkj1_p0yJGlFCHvtvNhdc-ujv46wKM_rYHxS0tg2Mg/exec";
 
     let listJadualMaster = [];
     let listTugasanMaster = [];
@@ -554,7 +556,6 @@
       }
     }
 
-   
     function renderMuridTodayClasses() {
       const container = document.getElementById('murid-today-classes-container');
       const dateText = document.getElementById('murid-today-date-text');
@@ -657,19 +658,15 @@
       container.innerHTML = html;
     }
 
-// Membuka Pautan Meet Statik Aliran Murid Apabila Butang Sidebar Ditekan
-   // Contoh dalam openStaticMeetLink():
-function openStaticMeetLink() {
+    function openStaticMeetLink() {
       const studentKelas = getActiveStudentKelas();
       const studentAliran = getAliranFromKelas(studentKelas);
       const studentEmail = (currentUserSession && currentUserSession.email) ? currentUserSession.email : "";
       
-      // Terus dapatkan pautan + emel MOE dari config.js
       const meetUrl = getMeetLink(studentAliran, studentEmail);
       window.open(meetUrl, '_blank');
     }
 
-    // Kemas kini Label Pada Butang Meet Sidebar mengikut Aliran Murid
     function updateMeetSidebarBadge() {
       const studentKelas = getActiveStudentKelas();
       const studentAliran = getAliranFromKelas(studentKelas);
@@ -685,7 +682,7 @@ function openStaticMeetLink() {
       const badge = document.getElementById('student-kelas-badge');
       if (badge) badge.innerText = `${studentKelas} (${studentAliran})`;
 
-      updateMeetSidebarBadge(); // Kemas kini label butang Meet
+      updateMeetSidebarBadge();
       renderMuridTodayClasses();
     }
 
@@ -849,7 +846,8 @@ function openStaticMeetLink() {
                 <!-- Arahan dengan Line-Breaks (whitespace-pre-line) -->
                 <p class="text-xs sm:text-sm text-slate-700 whitespace-pre-line leading-relaxed bg-white p-3 rounded-xl border border-slate-200">${existingTask.arahan}</p>
 
-                ${existingTask.pautan ? `
+                <div class="pt-1 flex flex-wrap gap-2">
+                  ${existingTask.pautan ? `
                     <a href="${existingTask.jenis === 'Google Meet' ? getMeetLink(studentAliran, studentEmail) : existingTask.pautan}" target="_blank" class="inline-flex items-center gap-1.5 text-xs text-white font-bold bg-emerald-600 px-3.5 py-2 rounded-xl border border-emerald-700 hover:bg-emerald-700 transition shadow-sm">
                       <i class="fa-solid fa-video"></i> Sertai Google Meet Live (${studentAliran})
                     </a>
