@@ -864,8 +864,9 @@
                 }
 
                 ${isAfterPdPR
-                  ? `<a href="https://edp.moe.gov.my/laporan-pdpr" target="_blank" class="bg-purple-700 hover:bg-purple-800 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 shadow-sm"><i class="fa-solid fa-paper-plane"></i> Hantar Laporan PPD</a>`
+                  ? `<button onclick="openLaporanPPDModalWithSlot('${slot.id}')" class="bg-purple-700 hover:bg-purple-800 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 shadow-sm"><i class="fa-solid fa-paper-plane"></i> Hantar Laporan PPD</button>`
                   : `<span class="text-[11px] font-semibold text-slate-400 border border-slate-200 bg-slate-100 px-2.5 py-1 rounded-lg" title="Butang hantar laporan hanya aktif selepas masa PdPR tamat"><i class="fa-solid fa-clock mr-1"></i>Laporan PPD (Selepas PdPR)</span>`
+                
                 }
               </div>
             </div>
@@ -1109,10 +1110,70 @@
       });
     }
 
+// FUNGSI MEMANGGIL BORANG PPD DARI FAIL ASTAL BorangPPD.html
+function openLaporanPPDModalWithSlot(slotId) {
+  const guruName = (currentUserSession && currentUserSession.name) ? currentUserSession.name.toUpperCase() : "GURU DELIMA";
+  let slot = listJadualMaster.find(s => s.id === slotId);
+  if (!slot) return;
+
+  // Cari kehadiran dari tugasan portal
+  let existingTask = listTugasanMaster.find(t => 
+    t.tahun === slot.tahun &&
+    t.subjek === slot.subjek &&
+    t.slotMasa === slot.slotMasa
+  );
+
+  let totalHadir = existingTask ? (existingTask.hadirCount || 0) : 0;
+  let totalMurid = existingTask ? (existingTask.totalMurid || 30) : 30;
+  let totalXHadir = totalMurid - totalHadir;
+
+  // Simpan Data Slot Sementara dalam sessionStorage
+  const ppdData = {
+    guruName: guruName,
+    kelas: slot.tahun,
+    subjek: slot.subjek.toUpperCase(),
+    hadir: totalHadir,
+    xHadir: totalXHadir > 0 ? totalXHadir : 0,
+    tarikh: new Date().toISOString().split('T')[0]
+  };
+
+  sessionStorage.setItem('ppd_slot_data', JSON.stringify(ppdData));
+
+  // Muat naik fail BorangPPD.html ke dalam Iframe Modal
+  const iframe = document.getElementById('iframe-ppd-frame');
+  iframe.src = 'BorangPPD.html?t=' + new Date().getTime(); // tambah timestamp supaya tak terlekat cache
+
+  document.getElementById('modal-laporan-ppd').classList.remove('hidden');
+}
+
+function closeLaporanPPDModal() {
+  document.getElementById('modal-laporan-ppd').classList.add('hidden');
+}
+
     window.onload = function() {
       checkGuruSession();
       loadInitialBackendData();
     };
   </script>
+
+<!-- ========================================== -->
+<!-- MODAL IFRAME BORANG PPD (DITAMPAL DI SINI) -->
+<!-- ========================================== -->
+<div id="modal-laporan-ppd" class="hidden fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+  <div class="bg-white rounded-2xl max-w-2xl w-full p-2 sm:p-4 shadow-2xl border border-slate-200 space-y-2 relative">
+    
+    <!-- HEADER MODAL -->
+    <div class="flex justify-between items-center px-2 pt-1 pb-2 border-b border-slate-200">
+      <span class="text-xs font-bold text-slate-600"><i class="fa-solid fa-window-restore mr-1 text-purple-600"></i> Borang Laporan PPD WPKL</span>
+      <button onclick="closeLaporanPPDModal()" class="text-slate-400 hover:text-slate-700 font-bold p-1">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+    </div>
+
+    <!-- IFRAME FAIL BORANG PPD -->
+    <iframe id="iframe-ppd-frame" src="" class="w-full h-[580px] border-0 rounded-xl"></iframe>
+
+  </div>
+</div>
 </body>
 </html>
