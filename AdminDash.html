@@ -15,13 +15,13 @@
 
   <style>
     :root {
-      --bg: #f4f6fa;
+      --bg: #f8fafc;
       --card: #ffffff;
-      --tx: #1b2433;
-      --mu: #667085;
-      --bd: #dde3ec;
-      --pr: #1d4ed8;
-      --sb: #10264d;
+      --tx: #0f172a;
+      --mu: #64748b;
+      --bd: #e2e8f0;
+      --pr: #2563eb;
+      --sb: #0f172a;
     }
 
     body {
@@ -30,64 +30,71 @@
       font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       font-size: 14px;
       line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
     }
 
     .card {
       background: var(--card);
       border: 1px solid var(--bd);
-      border-radius: 12px;
-      padding: 18px;
+      border-radius: 16px;
+      padding: 20px;
     }
 
     .hdr-classic {
-      background-color: var(--sb);
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
       color: #ffffff;
     }
 
     .btn-classic-pr {
       background-color: var(--pr);
       color: #ffffff;
-      border-radius: 8px;
+      border-radius: 10px;
       padding: 9px 18px;
       font-weight: 600;
       font-size: 13px;
-      transition: background-color 0.15s ease-in-out;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
     }
     .btn-classic-pr:hover {
-      background-color: #1a44c2;
+      background-color: #1d4ed8;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
     }
 
     .btn-classic-sec {
       background-color: #ffffff;
       color: var(--tx);
       border: 1px solid var(--bd);
-      border-radius: 8px;
+      border-radius: 10px;
       padding: 9px 16px;
       font-weight: 600;
       font-size: 13px;
+      transition: all 0.2s;
     }
     .btn-classic-sec:hover {
       border-color: var(--pr);
       color: var(--pr);
+      background-color: #f8fafc;
     }
 
     .tb-classic {
       width: 100%;
-      border-collapse: collapse;
+      border-collapse: separate;
+      border-spacing: 0;
     }
     .tb-classic th {
-      background-color: #e8edf7;
-      color: var(--sb);
+      background-color: #f1f5f9;
+      color: #0f172a;
       font-weight: 700;
       font-size: 12px;
       text-transform: uppercase;
-      padding: 10px 14px;
-      border: 1px solid var(--bd);
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--bd);
       text-align: left;
     }
     .tb-classic td {
-      padding: 10px 14px;
-      border: 1px solid var(--bd);
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--bd);
       font-size: 13px;
     }
 
@@ -95,7 +102,7 @@
       padding: 8px 16px;
       font-size: 13px;
       font-weight: 700;
-      border-radius: 8px;
+      border-radius: 10px;
       border: 1px solid var(--bd);
       background-color: #ffffff;
       color: var(--tx);
@@ -106,6 +113,7 @@
       background-color: var(--pr);
       color: #ffffff;
       border-color: var(--pr);
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
     }
 
     .date-item-btn {
@@ -114,81 +122,97 @@
       padding: 10px 14px;
       font-size: 12px;
       font-weight: 600;
-      border-radius: 8px;
+      border-radius: 10px;
       border: 1px solid var(--bd);
       background-color: #ffffff;
-      transition: all 0.15s;
+      transition: all 0.2s;
     }
     .date-item-btn:hover {
-      background-color: #e8edf7;
+      background-color: #eff6ff;
+      border-color: #bfdbfe;
       color: var(--pr);
     }
     .date-item-btn.active {
       background-color: var(--sb);
       color: #ffffff;
       border-color: var(--sb);
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.2);
     }
   </style>
 </head>
-<body class="antialiased min-h-screen p-2 sm:p-5">
+<body class="antialiased min-h-screen">
 
-  <div class="max-w-7xl mx-auto space-y-5">
-    
-    <!-- HEADER PORTAL -->
-    <header class="hdr-classic rounded-xl p-4 sm:p-5 shadow-sm border border-[#0d1f3f]">
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
-          <div class="bg-white/10 text-white p-3 rounded-xl border border-white/20">
-            <i class="fa-solid fa-graduation-cap text-2xl sm:text-3xl"></i>
-          </div>
-          <div>
-            <h1 class="text-xl font-extrabold tracking-tight text-white uppercase">SMART PORTAL PdPR ONLINE</h1>
-            <p class="text-xs sm:text-sm text-slate-300 font-medium">Papan Kawalan Pentadbir (Admin)</p>
-          </div>
+  <!-- HEADER PORTAL (RAPAT ATAS, LEBAR PENUH, SERAGAM CORPORATE) -->
+  <header class="bg-slate-900 border-b border-slate-800 py-2.5 px-3 sm:px-6 shadow-md sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
+      
+      <div class="flex items-center gap-2.5 cursor-pointer" onclick="window.location.href='index.html'">
+        <div class="bg-gradient-to-tr from-blue-600 to-indigo-600 text-white p-2 rounded-xl shadow-md shadow-blue-500/20 border border-white/10">
+          <i class="fa-solid fa-graduation-cap text-lg sm:text-xl"></i>
         </div>
-
-        <div class="flex items-center gap-3" id="nav-user-area">
-          <div class="flex items-center gap-3 bg-[#0a1426] p-2 px-3.5 rounded-lg border border-[#0d1f3f]">
-            <div class="text-left">
-              <p class="text-xs text-slate-300">Selamat Datang,</p>
-              <span id="admin-user-display-name" class="text-xs sm:text-sm font-bold text-white">Pentadbir</span>
-            </div>
-            <button onclick="logout()" class="bg-rose-700 hover:bg-rose-800 text-white text-xs font-bold px-3 py-1.5 rounded transition flex items-center gap-1">
-              <i class="fa-solid fa-power-off"></i> Keluar
-            </button>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <!-- KANDUNGAN UTAMA DASHBOARD ADMIN -->
-    <main id="view-admin" class="space-y-4">
-      <div class="hdr-classic p-4 sm:p-5 rounded-xl border border-[#0d1f3f]">
         <div>
-          <h2 class="text-base sm:text-lg font-extrabold flex items-center gap-2">
-            <i class="fa-solid fa-user-shield text-blue-300"></i> Papan Kawalan Pentadbir (Admin)
-          </h2>
-          <p class="text-xs sm:text-sm text-slate-300">Pengurusan Jadual Waktu PdPR & Pemantauan Kehadiran Mengikut Tahun.</p>
+          <h1 class="text-xs sm:text-sm font-extrabold tracking-tight text-white uppercase leading-tight">SMART PORTAL PdPR ONLINE</h1>
+          <span class="text-[10px] text-slate-400 font-medium tracking-wider uppercase hidden sm:inline-block">Kementerian Pendidikan Malaysia</span>
         </div>
       </div>
 
-      <div class="card space-y-4">
-        
-        <div class="flex flex-col sm:flex-row justify-between sm:items-center border-b border-[#dde3ec] pb-3 gap-2">
+      <div class="flex items-center gap-2">
+        <button onclick="window.location.href='index.html'" class="bg-white/5 hover:bg-white/10 text-slate-200 hover:text-white text-xs font-semibold px-3 py-1.5 rounded-lg border border-white/10 transition flex items-center gap-1.5 backdrop-blur-sm">
+          <i class="fa-solid fa-house text-slate-400"></i> <span class="hidden sm:inline">Portal Utama</span>
+        </button>
+        <button onclick="logout()" class="bg-rose-600/90 hover:bg-rose-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 shadow-sm">
+          <i class="fa-solid fa-power-off"></i> <span>Keluar</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- KANDUNGAN UTAMA DASHBOARD -->
+  <div class="max-w-7xl mx-auto p-3 sm:p-6 space-y-6">
+
+    <!-- DASHBOARD ADMIN CONTAINER -->
+    <main id="view-admin" class="border border-slate-200/80 rounded-2xl bg-white overflow-hidden shadow-xl shadow-slate-200/50 space-y-0">
+      
+      <!-- HEADER DASHBOARD ADMIN / BANNER UTAMA SERAGAM -->
+      <div class="flex justify-between items-center hdr-classic p-4 sm:p-6 border-b border-slate-800">
+        <div class="flex items-center gap-3.5">
+          <div class="bg-white/10 text-white p-3 rounded-xl border border-white/10 backdrop-blur-md">
+            <i class="fa-solid fa-user-shield text-xl sm:text-2xl text-blue-400"></i>
+          </div>
           <div>
-            <h3 class="text-sm sm:text-base font-extrabold text-[#10264d] flex items-center gap-2">
-              <i class="fa-solid fa-calendar-days text-[#1d4ed8]"></i> Pengurusan Jadual Waktu PdPR Sekolah
+            <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">Ruang Kerja Pentadbir</p>
+            <h2 class="text-lg sm:text-2xl font-black text-white leading-tight" id="admin-user-display-name">
+              Pentadbir
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-300 font-medium mt-0.5">
+              Pengurusan Jadual Waktu PdPR & Pemantauan Kehadiran Mengikut Tahun.
+            </p>
+          </div>
+        </div>
+        <span class="bg-indigo-600/80 text-white border border-indigo-400/30 text-xs sm:text-sm font-bold px-3.5 py-1.5 rounded-xl shadow-sm">
+          Akaun Pentadbir
+        </span>
+      </div>
+
+      <!-- KANDUNGAN KAD JADUAL ADMIN -->
+      <div class="p-4 sm:p-6 space-y-5">
+        
+        <div class="flex flex-col sm:flex-row justify-between sm:items-center border-b border-slate-200 pb-4 gap-3">
+          <div>
+            <h3 class="text-sm sm:text-base font-extrabold text-slate-900 flex items-center gap-2">
+              <i class="fa-solid fa-calendar-days text-blue-600"></i> Pengurusan Jadual Waktu PdPR Sekolah
             </h3>
-            <p class="text-xs sm:text-sm text-[#667085]">Pilih tarikh di bahagian Sidebar dan tab Tahun untuk menyemak jadual.</p>
+            <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Pilih tarikh di bahagian Sidebar dan tab Tahun untuk menyemak jadual.</p>
           </div>
 
           <button onclick="openCreateJadualModal()" class="btn-classic-pr text-xs sm:text-sm flex items-center justify-center gap-2">
-            <i class="fa-solid fa-circle-plus"></i> + Hasilkan Jadual Baru
+            <i class="fa-solid fa-circle-plus"></i> + Hasikan Jadual Baru
           </button>
         </div>
 
         <!-- TAB TAHUN 1 HINGGA TAHUN 6 -->
-        <div class="flex flex-wrap gap-2 border-b border-[#dde3ec] pb-2" id="admin-tahun-tabs">
+        <div class="flex flex-wrap gap-2 border-b border-slate-200 pb-3" id="admin-tahun-tabs">
           <button class="tab-btn active" onclick="switchTahunTab('admin', 'Tahun 1')">Tahun 1</button>
           <button class="tab-btn" onclick="switchTahunTab('admin', 'Tahun 2')">Tahun 2</button>
           <button class="tab-btn" onclick="switchTahunTab('admin', 'Tahun 3')">Tahun 3</button>
@@ -198,23 +222,23 @@
         </div>
 
         <!-- LAYOUT SIDEBAR & PAPARAN JADUAL ADMIN -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
           <!-- SIDEBAR PEMILIHAN TARIKH -->
-          <div class="md:col-span-1 bg-[#f4f6fa] p-3.5 rounded-xl border border-[#dde3ec] space-y-3">
-            <div class="flex items-center justify-between border-b border-[#dde3ec] pb-2">
-              <span class="text-xs font-extrabold text-[#10264d] uppercase flex items-center gap-1.5">
-                <i class="fa-solid fa-filter text-blue-700"></i> Pilih Tarikh
+          <div class="md:col-span-1 bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-2.5">
+              <span class="text-xs font-extrabold text-slate-900 uppercase flex items-center gap-1.5">
+                <i class="fa-solid fa-filter text-blue-600"></i> Pilih Tarikh
               </span>
-              <button onclick="clearAdminDateFilter()" class="text-xs text-blue-700 font-bold hover:underline">Semua Tarikh</button>
+              <button onclick="clearAdminDateFilter()" class="text-xs text-blue-600 font-bold hover:underline">Semua Tarikh</button>
             </div>
 
-            <div id="admin-sidebar-date-list" class="space-y-2 max-h-72 overflow-y-auto pr-1">
+            <div id="admin-sidebar-date-list" class="space-y-2 max-h-80 overflow-y-auto pr-1">
               <!-- Senarai Butang Tarikh Dijana Di Sini -->
             </div>
           </div>
 
           <!-- KAWASAN KAD JADUAL -->
-          <div class="md:col-span-3 space-y-3" id="admin-jadual-container">
+          <div class="md:col-span-3 space-y-4" id="admin-jadual-container">
             <!-- Kad Dijana Dinamik -->
           </div>
         </div>
@@ -222,43 +246,43 @@
       </div>
     </main>
 
-    <!-- FOOTER PORTAL -->
-    <footer class="bg-[#10264d] text-slate-300 text-xs sm:text-sm p-4 text-center rounded-xl border border-[#0d1f3f] flex flex-col sm:flex-row justify-between items-center gap-2">
+    <!-- FOOTER PORTAL KORPORAT -->
+    <footer class="bg-slate-900 text-slate-400 text-xs sm:text-sm p-4 text-center rounded-2xl border border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-2 shadow-md">
       <p>© Smart Portal Pengurusan PdPR Sekolah • Kementerian Pendidikan Malaysia</p>
-      <p class="text-slate-400">Google Workspace KPM API Status: <span class="text-emerald-400 font-bold">Connected</span></p>
+      <p class="text-slate-500">Google Workspace KPM API Status: <span class="text-emerald-400 font-bold">Connected</span></p>
     </footer>
 
   </div>
 
   <!-- MODAL TEMPLATE HASILKAN JADUAL BAHARU -->
-  <div id="modal-create-jadual" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-none z-50 flex items-center justify-center p-4 overflow-y-auto">
-    <div class="bg-white rounded-xl max-w-4xl w-full p-6 shadow-xl border border-[#dde3ec] my-8 space-y-4">
+  <div id="modal-create-jadual" class="hidden fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-4xl w-full p-6 sm:p-7 shadow-2xl border border-slate-200 my-8 space-y-5">
       
-      <div class="flex justify-between items-center border-b border-[#dde3ec] pb-3">
+      <div class="flex justify-between items-center border-b border-slate-200 pb-3.5">
         <div>
-          <h3 class="text-base font-extrabold text-[#10264d] flex items-center gap-2">
-            <i class="fa-solid fa-calendar-plus text-[#1d4ed8]"></i> Template Hasilkan Jadual Waktu Harian
+          <h3 class="text-base sm:text-lg font-extrabold text-slate-900 flex items-center gap-2">
+            <i class="fa-solid fa-calendar-plus text-blue-600"></i> Template Hasilkan Jadual Waktu Harian
           </h3>
-          <p class="text-xs sm:text-sm text-[#667085]">Tetapkan tempoh slot (30 minit / 1 jam) dan pilih guru bagi setiap slot tanpa pertindihan.</p>
+          <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Tetapkan tempoh slot (30 minit / 1 jam) dan pilih guru bagi setiap slot tanpa pertindihan.</p>
         </div>
-        <button onclick="closeCreateJadualModal()" class="text-[#667085] hover:text-[#1b2433] font-bold"><i class="fa-solid fa-xmark text-lg"></i></button>
+        <button onclick="closeCreateJadualModal()" class="text-slate-400 hover:text-slate-700 font-bold p-1 transition"><i class="fa-solid fa-xmark text-xl"></i></button>
       </div>
 
       <form onsubmit="saveFullDayJadual(event)" class="space-y-4 text-xs sm:text-sm">
         
         <!-- Pilihan Tarikh & Tahun -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-[#f4f6fa] p-3.5 rounded-xl border border-[#dde3ec]">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-slate-50 p-4 rounded-xl border border-slate-200">
           <div>
-            <label class="block font-bold text-[#1b2433] mb-1">Pilih Tarikh (Semasa & Akan Datang)</label>
-            <input type="date" id="jadual-input-date" required onchange="onJadualDateOrTahunChange()" class="w-full p-2.5 rounded-lg border border-[#dde3ec] outline-none font-semibold bg-white">
+            <label class="block font-bold text-slate-800 mb-1">Pilih Tarikh (Semasa & Akan Datang)</label>
+            <input type="date" id="jadual-input-date" required onchange="onJadualDateOrTahunChange()" class="w-full p-2.5 rounded-lg border border-slate-300 outline-none font-semibold bg-white focus:border-blue-500">
           </div>
           <div>
-            <label class="block font-bold text-[#1b2433] mb-1">Hari</label>
-            <input type="text" id="jadual-input-hari" readonly placeholder="Isnin" class="w-full p-2.5 rounded-lg border border-[#dde3ec] font-bold text-blue-800 bg-slate-100">
+            <label class="block font-bold text-slate-800 mb-1">Hari</label>
+            <input type="text" id="jadual-input-hari" readonly placeholder="Isnin" class="w-full p-2.5 rounded-lg border border-slate-300 font-bold text-blue-700 bg-slate-100">
           </div>
           <div>
-            <label class="block font-bold text-[#1b2433] mb-1">Sasaran Tahun</label>
-            <select id="jadual-input-tahun" required onchange="onJadualDateOrTahunChange()" class="w-full p-2.5 rounded-lg border border-[#dde3ec] outline-none font-semibold bg-white">
+            <label class="block font-bold text-slate-800 mb-1">Sasaran Tahun</label>
+            <select id="jadual-input-tahun" required onchange="onJadualDateOrTahunChange()" class="w-full p-2.5 rounded-lg border border-slate-300 outline-none font-semibold bg-white focus:border-blue-500">
               <option value="Tahun 1">Tahun 1</option>
               <option value="Tahun 2">Tahun 2</option>
               <option value="Tahun 3">Tahun 3</option>
@@ -270,10 +294,10 @@
         </div>
 
         <!-- Template Slot Masa Dinamik -->
-        <div class="space-y-2.5">
-          <div class="flex justify-between items-center border-b border-[#dde3ec] pb-1.5">
-            <h4 class="font-extrabold text-[#10264d] uppercase text-xs">Agihan Slot Masa, Masa Per-Slot, Subjek & Guru Bertugas:</h4>
-            <span class="text-xs text-blue-700 font-bold">* Mula Masa: 8.00 AM</span>
+        <div class="space-y-3">
+          <div class="flex justify-between items-center border-b border-slate-200 pb-2">
+            <h4 class="font-extrabold text-slate-900 uppercase text-xs tracking-wider">Agihan Slot Masa, Masa Per-Slot, Subjek & Guru Bertugas:</h4>
+            <span class="text-xs text-blue-600 font-bold">* Mula Masa: 8.00 AM</span>
           </div>
 
           <div id="dynamic-slots-container" class="space-y-2.5 max-h-80 overflow-y-auto pr-1">
@@ -281,7 +305,7 @@
           </div>
         </div>
 
-        <div class="pt-3 border-t border-[#dde3ec] flex justify-end gap-2.5">
+        <div class="pt-3 border-t border-slate-200 flex justify-end gap-2.5">
           <button type="button" onclick="closeCreateJadualModal()" class="btn-classic-sec text-xs sm:text-sm">
             Batal
           </button>
@@ -422,7 +446,7 @@
       });
 
       if (datesSet.size === 0) {
-        container.innerHTML = `<p class="text-xs text-[#667085] text-center py-2">Tiada rekod tarikh.</p>`;
+        container.innerHTML = `<p class="text-xs text-slate-500 text-center py-2">Tiada rekod tarikh.</p>`;
         return;
       }
 
@@ -464,7 +488,7 @@
 
       if (filtered.length === 0) {
         container.innerHTML = `
-          <div class="bg-white border border-[#dde3ec] rounded-xl p-8 text-center text-xs sm:text-sm text-[#667085]">
+          <div class="bg-white border border-slate-200 rounded-xl p-8 text-center text-xs sm:text-sm text-slate-500">
             <i class="fa-solid fa-calendar-xmark text-3xl mb-2 text-slate-300"></i>
             <p>Tiada rekod jadual waktu ditemui bagi <strong>${selectedTahunAdmin}</strong> ${selectedAdminFilterDate ? '(' + selectedAdminFilterDate + ')' : ''}.</p>
           </div>
@@ -485,10 +509,10 @@
         const items = groupedByDate[dateKey];
         
         html += `
-          <div class="bg-white border border-[#dde3ec] rounded-xl p-4 space-y-3 shadow-sm">
-            <div class="flex flex-wrap justify-between items-center gap-2 border-b border-[#dde3ec] pb-2.5">
+          <div class="bg-white border border-slate-200 rounded-xl p-4 space-y-3 shadow-sm">
+            <div class="flex flex-wrap justify-between items-center gap-2 border-b border-slate-200 pb-2.5">
               <div class="flex items-center gap-2">
-                <span class="bg-[#10264d] text-white font-bold text-xs sm:text-sm px-3 py-1 rounded-lg">${dateKey}</span>
+                <span class="bg-slate-900 text-white font-bold text-xs sm:text-sm px-3 py-1 rounded-lg">${dateKey}</span>
                 <span class="bg-blue-50 text-blue-800 border border-blue-200 text-xs font-bold px-2.5 py-0.5 rounded-md">${selectedTahunAdmin}</span>
               </div>
               <span class="text-xs text-emerald-700 font-bold"><i class="fa-solid fa-circle-check"></i> ${items.length} Slot Disusun</span>
@@ -499,10 +523,10 @@
 
         items.forEach(slot => {
           html += `
-            <div class="bg-[#f8fafc] p-3 rounded-lg border border-[#dde3ec] space-y-1">
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1">
               <span class="text-xs text-blue-700 font-extrabold block"><i class="fa-regular fa-clock mr-1"></i>${slot.slotMasa}</span>
-              <p class="font-extrabold text-[#1b2433] text-sm">${slot.subjek}</p>
-              <p class="text-xs text-[#667085]"><i class="fa-solid fa-user-tie mr-1"></i>${slot.guru}</p>
+              <p class="font-extrabold text-slate-900 text-sm">${slot.subjek}</p>
+              <p class="text-xs text-slate-500"><i class="fa-solid fa-user-tie mr-1"></i>${slot.guru}</p>
             </div>
           `;
         });
@@ -673,9 +697,9 @@
 
         if (slot.isRehat) {
           container.innerHTML += `
-            <div class="grid grid-cols-1 sm:grid-cols-4 gap-2 items-center bg-amber-50 p-3 rounded-lg border border-amber-200 text-amber-900 font-bold text-xs sm:text-sm" data-slot-index="${index}">
+            <div class="grid grid-cols-1 sm:grid-cols-4 gap-2 items-center bg-amber-50 p-3 rounded-xl border border-amber-200 text-amber-900 font-bold text-xs sm:text-sm" data-slot-index="${index}">
               <div class="flex items-center gap-2">
-                <span class="w-6 h-6 rounded bg-amber-200 text-amber-800 flex items-center justify-center text-xs">
+                <span class="w-6 h-6 rounded-lg bg-amber-200 text-amber-800 flex items-center justify-center text-xs">
                   <i class="fa-solid fa-mug-hot"></i>
                 </span>
                 <span class="slot-time-label">${timeRangeStr}</span>
@@ -712,25 +736,25 @@
           }
 
           container.innerHTML += `
-            <div class="slot-row grid grid-cols-1 sm:grid-cols-4 gap-2 items-center bg-white p-3 rounded-lg border border-[#dde3ec] text-xs sm:text-sm" data-slot-index="${index}" data-start-min="${currentMin}" data-end-min="${endMin}" data-time="${timeRangeStr}">
-              <div class="font-extrabold text-blue-800 flex items-center gap-2">
-                <span class="w-6 h-6 rounded bg-blue-100 text-blue-800 flex items-center justify-center text-xs font-black">${lessonCount++}</span>
+            <div class="slot-row grid grid-cols-1 sm:grid-cols-4 gap-2 items-center bg-white p-3 rounded-xl border border-slate-200 text-xs sm:text-sm" data-slot-index="${index}" data-start-min="${currentMin}" data-end-min="${endMin}" data-time="${timeRangeStr}">
+              <div class="font-extrabold text-blue-700 flex items-center gap-2">
+                <span class="w-6 h-6 rounded-lg bg-blue-100 text-blue-800 flex items-center justify-center text-xs font-black">${lessonCount++}</span>
                 <span class="slot-time-label">${timeRangeStr}</span>
               </div>
               <div>
-                <select class="slot-duration w-full p-2 rounded-lg border border-[#dde3ec] bg-amber-50 font-bold text-amber-900" onchange="updateSlotDuration(${index}, this.value)">
+                <select class="slot-duration w-full p-2 rounded-lg border border-slate-200 bg-amber-50 font-bold text-amber-900" onchange="updateSlotDuration(${index}, this.value)">
                   <option value="30" ${slot.duration === 30 ? 'selected' : ''}>Tempoh: 30 Minit</option>
                   <option value="60" ${slot.duration === 60 ? 'selected' : ''}>Tempoh: 1 Jam</option>
                 </select>
               </div>
               <div>
-                <select class="slot-subjek w-full p-2 rounded-lg border border-[#dde3ec] bg-[#f4f6fa] font-semibold" required>
+                <select class="slot-subjek w-full p-2 rounded-lg border border-slate-200 bg-slate-50 font-semibold" required>
                   <option value="">-- Pilih Subjek --</option>
                   ${subjekOpts}
                 </select>
               </div>
               <div>
-                <select class="slot-guru w-full p-2 rounded-lg border border-[#dde3ec] bg-[#f4f6fa] font-semibold" onchange="renderDynamicSlotInputs()" required>
+                <select class="slot-guru w-full p-2 rounded-lg border border-slate-200 bg-slate-50 font-semibold" onchange="renderDynamicSlotInputs()" required>
                   ${defaultGuruPrompt}
                   ${guruOpts}
                 </select>
