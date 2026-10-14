@@ -658,14 +658,14 @@
     }
 
 // Membuka Pautan Meet Statik Aliran Murid Apabila Butang Sidebar Ditekan
-    function openStaticMeetLink() {
+   // Contoh dalam openStaticMeetLink():
+function openStaticMeetLink() {
       const studentKelas = getActiveStudentKelas();
       const studentAliran = getAliranFromKelas(studentKelas);
+      const studentEmail = (currentUserSession && currentUserSession.email) ? currentUserSession.email : "";
       
-      const meetUrl = (typeof MEET_LINKS_ALIRAN !== 'undefined' && MEET_LINKS_ALIRAN[studentAliran])
-        ? MEET_LINKS_ALIRAN[studentAliran]
-        : "https://meet.google.com/";
-        
+      // Terus dapatkan pautan + emel MOE dari config.js
+      const meetUrl = getMeetLink(studentAliran, studentEmail);
       window.open(meetUrl, '_blank');
     }
 
@@ -849,9 +849,8 @@
                 <!-- Arahan dengan Line-Breaks (whitespace-pre-line) -->
                 <p class="text-xs sm:text-sm text-slate-700 whitespace-pre-line leading-relaxed bg-white p-3 rounded-xl border border-slate-200">${existingTask.arahan}</p>
 
-                <div class="pt-2 flex flex-wrap gap-2">
-                  ${existingTask.pautan ? `
-                    <a href="${existingTask.jenis === 'Google Meet' ? ((typeof MEET_LINKS_ALIRAN !== 'undefined' && MEET_LINKS_ALIRAN[studentAliran]) ? MEET_LINKS_ALIRAN[studentAliran] : existingTask.pautan) : existingTask.pautan}" target="_blank" class="inline-flex items-center gap-1.5 text-xs text-white font-bold bg-emerald-600 px-3.5 py-2 rounded-xl border border-emerald-700 hover:bg-emerald-700 transition shadow-sm">
+                ${existingTask.pautan ? `
+                    <a href="${existingTask.jenis === 'Google Meet' ? getMeetLink(studentAliran, studentEmail) : existingTask.pautan}" target="_blank" class="inline-flex items-center gap-1.5 text-xs text-white font-bold bg-emerald-600 px-3.5 py-2 rounded-xl border border-emerald-700 hover:bg-emerald-700 transition shadow-sm">
                       <i class="fa-solid fa-video"></i> Sertai Google Meet Live (${studentAliran})
                     </a>
                   ` : ''}
