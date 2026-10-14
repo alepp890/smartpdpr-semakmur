@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ms"> 
+<html lang="ms">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -387,7 +387,7 @@
   <script>
     const activeBackendUrl = (typeof APPS_SCRIPT_URL !== 'undefined') 
       ? APPS_SCRIPT_URL 
-      : "https://script.google.com/macros/s/AKfycbxKGebSI59lH1sfpKKd2IL0Cf6b6d1w8PthoJ4GeMmCIAP2u2Iqdd_SAEgYudAUSV_WKg/exec";
+      : "https://script.google.com/macros/s/AKfycbwv5FF2K0YtdEs6p_MNt_c-Cdstpkj1_p0yJGlFCHvtvNhdc-ujv46wKM_rYHxS0tg2Mg/exec";
 
     let listJadualMaster = [];
     let listTugasanMaster = [];
@@ -459,7 +459,6 @@
       return "Guru DELIMa";
     }
 
-    // ⚡ OPTIMASI UTAMA: LOAD CACHE LOKAL DULU (0 SAAT) + 1 PANGGILAN API BACKEND GABUNGAN
     function loadInitialBackendData() {
       const cachedJadual = localStorage.getItem('pdpr_cached_jadual');
       const cachedTugasan = localStorage.getItem('pdpr_cached_tugasan');
@@ -768,7 +767,9 @@
         let month = parseInt(parts[1], 10) - 1;
         let year = parseInt(parts[2], 10);
 
-        let timeParts = slotMasaStr.split('-');
+        // PEMBAIKAN BUG: Bersihkan simbol en-dash (–) kepada sempang biasa (-)
+        let cleanSlotMasa = slotMasaStr.toString().replace(/–/g, '-');
+        let timeParts = cleanSlotMasa.split('-');
         if (timeParts.length < 2) return false;
         let endTimeStr = timeParts[1].trim();
 
